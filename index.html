@@ -128,9 +128,9 @@ details.grp .row{padding:8px 0}
 .cf.lg{font-size:36px;margin:16px auto 6px}
 .cf.lg em{font-size:.5em}
 .ag{margin-top:10px}.ah{display:flex;align-items:center;gap:10px;padding:12px 14px;border-bottom:1px solid #f0f0f2;cursor:pointer;background:#fffbe6}
-.ah .ar{color:#6b6b70;width:14px}.ah .at{text-align:right}.ah .at small{display:block;font-size:12px;color:#6b6b70}
+.ah .grow,.gh .grow{flex:1;min-width:0}.ah .at{flex:none;margin-left:auto}.ah .ar{color:#6b6b70;width:14px}.ah .at{text-align:right}.ah .at small{display:block;font-size:12px;color:#6b6b70}
 .ah .s{font-size:12px;color:#6b6b70}
-.row[data-card]{cursor:pointer}
+.row[data-card]{cursor:pointer}.ag .row[data-card]>span:last-child{width:8px;flex:none;text-align:center}.ag .ah,.ag .row:not([data-card]){padding-right:34px}
 .cap{text-align:center;font-size:12px;color:#6b6b70;padding:0 16px}
 .it .nm{display:flex;align-items:center;gap:10px;color:#1c1c1e}
 </style></head><body>
@@ -354,7 +354,7 @@ function renderAcc(){
  var h='';
  INSTS.forEach(function(g,gi){
   var dep=0,owe=0,hc=false,hd=false;g.it.forEach(function(x){if(x.k=='c'){owe+=x.a;hc=true}else if(x.k!='p'){dep+=x.a;hd=true}});
-  var tot=dep-owe,f=g.pt?'點數，不算在總資產裡':hc&&hd?'存款 − 要繳卡費':hc?'只有信用卡，顯示要繳的':'現金加起來';
+  var tot=dep-owe,f=g.pt?'點數，不算在總資產裡':hc&&hd?'存款 − 要繳卡費':hc?'只有信用卡，顯示要繳的':g.n=='現金'?'現金合計':'存款合計';
   var at=g.pt?'':'<div class="at"><small>'+(tot<0?'還要繳':'合計')+'</small><span class="amt'+(tot<0?' red':'')+'">'+mo(Math.abs(tot))+'</span></div>';
   h+='<div class="card ag"><div class="ah" data-g="'+gi+'"><span class="ar">'+(acol[gi]?'▸':'▾')+'</span><div class="grow"><b>'+g.n+'</b><div class="s">'+f+'</div></div>'+at+'</div>';
   if(!acol[gi])g.it.forEach(function(x){
