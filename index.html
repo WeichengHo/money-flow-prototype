@@ -276,6 +276,15 @@ details.grp .row{padding:8px 0}
 .fxb{display:flex;gap:10px;padding:6px 14px 10px}
 .fxb .btn{margin:0;padding:10px;font-size:15px;flex:1;width:auto}
 
+/* ===== 批 54：舊資料匯入與待確認（M1 M2 M3 P1 P2 P3） ===== */
+.m2a{padding:10px 14px;border-bottom:1px solid #f0f0f2}
+.m2a:last-child{border-bottom:0}
+.m2s{display:block;width:100%;margin-top:8px;padding:9px 10px;font-size:15px;font-family:inherit;border:1px solid #d1d1d6;border-radius:10px;background:#fff;color:#1c1c1e}
+.m2c{margin:8px 0 0;padding:8px;font-size:14px;width:100%}
+.fr select{max-width:100%;text-align-last:right}
+#m2-hint:empty{display:none}
+.btn:disabled{cursor:default}
+
 </style></head><body>
 <div id="toast"></div>
 
@@ -284,7 +293,7 @@ details.grp .row{padding:8px 0}
 
 <div class="home">
 <p class="lab">總資產</p>
-<div class="big" id="total">$140,855</div>
+<div class="big" id="total">$172,955</div>
 <a class="alert" style="margin:12px 20px 10px;padding:12px 18px" data-go="reconcile"><div style="font-size:16px;font-weight:700;margin-bottom:10px"><svg class="ei" viewBox="0 0 48 48" aria-hidden="true"><g stroke="#2a2522" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"><path d="M24 6L44 40H4Z" fill="#ffd166"/><path d="M24 18V29" fill="none"/><circle cx="24" cy="34.5" r="2" fill="#2a2522"/></g></svg>永豐卡 3/3 要扣卡費，錢可能不夠</div>
 <div style="display:flex;justify-content:space-between;padding:4px 0;font-weight:500"><span>要繳</span><span>$12,345</span></div>
 <div style="display:flex;justify-content:space-between;padding:4px 0;font-weight:500"><span>帳戶裡有</span><span>$10,000</span></div>
@@ -487,6 +496,29 @@ details.grp .row{padding:8px 0}
 <section class="scr" id="s-fx"><div id="fxp"></div>
 <details class="req"><summary>這頁對應的需求（檢查用）</summary><ul><li>FR-06　每天自動抓台灣銀行牌告匯率（賣出價），存來源與時間；假日沿用前一個有牌告的日期；抓不到保留最後一次成功的、首頁寫「匯率未更新（最後：日期）」；可手動輸入某日匯率、標「手動」、優先於同日自動資料</li><li>FR-05　外幣一律換算台幣；匯率用牌告</li><li>12 種幣別清單來自記一筆的幣別選單，不是大老闆指定（SRS 10.7 #4）</li></ul></details>
 <div style="height:90px"></div><div class="savebar"><button class="btn ghost back mfb2" style="flex:1">返回</button></div></section>
+<section class="scr" id="s-imp1"><div id="m1"></div>
+<details class="req"><summary>這頁對應的需求（檢查用）</summary><ul><li>FR-53　先「預演」（只讀檔、不寫資料）再正式匯入；預演列出總筆數、各記錄類型筆數、各幣種筆數、帳戶數、日期範圍、讀不懂的列（列號與原因）；欄數不對或欄名不符整檔拒絕「不是 MOZE 匯出檔格式」；只有表頭「沒有資料可匯入」；重複的自動略過；原檔匯入後不長期保存</li><li>FR-54　「專案」欄不匯入，只顯示「專案欄 N 筆有值，已略過」，不顯示專案名稱；沒有值就不顯示這行</li><li>示範檔是自己編的 22 列，不是真的 MOZE 檔；真的檔 8038 筆、73 個帳戶</li></ul></details>
+<div style="height:90px"></div><div class="savebar"><button class="btn ghost back mfb2">返回</button><button class="btn" id="m1-next" style="display:none">下一步：對應帳戶與分類</button></div></section>
+
+<section class="scr" id="s-imp2"><div id="m2"></div>
+<details class="req"><summary>這頁對應的需求（檢查用）</summary><ul><li>FR-55　帳戶：預檢先給建議對應表，每個帳戶要「對應到某帳戶」或「不匯入此帳戶」，全部都確認了才能匯入，有 1 個沒確認就不能按；停卡、銷戶的對應成封存；幣種 TWD→台幣、USD→外幣帳戶、TP／LP→點數帳戶、JK／P 不匯入；10 種記錄類型照規則處理</li><li>FR-10　舊的主類別＋子類別逐一對應到內建分類，找不到的放「其他支出／其他」「其他收入／其他」，不自動新增分類；大老闆確認後才匯入</li><li>R10.2 說對應表要確認；R55.1 只明講帳戶要全部確認。這版兩邊都要按確認才能匯入：推測</li></ul></details>
+<div style="height:90px"></div><div class="savebar"><button class="btn ghost back mfb2">返回</button><button class="btn" id="m2-go" disabled style="opacity:.4">開始匯入</button></div><div id="m2-hint" style="position:fixed;bottom:74px;left:50%;transform:translateX(-50%);font-size:12px;color:#6b6b70;z-index:9;background:#fff;padding:0 8px"></div></section>
+
+<section class="scr" id="s-imp3"><div id="m3"></div>
+<details class="req"><summary>這頁對應的需求（檢查用）</summary><ul><li>FR-53　結果：新增、略過（重複）、不匯入（讀不懂、配不上的轉帳、不認得的幣種、應收款項與折扣、選了「不匯入此帳戶」的）、失敗、匯入筆數，各列清單；公式：匯入＝總共−不匯入−略過；新增＝匯入−期初餘額列−轉帳組數＋手續費欄有值列；「與舊 App 對照」各帳戶餘額表</li><li>FR-55　餘額與舊 App 對照，不符的列出差額、不自動補平；應收款項與折扣只列出不存入</li><li>FR-54　專案欄 N 筆有值，已略過</li><li>第二次匯入同一個檔：新增 0（已匯入的記錄會自動略過）</li></ul></details>
+<div style="height:90px"></div><div class="savebar"><button class="btn ghost back mfb2" id="m3-again">再匯一個檔</button><button class="btn" id="m3-done">完成</button></div></section>
+
+<section class="scr" id="s-pen1"><div id="p1"></div>
+<details class="req"><summary>這頁對應的需求（檢查用）</summary><ul><li>FR-41　通知進來先記成「待確認」，確認了才入帳；確認前不計入餘額、回饋、手續費、報表；可「忽略」（不入帳、保留紀錄、不能還原）；同一筆消費同時有手機通知與 Gmail 信，兩筆都留並標「可能重複」；待確認筆數顯示在首頁；不自動刪除，一直留到處理</li><li>FR-42　Gmail 通知信（寄件者在清單內的）解析後進待確認，來源標 Gmail；授權失效時首頁提示、不讀信</li><li>FR-35　股利發放日自動進待確認（現金股利、股票股利）：股票畫面批 55 才有，這裡的股票和證券戶是示範用的編造資料</li></ul></details>
+<div style="height:90px"></div><div class="savebar"><button class="btn ghost back mfb2" style="flex:1">返回</button></div></section>
+
+<section class="scr" id="s-pen2"><div id="p2"></div>
+<details class="req"><summary>這頁對應的需求（檢查用）</summary><ul><li>FR-41　確認前可改金額、日期、商家、帳戶、分類；解析不出金額的，金額空白、填了才能確認；四種待確認（消費、現金股利、股票股利、買進）欄位與入帳效果不同；股利與買進必填欄位沒填齊（證券戶、入帳銀行）不能確認；點忽略不入帳、不能還原</li><li>FR-35　現金股利：實領金額可改、入帳銀行預設取證券戶設定、確認後建立收入並增加累計股利；股票股利：只增加股數、總成本不變、不動銀行</li><li>FR-39　成交通知配不到預估買進的，進待確認當一筆買進，確認後持股與成本重算、不動銀行（交割款另外記轉帳）</li><li>FR-43　待確認也可附照片，最多 5 張；確認後照片保留</li><li>沒做：所選帳戶或銀行已封存時的處理（封存前建立的可確認並提示、封存後建立的要改選）</li></ul></details>
+<div style="height:90px"></div><div class="savebar"><button class="btn ghost back mfb2">返回</button><button class="btn ghost" id="p2-ig">忽略</button><button class="btn" id="p2-ok">確認入帳</button></div></section>
+
+<section class="scr" id="s-pen3"><div id="p3"></div>
+<details class="req"><summary>這頁對應的需求（檢查用）</summary><ul><li>FR-40　自己寫的 Android 小 App 只讀勾選的銀行、信用卡、券商 App 的通知，只送到本系統；沒勾的不讀不存不送；通知含驗證碼整則不送；沒開「通知存取」權限時顯示「尚未授權」、不送任何資料；送出失敗稍後重送、60 秒內同一則只留一筆；換 Samsung 手機要重新安裝與授權，舊裝置可停用</li><li>FR-42　Gmail 通知信寄件者清單由大老闆設定，不在清單的信不讀；沿用 Google 授權（T3）</li><li>各銀行 App 的名稱、通知寫法、Android 小 App 怎麼發佈、Samsung 實際操作與限制：沒查（SRS 10.2 #7、#9），畫面上的 App 名單是示範</li></ul></details>
+<div style="height:90px"></div><div class="savebar"><button class="btn ghost back mfb2" style="flex:1">返回</button></div></section>
 <div class="ov" id="ov"></div>
 <div class="sheet" id="sheet"><div class="sh-hd"><a id="shback" style="display:none">‹</a><b id="shtitle"></b><a id="shx"><svg class="ei" viewBox="0 0 48 48" aria-hidden="true"><g stroke="#2a2522" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"><circle cx="24" cy="24" r="19" fill="#f2f2f7"/><path d="M16 16L32 32M32 16L16 32" fill="none" stroke="#2a2522" stroke-width="3.6"/></g></svg></a></div><div class="sh-s" id="shs"><input id="shq" placeholder="搜尋帳戶，例如：台新" autocomplete="off"></div><div class="sh-b" id="shbody"></div></div>
 <nav class="tabs" id="tabs"><a data-go="home" class="on"><b><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M8 22 L24 9 L40 22 V39 H8 Z" fill="#ffd166" stroke="#2a2522" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/><rect x="19" y="27" width="10" height="12" rx="2" fill="#fff" stroke="#2a2522" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/><path d="M5 24 L24 7 L43 24" fill="none" stroke="#c8322a" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg></b>首頁</a><a data-go="accounts"><b><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="5" y="12" width="38" height="29" rx="5" fill="#ef476f" stroke="#2a2522" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/><path d="M9 12 L33 6 V12" fill="#ffd166" stroke="#2a2522" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/><rect x="28" y="22" width="15" height="10" rx="4" fill="#fff" stroke="#2a2522" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/><circle cx="34" cy="27" r="1.8" fill="#2a2522"/></svg></b>帳戶</a><a data-go="record" class="plus"><b>＋</b>記一筆</a><a data-go="recent"><b><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="8" y="5" width="28" height="38" rx="4" fill="#fff" stroke="#2a2522" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/><path d="M14 13h16M14 19h16M14 25h8" stroke="#9fb3c4" stroke-width="3" stroke-linecap="round"/><circle cx="33" cy="34" r="9" fill="#ffd166" stroke="#2a2522" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/><path d="M33 29v10M30 31.5h5a2 2 0 0 1 0 4h-4" fill="none" stroke="#c8322a" stroke-width="2.2" stroke-linecap="round"/></svg></b>記錄</a><a data-go="more"><b><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="10" cy="24" r="5" fill="#4cc9f0" stroke="#2a2522" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/><circle cx="24" cy="24" r="5" fill="#ffd166" stroke="#2a2522" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/><circle cx="38" cy="24" r="5" fill="#ef476f" stroke="#2a2522" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/></svg></b>更多</a></nav>
@@ -548,11 +580,11 @@ E('01-08','🎁','送禮','現金',-600),
 E('01-05','🏠','房租','永豐銀行',-12000),
 E('01-03','🍳','早餐','現金',-60),E('01-02','🍱','午餐','現金',-125)];
 INIT.forEach(function(e){if(e.t=='影音訂閱')e.fc='US$12.99'});
-var TOTAL0=140855,TODAY='2026-02-28',total,entries,type,cat,sub,n,recent,dval,curM,selD,fromV,toV,sh,gcol;
+var TOTAL0=172955,TODAY='2026-02-28',total,entries,type,cat,sub,n,recent,dval,curM,selD,fromV,toV,sh,gcol;
 var WK='日一二三四五六';
 function fmt(x){return Number(x).toLocaleString('en-US')}
 function mo(x){return '$'+fmt(x)}
-var curScr='home',prevScr='home';var MFS=['accform','pts','banks','bankset','cardset','rw','rwe','detail','xfers','tpls','tple','insts','inst','instf','instp','recon2','rpt1','rpt2','rpt3','gauth','cats','fx'];
+var curScr='home',prevScr='home';var MFS=['accform','pts','banks','bankset','cardset','rw','rwe','detail','xfers','tpls','tple','insts','inst','instf','instp','recon2','rpt1','rpt2','rpt3','gauth','cats','fx','imp1','imp2','imp3','pen1','pen2','pen3'];
 function go(name){
  if(name=='record'&&curScr!='record')prevScr=curScr;
  curScr=name;
@@ -1866,6 +1898,344 @@ fxInit();cxInit();
 })();
 (function(){var r0=$('reset').onclick;
  $('reset').onclick=function(){fxInit();FXS.fail=false;FXS.edit='';GA.st='none';GA.at='';GA.pick=false;CX=JSON.parse(JSON.stringify(CX0));CXS={t:'支出',open:{},form:false,fm:'',fi:''};B1S.open={};B2S.m='2026-02';B3S={r:'all',open:{},drill:''};r0()}})();
+
+/* ===== 批 54：舊資料匯入與待確認（M1 M2 M3 P1 P2 P3） ===== */
+var MS={file:'',step:0,res:null,acc:{},cat:{},catOk:false,db:{},done:false},PS={f:'wait',cur:null,draft:null,sim:0},PD=[],PD0=null,P3S={apps:{},senders:[],dev:null,perm:true,sim:''};
+/* ---------- 假資料（自己編的，不是真的 MOZE 檔） ---------- */
+var MCOLS=['帳戶','幣種','記錄類型','主類別','子類別','金額','手續費','折扣','名稱','商家','日期','時間','專案','描述','標籤','對象'];
+function mrw(a,c,t,m,s,amt,fee,nm,shop,d,tm,pj){return {a:a,c:c,t:t,m:m,s:s,amt:amt,fee:fee||0,nm:nm||'',shop:shop||'',d:d||'',tm:tm||'',pj:pj||''}}
+var MR=[
+ mrw('舊現金','TWD','初始金額','','',3000),mrw('舊永豐活存','TWD','初始金額','','',50000),mrw('舊美元戶','USD','初始金額','','',1000),
+ mrw('舊現金','TWD','支出','餐飲','早午餐',-85,0,'蛋餅','範例早餐店','2026/01/05','08:10','日常'),
+ mrw('舊現金','TWD','支出','餐飲','飲料',-60,0,'紅茶','範例飲料店','2026/01/05','15:20'),
+ mrw('舊台新卡','TWD','支出','購物','日用品',-420,0,'衛生紙','範例商店 A','2026/01/08','19:00','家用'),
+ mrw('舊台新卡','TWD','支出','娛樂','串流',-390,0,'影音月費','範例影音','2026/01/10','00:05'),
+ mrw('舊永豐活存','TWD','收入','薪水','月薪',45000,0,'一月薪水','範例公司','2026/01/05','09:00','日常'),
+ mrw('舊永豐活存','TWD','轉出','','',-2000,0,'領現金','','2026/01/12','10:00'),
+ mrw('舊現金','TWD','轉入','','',2000,0,'領現金','','2026/01/12','10:00'),
+ mrw('舊永豐活存','TWD','轉出','','',-500,0,'還朋友','','2026/01/20','09:00'),
+ mrw('舊台新卡','TWD','紅利回饋','','',12,0,'刷卡回饋','','2026/01/31','00:00'),
+ mrw('舊台新卡','TP','紅利回饋','','',30,0,'點數回饋','','2026/01/31','00:00'),
+ mrw('舊現金','TWD','餘額調整','','',-15,0,'對不起來','','2026/02/01','00:00'),
+ mrw('舊永豐活存','TWD','手續費','','',-15,0,'跨行轉帳','','2026/02/02','11:00'),
+ mrw('舊現金','TWD','應收款項','','',300,0,'朋友代墊','','2026/02/03','12:00'),
+ mrw('舊台新卡','TWD','折扣','','',20,0,'折價券','','2026/02/04','12:00'),
+ mrw('舊現金','JK','支出','餐飲','早午餐',-40,0,'不明','','2026/02/05','08:00'),
+ mrw('舊美元戶','USD','支出','購物','日用品',-13,0,'網購','範例海外網站','2026/02/08','21:00','日常'),
+ mrw('舊神祕戶','TWD','支出','神祕類別','雜項',-77,0,'不知道','','2026/02/06','13:00'),
+ mrw('舊停用卡','TWD','支出','餐飲','早午餐',-120,0,'早午餐','範例早餐店','2025/12/20','09:30'),
+ mrw('舊台新卡','TWD','支出','餐飲','早午餐',-95,5,'午餐','範例餐廳','2026/02/10','12:20')];
+var MFILES=[
+ {k:'ok',n:'範例匯出檔.csv',d:'正常的檔，22 列'},
+ {k:'bad',n:'範例匯出檔-有錯.csv',d:'有一列金額寫成文字'},
+ {k:'cols',n:'別的軟體匯出.csv',d:'只有 9 欄'},
+ {k:'empty',n:'空檔.csv',d:'只有表頭'}];
+var MSUG={'舊現金':'a:現金','舊永豐活存':'a:永豐銀行','舊美元戶':'a:永豐美元帳戶','舊台新卡':'a:台新信用卡','舊神祕戶':'new','舊停用卡':'arc'};
+var MCSUG={'餐飲／早午餐':'飲食／午餐','餐飲／飲料':'飲食／飲料點心','購物／日用品':'購物／日用品','娛樂／串流':'娛樂／影音訂閱','薪水／月薪':'薪資／薪資'};
+var NONE_PRIOR=['失敗','未知幣種','應收款項','折扣','不匯入帳戶','配不上的轉帳'];
+function mkey(r){return [r.a,r.c,r.t,r.amt,r.d,r.tm,r.nm,r.shop].join('|')}
+function mrows(k){var r=MR.map(function(x,i){var o={};for(var p in x)o[p]=x[p];o.line=i+2;return o});if(k=='bad'){r[4].amt='abc'}return r}
+function mAccs(rows){var l=[];rows.forEach(function(r){if(l.indexOf(r.a)<0)l.push(r.a)});return l}
+function mTypes(rows){var m={};rows.forEach(function(r){m[r.t]=(m[r.t]||0)+1});return m}
+function mCurs(rows){var m={};rows.forEach(function(r){m[r.c]=(m[r.c]||0)+1});return m}
+/* 預檢：只讀檔，不寫資料 */
+function mPre(k){
+ var f=MFILES.filter(function(x){return x.k==k})[0],res={k:k,name:f.n};
+ if(k=='cols'){res.err='不是 MOZE 匯出檔格式（欄數不對：這個檔有 9 欄，應該是 16 欄）。整個檔都不會匯入。';return res}
+ if(k=='empty'){res.err='沒有資料可匯入。';return res}
+ var rows=mrows(k);res.rows=rows;
+ rows.forEach(function(r){if(typeof r.amt!='number')r.bad='金額不是數字（寫的是「'+r.amt+'」）'});
+ res.total=rows.length;res.types=mTypes(rows);res.curs=mCurs(rows);res.accs=mAccs(rows);
+ var ds=rows.filter(function(r){return r.d}).map(function(r){return r.d}).sort();res.d1=ds[0];res.d2=ds[ds.length-1];
+ res.proj=rows.filter(function(r){return r.pj}).length;
+ res.dup=rows.filter(function(r){return !r.bad&&MS.db[mkey(r)]}).length;
+ res.failed=rows.filter(function(r){return r.bad});
+ res.recv=rows.filter(function(r){return r.t=='應收款項'});res.disc=rows.filter(function(r){return r.t=='折扣'});
+ res.unk=rows.filter(function(r){return r.c=='JK'||r.c=='P'});
+ return res}
+/* 計算匯入結果（照 SRS 9.3 公式；同一列只扣一次） */
+function mPair(rows,skip){
+ var out=rows.filter(function(r){return (r.t=='轉出'||r.t=='轉入')&&!r.bad&&!skip[r.a]&&r.c!='JK'&&r.c!='P'}),used={},pairs=[];
+ out.forEach(function(a,i){if(used[i]||a.t!='轉出')return;
+  for(var j=0;j<out.length;j++){var b=out[j];if(used[j]||b.t!='轉入')continue;
+   if(b.d==a.d&&b.tm==a.tm&&Math.abs(b.amt)==Math.abs(a.amt)&&b.a!=a.a){used[i]=used[j]=1;pairs.push([a,b]);break}}});
+ var left=out.filter(function(r,i){return !used[i]});return {pairs:pairs,left:left}}
+function mCalc(){
+ var res=MS.res,rows=res.rows,skip={};
+ Object.keys(MS.acc).forEach(function(a){if(MS.acc[a].to=='skip')skip[a]=1});
+ var pr=mPair(rows,skip),why={};
+ rows.forEach(function(r){var w='';
+  if(r.bad)w='失敗';else if(r.c=='JK'||r.c=='P')w='未知幣種';else if(r.t=='應收款項')w='應收款項';else if(r.t=='折扣')w='折扣';
+  else if(skip[r.a])w='不匯入帳戶';else if(pr.left.indexOf(r)>=0)w='配不上的轉帳';
+  if(w)why[r.line]=w});
+ var not=rows.filter(function(r){return why[r.line]}),rest=rows.filter(function(r){return !why[r.line]});
+ var dup=rest.filter(function(r){return MS.db[mkey(r)]}),imp=rest.filter(function(r){return !MS.db[mkey(r)]});
+ var init=imp.filter(function(r){return r.t=='初始金額'}).length,tr=imp.filter(function(r){return r.t=='轉出'||r.t=='轉入'}).length,fee=imp.filter(function(r){return r.fee>0}).length;
+ var other=0;imp.forEach(function(r){var k=r.m+'／'+r.s;if((r.t=='支出'||r.t=='收入')&&MS.cat[k]&&MS.cat[k].to.indexOf('其他')==0)other++});
+ var nw=imp.length-init-tr/2+fee;
+ return {total:rows.length,not:not,why:why,dup:dup,imp:imp,init:init,pairs:tr/2,fee:fee,nw:nw,other:other,left:pr.left,skip:skip,
+  formula:rows.length+' − '+not.length+' − '+dup.length+' ＝ '+(rows.length-not.length-dup.length)}}
+function mBal(c){
+ var rows=MS.res.rows,res=[];
+ mAccs(rows).forEach(function(a){
+  var cur=a=='舊美元戶'?'USD':'TWD',mo2=0,nw=0;
+  rows.forEach(function(r){if(r.a!=a||r.c!=cur||r.bad)return;mo2+=r.amt});
+  c.imp.forEach(function(r){if(r.a!=a||r.c!=cur)return;nw+=r.amt});
+  res.push({a:a,cur:cur,moze:mo2,nw:nw,skip:!!c.skip[a]})});
+ return res}
+function sgn(n){return (n>0?'+':n<0?'−':'')+fmt(Math.abs(n))}
+function trow(a,b,c){return '<div class="stat"><span>'+a+'</span><b'+(c?' class="'+c+'"':'')+'>'+b+'</b></div>'}
+function rowList(l,txt){if(!l.length)return '';return l.map(function(r){return '<div class="bd" style="padding-left:14px"><div class="grow">第 '+r.line+' 列　'+esc(r.nm||r.t)+'<small>'+(r.d||'沒有日期')+'　'+esc(r.a)+'　'+(txt?txt(r):'')+'</small></div><span class="amt">'+(typeof r.amt=='number'?sgn(r.amt)+' '+r.c:esc(r.amt))+'</span></div>'}).join('')}
+/* ====== M1 選檔與預檢 ====== */
+function renderM1(){
+ var h='';
+ h+='<p class="sub" style="margin-top:14px">把 MOZE 匯出的檔案（CSV）選進來。這一步只是「預演」：先讀檔、列出結果，<b>還不會寫進任何資料</b>。</p>';
+ h+='<h2>選一個檔（示範用，檔案內容都是編的）</h2><div class="card" id="m1-files">'+MFILES.map(function(f){return rowI('🗂',f.n,f.d,'','data-f="'+f.k+'" style="cursor:pointer"','<span class="s">›</span>')}).join('')+'</div>';
+ var r=MS.res;
+ if(r){
+  h+='<h2>預演結果：'+esc(r.name)+'</h2>';
+  if(r.err)h+='<div class="alert" id="m1-err" style="margin:0 16px">'+r.err+'</div>';
+  else{
+   h+='<div class="card" id="m1-sum">'+trow('總筆數','<span id="m1-total">'+r.total+'</span> 筆')+trow('日期範圍',r.d1+' 到 '+r.d2)+trow('帳戶數',r.accs.length+' 個')
+    +trow('目前新系統裡的舊記錄','<span id="m1-db">'+Object.keys(MS.db).length+'</span> 筆（預演不會增加）')+'</div>';
+   h+='<h2>各種記錄各幾筆</h2><div class="card" id="m1-types">'+Object.keys(r.types).map(function(k){return trow(k,r.types[k]+' 筆')}).join('')+'</div>';
+   h+='<h2>各種幣種各幾筆</h2><div class="card" id="m1-curs">'+Object.keys(r.curs).map(function(k){return trow(k=='TWD'?'台幣 TWD':k=='USD'?'美元 USD':k=='TP'||k=='LP'?k+'（點數）':k+'（不認得）',r.curs[k]+' 筆')}).join('')+'</div>';
+   if(r.proj)h+='<p class="sub" id="m1-proj" style="margin-top:8px">「專案」欄 '+r.proj+' 筆有值，已略過（舊的專案名稱不會帶過來）。</p>';
+   if(r.dup)h+='<div class="alert" id="m1-dup" style="margin:10px 16px 0;background:#fff4bf;border-color:#ecd36b;color:#5c4a00">這個檔有 '+r.dup+' 筆之前已經匯入過，會自動略過，不會重複。</div>';
+   h+='<h2>讀不懂的列</h2><div class="card" id="m1-fail">'+(r.failed.length?rowList(r.failed,function(x){return x.bad}):'<div class="bd" style="padding-left:14px"><div class="grow">沒有，每一列都讀得懂</div></div>')+'</div>';
+   if(r.failed.length)h+='<p class="sub" style="margin-top:6px">讀不懂的列不會匯入，其他列照常匯入，匯入完會列在結果頁。</p>';
+   h+='<h2>不會變成記錄的列（只列給你對照）</h2><div class="card" id="m1-skip">'
+    +'<div class="stat"><span>應收款項</span><b>'+r.recv.length+' 筆</b></div>'+rowList(r.recv)
+    +'<div class="stat"><span>折扣</span><b>'+r.disc.length+' 筆</b></div>'+rowList(r.disc)
+    +'<div class="stat"><span>不認得的幣種（JK、P）</span><b>'+r.unk.length+' 筆</b></div>'+rowList(r.unk)+'</div>';
+   h+='<p class="sub" style="margin-top:6px">這幾種不算收入或支出，也不會匯入；意義之後說明了才補。</p>'}}
+ $('m1').innerHTML=h;
+ $('m1-next').style.display=(r&&!r.err)?'':'none';
+ qa('#m1 [data-f]').forEach(function(e){e.onclick=function(){MS.res=mPre(e.getAttribute('data-f'));MS.acc={};MS.cat={};MS.catOk=false;renderM1();var t=$('m1-total')||$('m1-err');if(t)t.scrollIntoView()}})}
+function openM1(b){BK2.imp1=b||'more';MS.res=null;renderM1();go('imp1')}
+/* ====== M2 對應舊帳戶與舊分類 ====== */
+function m2Init(){
+ var res=MS.res;if(MS.acc._k==res.k)return;
+ MS.acc={_k:res.k};res.accs.forEach(function(a){MS.acc[a]={to:MSUG[a]||'new',ok:false}});
+ MS.cat={};var seen={};res.rows.forEach(function(r){if(r.bad||!(r.t=='支出'||r.t=='收入'))return;var k=r.m+'／'+r.s;if(!MS.cat[k])MS.cat[k]={t:r.t,n:0,to:MCSUG[k]||(r.t=='收入'?'其他收入／其他':'其他／其他'),sug:!!MCSUG[k]};MS.cat[k].n++});MS.catOk=false}
+function aopts(sel,a){
+ var o=ACCS.filter(function(x){return x.k!='p'&&!x.arch}).map(function(x){return ['a:'+x.n,'對應到「'+x.n+'」']});
+ o.push(['new','新建一個帳戶「'+a+'」'],['arc','封存（舊卡，保留舊記錄）'],['skip','不匯入此帳戶']);
+ return o.map(function(p){return '<option value="'+esc(p[0])+'"'+(p[0]==sel?' selected':'')+'>'+esc(p[1])+'</option>'}).join('')}
+function copts(t,sel){
+ var o=[];CX.forEach(function(c){if(c.t!=t||c.off)return;c.subs.forEach(function(s){if(!s.off)o.push(c.n+'／'+s.n)})});
+ return o.map(function(v){return '<option value="'+esc(v)+'"'+(v==sel?' selected':'')+'>'+esc(v)+'</option>'}).join('')}
+function m2Left(){var n=0;Object.keys(MS.acc).forEach(function(a){if(a!='_k'&&!MS.acc[a].ok)n++});return n}
+function renderM2(){
+ m2Init();var res=MS.res,h='',left=m2Left(),accs=res.accs;
+ h+='<p class="sub" style="margin-top:14px">舊 App 的帳戶和分類名稱跟這裡不一樣，要先一個一個對起來。系統先給建議，你確認過才能匯入。（示範檔只有 '+accs.length+' 個帳戶；真的檔案有 73 個，都要確認。）</p>';
+ h+='<h2>① 舊帳戶 → 新帳戶　<span class="tag '+(left?'red':'ok')+'" id="m2-left">'+(left?'還有 '+left+' 個沒確認':'全部確認了')+'</span></h2><div class="card" id="m2-acc">';
+ accs.forEach(function(a){var n=res.rows.filter(function(r){return r.a==a}).length,o=MS.acc[a];
+  h+='<div class="m2a" data-a="'+esc(a)+'"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><b>'+esc(a)+'</b><span class="s" style="font-size:12px;color:#6b6b70">'+n+' 筆</span>'+(o.ok?'<span class="tag ok">已確認</span>':'<span class="tag gray">建議，還沒確認</span>')+'</div>'
+   +'<select class="m2s" data-a="'+esc(a)+'">'+aopts(o.to,a)+'</select>'
+   +(o.ok?'':'<button class="btn ghost m2c" type="button" data-c="'+esc(a)+'">確認這個</button>')+'</div>'});
+ h+='</div><div class="fxb"><button class="btn ghost" id="m2-all" type="button">全部照建議確認</button></div>';
+ var cats=Object.keys(MS.cat);
+ h+='<h2>② 舊分類 → 新分類　<span class="tag '+(MS.catOk?'ok':'gray')+'" id="m2-catst">'+(MS.catOk?'已確認':'還沒確認')+'</span></h2><div class="card" id="m2-cat">';
+ cats.forEach(function(k){var o=MS.cat[k];
+  h+='<div class="m2a"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><b>'+esc(k)+'</b><span class="s" style="font-size:12px;color:#6b6b70">'+o.n+' 筆</span>'+(o.sug?'':'<span class="tag red">找不到對應，放「其他」</span>')+'</div>'
+   +'<select class="m2s" data-k="'+esc(k)+'">'+copts(o.t,o.to)+'</select></div>'});
+ h+='</div><div class="fxb"><button class="btn ghost" id="m2-catok" type="button">'+(MS.catOk?'分類對應已確認':'確認分類對應')+'</button></div>';
+ h+='<h2>③ 幣種與記錄類型（照規則，不用選）</h2><div class="card" id="m2-rule">';
+ var cm={TWD:'台幣',USD:'美元帳戶（用各筆消費日的牌告匯率換台幣）',TP:'TP 點數帳戶',LP:'LP 點數帳戶',JK:'不匯入（意義之後才補）',P:'不匯入（意義之後才補）'};
+ Object.keys(res.curs).forEach(function(c){h+=trow('幣種 '+c,cm[c]||'')});
+ var tm={'支出':'支出','收入':'收入','轉出':'和「轉入」配成一筆轉帳','轉入':'和「轉出」配成一筆轉帳','紅利回饋':'台幣記成回饋收入；點數加到點數帳戶','餘額調整':'餘額調整（不算收支）','初始金額':'帳戶一開始的錢（不是一筆記錄）','手續費':'手續費','應收款項':'不匯入，只在結果頁列出','折扣':'不匯入，只在結果頁列出'};
+ Object.keys(res.types).forEach(function(t){h+=trow(t+'（'+res.types[t]+'）',tm[t]||'')});
+ h+='</div><div style="height:6px"></div>';
+ $('m2').innerHTML=h;
+ var ok=!left&&MS.catOk;$('m2-go').disabled=!ok;$('m2-go').style.opacity=ok?'':'.4';
+ $('m2-hint').textContent=ok?'都確認好了，可以匯入':(left?'還有 '+left+' 個帳戶沒確認，不能匯入':'分類對應還沒確認，不能匯入');
+ qa('#m2 select[data-a]').forEach(function(s){s.onchange=function(){var a=s.getAttribute('data-a');MS.acc[a].to=s.value;MS.acc[a].ok=true;renderM2()}});
+ qa('#m2 select[data-k]').forEach(function(s){s.onchange=function(){MS.cat[s.getAttribute('data-k')].to=s.value;MS.catOk=false;renderM2()}});
+ qa('#m2 [data-c]').forEach(function(b){b.onclick=function(){MS.acc[b.getAttribute('data-c')].ok=true;renderM2()}});
+ $('m2-all').onclick=function(){accs.forEach(function(a){MS.acc[a].ok=true});renderM2()};
+ $('m2-catok').onclick=function(){MS.catOk=true;renderM2()}}
+function openM2(){BK2.imp2=function(){renderM1();go('imp1')};renderM2();go('imp2')}
+/* ====== M3 匯入結果 ====== */
+function renderM3(){
+ var c=MS.c,res=MS.res,h='';
+ h+='<div class="rpbig"><small>匯入完成（示範）</small><b id="m3-new">新增 '+c.nw+' 筆</b></div>';
+ h+='<div class="rpnote">'+(c.nw?'':'沒有新的記錄：這個檔之前都匯入過了。')+'示範不會真的改動上面的帳戶與記錄。</div>';
+ h+='<h2>筆數對起來</h2><div class="card" id="m3-sum">'+trow('檔案總共','<span id="m3-total">'+c.total+'</span> 筆')+trow('略過（之前匯入過的重複）','<span id="m3-dup">'+c.dup.length+'</span> 筆')
+  +trow('不匯入','<span id="m3-not">'+c.not.length+'</span> 筆（含讀不懂的 '+c.not.filter(function(r){return c.why[r.line]=='失敗'}).length+' 筆）')
+  +trow('匯入','<span id="m3-imp">'+c.imp.length+'</span> 筆')+trow('讀不懂（失敗）','<span id="m3-fail">'+c.not.filter(function(r){return c.why[r.line]=='失敗'}).length+'</span> 筆')+'</div>';
+ h+='<p class="sub" id="m3-formula" style="margin-top:6px">匯入 ＝ 總共 − 不匯入 − 略過 ＝ '+c.formula+'。新增 ＝ 匯入 − 期初餘額 '+c.init+' 列 − 轉帳 '+c.pairs+' 組（兩列併成一筆）＋ 手續費欄有值 '+c.fee+' 列 ＝ '+c.nw+'。</p>';
+ if(res.proj)h+='<p class="sub" id="m3-proj" style="margin-top:6px">「專案」欄 '+res.proj+' 筆有值，已略過。</p>';
+ if(c.other)h+='<p class="sub" id="m3-other" style="margin-top:6px">有 '+c.other+' 筆舊分類找不到對應，已放進「其他」。</p>';
+ h+='<h2>不匯入的列（'+c.not.length+'）</h2><div class="card" id="m3-list">';
+ if(!c.not.length)h+='<div class="bd" style="padding-left:14px"><div class="grow">沒有</div></div>';
+ NONE_PRIOR.forEach(function(w){var l=c.not.filter(function(r){return c.why[r.line]==w});if(!l.length)return;
+  h+='<div class="stat"><span>'+(w=='失敗'?'讀不懂':w=='未知幣種'?'不認得的幣種':w=='不匯入帳戶'?'你選了「不匯入此帳戶」':w)+'</span><b>'+l.length+' 筆</b></div>'+rowList(l,function(x){return w=='失敗'?x.bad:''})});
+ h+='</div>';
+ h+='<h2>和舊 App 對一下各帳戶的錢</h2><div class="card" id="m3-bal"><div class="b3h" style="grid-template-columns:1.3fr 1fr 1fr 1fr"><span>帳戶</span><span>舊 App</span><span>新系統</span><span>差</span></div>';
+ mBal(c).forEach(function(b){var d=b.nw-b.moze,u=b.cur=='USD'?'US$':'$';
+  h+='<div class="b3r" data-a="'+esc(b.a)+'" style="grid-template-columns:1.3fr 1fr 1fr 1fr"><span class="m">'+esc(b.a)+'</span>'+(b.skip?'<span class="n">'+u+fmt(b.moze)+'</span><span class="n">—</span><span class="n">未匯入</span>':'<span class="n">'+u+fmt(b.moze)+'</span><span class="n">'+u+fmt(b.nw)+'</span><span class="n '+(d?'red':'')+'">'+(d?sgn(d):'相符')+'</span>')+'</div>'});
+ h+='</div><p class="sub" style="margin-top:6px">有差的帳戶只列出差多少，不會自動補平；通常是因為上面有不匯入的列。點數另外算，不在這張表。</p>';
+ $('m3').innerHTML=h}
+function doImport(){
+ var c=mCalc();MS.c=c;c.imp.forEach(function(r){MS.db[mkey(r)]=1});MS.done=true;renderM3();go('imp3');toast('匯入完成（示範）')}
+function openM3(){BK2.imp3='more';renderM3();go('imp3')}
+/* ====== 待確認：資料 ====== */
+function pdInit(){
+ PD=[
+ {id:1,src:'app',from:'台新銀行 App',time:'2/28 12:31',kind:'消費',amt:320,shop:'範例商店',date:'2026-02-28',acc:'台新信用卡',cat:'飲食／午餐',txt:'刷卡 NT$ 320 範例商店　卡號末四碼 ****',dup:1,ph:0,st:'wait'},
+ {id:2,src:'gmail',from:'範例銀行通知信',time:'2/28 12:33',kind:'消費',amt:320,shop:'範例商店',date:'2026-02-28',acc:'台新信用卡',cat:'飲食／午餐',txt:'您的信用卡於 2/28 消費 NT$ 320 範例商店',dup:1,ph:0,st:'wait'},
+ {id:3,src:'app',from:'永豐銀行 App',time:'2/27 20:05',kind:'消費',amt:null,shop:'',date:'2026-02-27',acc:'永豐卡',cat:'購物／日用品',txt:'您有一筆新的刷卡通知，請至 App 查看明細（沒有寫金額）',dup:0,ph:0,st:'wait'},
+ {id:4,src:'app',from:'永豐銀行 App',time:'2/26 09:40',kind:'消費',amt:1000,fc:'US$',fcn:31.5,shop:'範例海外網站',date:'2026-02-26',acc:'永豐雙幣卡',cat:'娛樂／影音訂閱',txt:'海外刷卡 US$ 31.75 範例海外網站（折合約 NT$ 1,000）',dup:0,ph:0,st:'wait'},
+ {id:5,src:'gmail',from:'範例證券通知信',time:'2/25 08:00',kind:'現金股利',stock:'範例股票 A（0000）',amt:1200,date:'2026-02-25',sec:'範例證券戶',bank:'永豐銀行',txt:'範例股票 A 現金股利 每股 1.2 元 × 1,000 股，預計入帳 NT$ 1,200',dup:0,ph:0,st:'wait'},
+ {id:6,src:'gmail',from:'範例證券通知信',time:'2/25 08:01',kind:'股票股利',stock:'範例股票 B（0001）',qty:30,date:'2026-02-25',sec:'範例證券戶',txt:'範例股票 B 股票股利 配 30 股',dup:0,ph:0,st:'wait'},
+ {id:7,src:'app',from:'範例證券 App',time:'2/24 13:31',kind:'買進',stock:'範例股票 A（0000）',qty:100,price:50,fee:20,date:'2026-02-24',sec:'',txt:'成交通知：範例股票 A 買進 100 股 成交價 50 元 手續費 20 元',dup:0,ph:0,st:'wait'},
+ {id:8,src:'app',from:'台新銀行 App',time:'2/20 18:10',kind:'消費',amt:250,shop:'範例書店',date:'2026-02-20',acc:'台新信用卡',cat:'教育／書籍',txt:'刷卡 NT$ 250 範例書店',dup:0,ph:0,st:'done',res:'已確認'}];
+ PD0=JSON.stringify(PD)}
+function pdWait(){return PD.filter(function(x){return x.st=='wait'})}
+function pdTitle(x){return x.kind=='消費'?(x.shop||'（商家沒讀出來）'):x.stock}
+function pdAmt(x){return x.kind=='消費'?(x.amt==null?'金額空白':mo(x.amt)):x.kind=='現金股利'?'+'+mo(x.amt):x.kind=='股票股利'?'+'+x.qty+' 股':x.qty+' 股'}
+function pdHome(){var n=pdWait().length,e=$('h-pen');if(e){e.querySelector('b').textContent=n;}var m=$('m-pen');if(m){m.querySelector('.cnt').textContent=n?n+' 筆':''}}
+/* ====== P1 待確認清單 ====== */
+function renderP1(){
+ var w=pdWait(),dn=PD.filter(function(x){return x.st!='wait'}),h='',l=PS.f=='wait'?w:dn;
+ h+='<div class="rpbig"><small>待確認</small><b id="p1-n">'+w.length+' 筆</b></div><div class="rpnote">通知和 Gmail 進來的項目，你確認了才會記進帳裡。確認前不算餘額、回饋和報表。</div>';
+ if(GA.st!='on')h+='<div class="alert" id="p1-gm" style="margin:12px 16px 0;cursor:pointer">Gmail '+(GA.st=='lost'?'授權已失效':'還沒授權')+'，Gmail 通知信暫時不會進來 ›</div>';
+ h+='<div class="seg" id="p1-f"><span class="chip'+(PS.f=='wait'?' on':'')+'" data-v="wait">待確認 '+w.length+'</span><span class="chip'+(PS.f=='done'?' on':'')+'" data-v="done">已處理 '+dn.length+'</span></div>';
+ h+='<div class="card" id="p1-list" style="margin-top:12px">';
+ if(!l.length)h+='<div class="empty" id="p1-empty">'+(PS.f=='wait'?'沒有待確認的項目':'還沒有處理過的項目')+'</div>';
+ l.forEach(function(x){
+  var dupTxt=x.dup?'<span class="tag red">可能重複</span> ':'';
+  h+='<div class="row p1r" data-p="'+x.id+'" style="cursor:pointer;align-items:flex-start"><span class="ico">'+eh(x.src=='gmail'?'🔑':'🔔')+'</span><div class="grow"><div class="t">'+esc(pdTitle(x))+'</div><div class="s">'+dupTxt+'<span class="tag '+(x.src=='gmail'?'':'gray')+'">'+(x.src=='gmail'?'Gmail':'手機通知')+'</span> <span class="tag gray">'+x.kind+'</span></div><div class="s">'+esc(x.from)+'　'+x.time+'</div></div>'
+   +'<div style="text-align:right"><span class="amt'+(x.kind=='消費'?' red':'')+'">'+pdAmt(x)+'</span>'+(x.st=='wait'?'<div><a class="lk p1i" data-i="'+x.id+'" style="font-size:13px">忽略</a></div>':'<div class="s"><span class="tag '+(x.res=='已確認'?'ok':'gray')+'">'+x.res+'</span></div>')+'</div></div>'});
+ h+='</div><p class="sub" style="margin-top:12px;text-align:center"><a class="lk" id="p1-set">通知來源設定（要讀哪些 App 和寄件者）›</a></p>';
+ $('p1').innerHTML=h;
+ chipPick('p1-f',function(v){PS.f=v;renderP1()});
+ qa('#p1 .p1r').forEach(function(r){r.onclick=function(e){if(e.target.classList.contains('p1i'))return;openP2(+r.getAttribute('data-p'))}});
+ qa('#p1 .p1i').forEach(function(a){a.onclick=function(e){e.stopPropagation();var x=PD.filter(function(z){return z.id==+a.getAttribute('data-i')})[0];pdIgnore(x,renderP1)}});
+ $('p1-set').onclick=function(){openP3('pen1')};
+ if($('p1-gm'))$('p1-gm').onclick=function(){openGa(function(){renderP1();go('pen1')})};
+ pdHome()}
+function pdIgnore(x,after){ask('忽略後這筆不會入帳，只保留紀錄，之後不能還原。','忽略',function(){x.st='done';x.res='已忽略';after();pdHome();toast('已忽略')})}
+function openP1(b){BK2.pen1=b||'more';PS.f='wait';renderP1();go('pen1')}
+/* ====== P2 確認一筆待確認 ====== */
+function acctOpts(sel){return ACCS.filter(function(x){return x.k!='p'&&!x.arch}).map(function(x){return '<option'+(x.n==sel?' selected':'')+'>'+esc(x.n)+'</option>'}).join('')}
+function bankOpts(sel){return '<option value="">（還沒選）</option>'+ACCS.filter(function(x){return x.k=='b'&&!x.arch}).map(function(x){return '<option'+(x.n==sel?' selected':'')+'>'+esc(x.n)+'</option>'}).join('')}
+function catOpts(sel){var o=[];CATS.forEach(function(c){c[2].forEach(function(s){o.push(c[1]+'／'+s)})});return o.map(function(v){return '<option'+(v==sel?' selected':'')+'>'+esc(v)+'</option>'}).join('')}
+function secOpts(sel){return '<option value="">（還沒選）</option><option'+(sel=='範例證券戶'?' selected':'')+'>範例證券戶</option>'}
+function frs(k,inner){return '<div class="fr"><span class="k">'+k+'</span>'+inner+'</div>'}
+function p2Ok(x,d){
+ if(x.kind=='消費')return d.amt!==''&&+d.amt>0&&!!d.shop;
+ if(x.kind=='現金股利')return +d.amt>0&&!!d.sec&&!!d.bank;
+ if(x.kind=='股票股利')return +d.qty>0&&!!d.sec;
+ return +d.qty>0&&+d.price>0&&!!d.sec}
+function p2Why(x,d){
+ if(x.kind=='消費')return d.amt===''||!(+d.amt>0)?'金額還沒填，填了才能確認':!d.shop?'商家還沒填':'';
+ if(!d.sec)return '證券戶還沒選，選了才能確認';
+ if(x.kind=='現金股利'&&!d.bank)return '入帳銀行還沒選，選了才能確認';
+ return ''}
+function renderP2(){
+ var x=PS.cur,d=PS.draft,h='';
+ h+='<div class="card" style="margin-top:14px" id="p2-src">'+trow('來源',x.src=='gmail'?'Gmail 通知信':'手機通知')+trow(x.src=='gmail'?'寄件者':'來自哪個 App',esc(x.from))+trow('收到的時間',x.time)
+  +'<div class="stat"><span>原文</span><b style="font-weight:400;text-align:right;max-width:240px;font-size:14px">'+esc(x.txt)+'</b></div></div>';
+ if(x.dup){var o=PD.filter(function(z){return z.id!=x.id&&z.dup==x.dup&&z.st=='wait'})[0];h+='<div class="alert" id="p2-dup" style="margin:10px 16px 0;background:#fff4bf;border-color:#ecd36b;color:#5c4a00">可能重複：同一天同金額還有一筆'+(o?'（來源：'+(o.src=='gmail'?'Gmail':'手機通知')+'）':'')+'。兩筆只要確認一筆，另一筆可以忽略。</div>'}
+ var f='';
+ if(x.kind=='消費'){
+  f=frs('金額','<input id="p2-amt" inputmode="numeric" placeholder="一定要填" value="'+(d.amt===''?'':d.amt)+'">')+frs('商家','<input id="p2-shop" placeholder="例如：範例商店" value="'+esc(d.shop)+'">')
+   +frs('日期','<input type="date" id="p2-date" value="'+d.date+'" max="'+TODAY+'">')+frs('帳戶','<select id="p2-acc">'+acctOpts(d.acc)+'</select>')+frs('分類','<select id="p2-cat">'+catOpts(d.cat)+'</select>');
+  if(x.fc)f+='<div class="rpnote" style="text-align:left;padding:6px 14px">這是海外消費：確認後會一起算好這張卡的回饋和海外手續費。</div>'}
+ else if(x.kind=='現金股利')f=frs('股票','<span style="flex:1;text-align:right">'+esc(x.stock)+'</span>')+frs('證券戶','<select id="p2-sec">'+secOpts(d.sec)+'</select>')+frs('發放日','<span style="flex:1;text-align:right">'+md(x.date)+'</span>')+frs('實領金額','<input id="p2-amt" inputmode="numeric" value="'+d.amt+'">')+frs('入帳銀行','<select id="p2-bank">'+bankOpts(d.bank)+'</select>');
+ else if(x.kind=='股票股利')f=frs('股票','<span style="flex:1;text-align:right">'+esc(x.stock)+'</span>')+frs('證券戶','<select id="p2-sec">'+secOpts(d.sec)+'</select>')+frs('發放日','<span style="flex:1;text-align:right">'+md(x.date)+'</span>')+frs('增加股數','<input id="p2-qty" inputmode="numeric" value="'+d.qty+'">');
+ else f=frs('股票','<span style="flex:1;text-align:right">'+esc(x.stock)+'</span>')+frs('證券戶','<select id="p2-sec">'+secOpts(d.sec)+'</select>')+frs('成交日','<span style="flex:1;text-align:right">'+md(x.date)+'</span>')+frs('股數','<input id="p2-qty" inputmode="numeric" value="'+d.qty+'">')+frs('成交價','<input id="p2-price" inputmode="decimal" value="'+d.price+'">')+frs('手續費','<input id="p2-fee" inputmode="numeric" value="'+d.fee+'">');
+ h+='<h2>'+x.kind+'　<span class="tag gray">確認前可以改</span></h2><div class="card" id="p2-form">'+f+'</div>';
+ h+='<div class="rpnote" style="text-align:left;padding:8px 16px" id="p2-eff">'+(x.kind=='消費'?'確認後：記一筆支出，帳戶餘額減少，並算回饋。':x.kind=='現金股利'?'確認後：記一筆收入（投資收益／股利），入帳銀行餘額增加，累計股利增加。':x.kind=='股票股利'?'確認後：這檔股票的持股數增加，總成本不變，不動銀行。':'確認後：記一筆買進，持股與成本重算；不動銀行餘額，交割款你另外記轉帳。')+'</div>';
+ h+='<h2>照片　<span id="p2-phn" class="tag gray">'+d.ph+' / 5</span></h2><div class="card"><div class="fxb" style="padding:10px 14px"><button class="btn ghost" id="p2-ph" type="button">＋ 加一張照片</button></div></div>';
+ h+='<p class="sub" id="p2-why" style="margin-top:10px;text-align:center;color:#c62828"></p>';
+ $('p2').innerHTML=h;
+ function rd(){var g=function(i){var e=$(i);return e?e.value:null};
+  if(x.kind=='消費'){d.amt=g('p2-amt');d.shop=g('p2-shop');d.date=g('p2-date');d.acc=g('p2-acc');d.cat=g('p2-cat')}
+  else{d.sec=g('p2-sec');if(x.kind=='現金股利'){d.amt=g('p2-amt');d.bank=g('p2-bank')}else{d.qty=g('p2-qty');if(x.kind=='買進'){d.price=g('p2-price');d.fee=g('p2-fee')}}}
+  var ok=p2Ok(x,d);$('p2-ok').disabled=!ok;$('p2-ok').style.opacity=ok?'':'.4';$('p2-why').textContent=ok?'':p2Why(x,d)}
+ qa('#p2-form input,#p2-form select').forEach(function(e){e.oninput=rd;e.onchange=rd});
+ $('p2-ph').onclick=function(){if(d.ph>=5){toast('最多 5 張');return}d.ph++;$('p2-phn').textContent=d.ph+' / 5';if(d.ph==5){$('p2-ph').style.opacity='.4'}};
+ if(d.ph>=5)$('p2-ph').style.opacity='.4';
+ rd()}
+function openP2(id,back){
+ var x=PD.filter(function(z){return z.id==id})[0];PS.cur=x;
+ PS.draft={amt:x.amt==null?'':x.amt,shop:x.shop||'',date:x.date,acc:x.acc||'',cat:x.cat||'',sec:x.sec||'',bank:x.bank||'',qty:x.qty||'',price:x.price||'',fee:x.fee==null?'':x.fee,ph:x.ph};
+ BK2.pen2=function(){renderP1();go('pen1')};
+ $('p2-ok').style.display=x.st=='wait'?'':'none';$('p2-ig').style.display=x.st=='wait'?'':'none';
+ renderP2();go('pen2')}
+function p2Confirm(){
+ var x=PS.cur,d=PS.draft,msg='';
+ if(!p2Ok(x,d))return;
+ if(x.kind=='消費'){
+  var a=+d.amt,cp=d.cat.split('／'),ci=0;CATS.forEach(function(c,i){if(c[1]==cp[0])ci=i});
+  var e={d:d.date,ico:CATS[ci][0],t:cp[1],acc:d.acc,v:-a};if(x.fc)e.fc=x.fc+x.fcn;
+  entries.unshift(e);total-=a;msg='已入帳 '+mo(a);
+  if(x.fc){var fe=Math.round(a*0.015);entries.unshift({d:d.date,ico:'🧾',t:'海外交易手續費 <span class="tag gray">自動</span>',acc:d.acc,v:-fe});total-=fe;msg+='，回饋與海外手續費 '+mo(fe)+' 一併算好'}
+  entries.sort(function(p,q){return p.d<q.d?1:p.d>q.d?-1:0});renderList();renderTotal()}
+ else if(x.kind=='現金股利'){var b=+d.amt;entries.unshift({d:x.date,ico:'📈',t:'股利',acc:d.bank,v:b});total+=b;entries.sort(function(p,q){return p.d<q.d?1:p.d>q.d?-1:0});renderList();renderTotal();msg='已入帳 '+mo(b)+'，'+d.bank+'餘額增加'}
+ else if(x.kind=='股票股利')msg='已確認：持股增加 '+d.qty+' 股，銀行不動';
+ else msg='已確認：記一筆買進 '+d.qty+' 股，銀行不動';
+ x.st='done';x.res='已確認';x.ph=d.ph;pdHome();toast(msg);renderP1();go('pen1')}
+/* ====== P3 通知來源設定 ====== */
+var P3APPS=[['台新銀行 App','銀行'],['永豐銀行 App','銀行'],['中信銀行 App','銀行'],['富邦銀行 App','銀行'],['範例證券 App','券商']];
+function p3Init(){P3S={apps:{'台新銀行 App':1,'永豐銀行 App':1},senders:['notice@example-bank.com','service@example-sec.com'],dev:'舊手機',perm:true,sim:'',devs:[{n:'舊手機（iPhone，示範）',st:'停用',old:true},{n:'Samsung 手機（示範）',st:'已連線',old:false}]}}
+function renderP3(){
+ var h='',on=0;P3APPS.forEach(function(a){if(P3S.apps[a[0]])on++});
+ h+='<div class="card" style="margin-top:14px;padding:12px 16px" id="p3-faq"><b>手機通知可以做嗎？可以。</b><p style="margin:6px 0 0;font-size:14px;color:#3a3a3c;line-height:1.6">大老闆之後換成 Samsung 手機（Android）就能用：在手機上裝我們自己的小 App，只讀你勾選的銀行 App 的通知，只送到這個系統。換手機時，在新手機重新安裝、重新開啟權限，舊的手機在下面按「停用」。</p></div>';
+ h+='<h2>手機</h2><div class="card" id="p3-dev">';
+ P3S.devs.forEach(function(d,i){h+=rowI('🔔',esc(d.n),d.st=='已連線'?'最後送來資料：2/28 09:12':'已經不再接收',d.st=='已連線'?'<span class="tag ok">已連線</span>':'<span class="tag gray">已停用</span>',' data-d="'+i+'"',d.old?'':'')});
+ h+='<div class="stat"><span>通知存取權限</span><b>'+(P3S.perm?'<span class="tag ok" id="p3-perm">已開啟</span>':'<span class="tag red" id="p3-perm">尚未授權</span>')+'</b></div>';
+ h+='<div class="fxb"><button class="btn ghost" id="p3-permb" type="button">'+(P3S.perm?'（示範）假裝權限被關掉':'去手機設定開啟')+'</button><button class="btn ghost" id="p3-old" type="button">'+(P3S.devs[0].st=='停用'?'舊手機已停用':'停用舊手機')+'</button></div></div>';
+ if(!P3S.perm)h+='<div class="alert" style="margin:10px 16px 0">手機還沒開啟「通知存取」，現在不會送任何資料。</div>';
+ h+='<h2>要讀哪些 App 的通知（已勾 <span id="p3-on">'+on+'</span> 個）</h2><div class="card" id="p3-apps">';
+ P3APPS.forEach(function(a){var c=P3S.apps[a[0]];h+='<div class="row p3a" data-a="'+esc(a[0])+'" style="cursor:pointer"><span class="ico">'+eh(a[1]=='銀行'?'🏦':'📈')+'</span><div class="grow">'+esc(a[0])+'<div class="s">'+a[1]+'</div></div><span class="tag '+(c?'ok':'gray')+'">'+(c?'要讀':'不讀')+'</span></div>'});
+ h+='</div><p class="sub" style="margin-top:6px">沒勾的 App，通知完全不讀、不存、不送。通知裡有驗證碼的，整則都不送。</p>';
+ h+='<h2>Gmail 要看哪些寄件者的信</h2><div class="card" id="p3-snd">';
+ if(GA.st!='on')h+='<div class="alert" style="margin:10px 14px" id="p3-gm">Gmail '+(GA.st=='lost'?'授權已失效':'還沒授權')+'，先授權才讀得到信 ›</div>';
+ P3S.senders.forEach(function(s,i){h+='<div class="row"><span class="ico">'+eh('🔑')+'</span><div class="grow">'+esc(s)+'</div><a class="lk p3d" data-i="'+i+'">移除</a></div>'});
+ if(!P3S.senders.length)h+='<div class="empty">還沒有寄件者</div>';
+ h+='<div class="fr"><input id="p3-new" placeholder="輸入寄件者信箱" style="text-align:left"><button class="btn" id="p3-add" type="button" style="margin:0;padding:8px 14px;width:auto;font-size:15px">加入</button></div></div>';
+ h+='<p class="sub" style="margin-top:6px">不在清單裡的信，內容不會讀、也不會存。</p>';
+ h+='<h2>試一下（示範）</h2><div class="card"><div class="fxb"><button class="btn ghost" id="p3-sim" type="button">假裝台新銀行 App 跳出一則通知</button></div><div class="fxb" style="padding-top:0"><button class="btn ghost" id="p3-sim2" type="button">假裝聊天 App 跳出一則通知</button></div><p class="sub" id="p3-simr" style="padding:0 14px 10px;color:#1b7a3a">'+esc(P3S.sim)+'</p></div>';
+ $('p3').innerHTML=h;
+ qa('#p3 .p3a').forEach(function(r){r.onclick=function(){var k=r.getAttribute('data-a');P3S.apps[k]=P3S.apps[k]?0:1;renderP3()}});
+ $('p3-permb').onclick=function(){P3S.perm=!P3S.perm;renderP3()};
+ $('p3-old').onclick=function(){if(P3S.devs[0].st=='停用')return;ask('停用後，這支舊手機不能再送資料。','停用',function(){P3S.devs[0].st='停用';renderP3();toast('舊手機已停用')})};
+ qa('#p3 .p3d').forEach(function(a){a.onclick=function(){P3S.senders.splice(+a.getAttribute('data-i'),1);renderP3()}});
+ $('p3-add').onclick=function(){var v=$('p3-new').value.replace(/^\s+|\s+$/g,'');if(!v){toast('請輸入寄件者信箱');return}if(v.indexOf('@')<1){toast('信箱格式不對');return}if(P3S.senders.indexOf(v)>=0){toast('已經在清單裡了');return}P3S.senders.push(v);renderP3();toast('已加入')};
+ if($('p3-gm'))$('p3-gm').onclick=function(){openGa(function(){renderP3();go('pen3')})};
+ $('p3-sim').onclick=function(){
+  if(!P3S.perm){P3S.sim='手機還沒開啟通知存取，不會送出任何資料';renderP3();return}
+  if(!P3S.apps['台新銀行 App']){P3S.sim='你沒勾「台新銀行 App」，這則通知不會被讀取，系統什麼都沒收到';renderP3();return}
+  if(PS.sim&&PS.sim=='dup'){P3S.sim='同一則通知 60 秒內只留一筆，沒有新增';renderP3();return}
+  PS.sim='dup';var id=PD.length+1;PD.unshift({id:id,src:'app',from:'台新銀行 App',time:'2/28 現在',kind:'消費',amt:450,shop:'範例商店',date:TODAY,acc:'台新信用卡',cat:'飲食／午餐',txt:'刷卡 NT$ 450 範例商店',dup:0,ph:0,st:'wait'});
+  P3S.sim='收到了：待確認多一筆 NT$ 450（餘額還沒變）';pdHome();renderP3()};
+ $('p3-sim2').onclick=function(){P3S.sim='聊天 App 沒勾，通知不會被讀取，系統什麼都沒收到';renderP3()}}
+function openP3(b){BK2.pen3=b=='pen1'?function(){renderP1();go('pen1')}:(b||'more');renderP3();go('pen3')}
+/* ====== 入口與重來 ====== */
+pdInit();p3Init();
+(function(){
+ var card=document.querySelector('#s-more .card'),set=qa('#s-more .later').filter(function(e){return e.textContent.indexOf('設定')>=0})[0];
+ function mrow(id,ic,t,fn,before,sub){var d=document.createElement('div');d.className='row';d.id=id;d.style.cursor='pointer';d.innerHTML='<span class="ico">'+ei(ic)+'</span><div class="grow">'+t+'</div>'+(sub||'')+'<span class="s">›</span>';card.insertBefore(d,before);d.onclick=fn}
+ var pen=qa('#s-more .later').filter(function(e){return e.textContent.indexOf('待確認')>=0})[0];
+ if(pen){pen.classList.remove('later');pen.id='m-pen';pen.onclick=function(){openP1('more')};var g=pen.querySelector('.grow');g.insertAdjacentHTML('afterend','<span class="s cnt" style="margin-right:6px"></span>')}
+ mrow('m-p3','🔔','通知來源設定',function(){openP3('more')},set);
+ mrow('m-m1','🗂','匯入舊記錄（MOZE）',function(){openM1('more')},set);
+ var hp=qa('#s-home .links span').filter(function(e){return e.textContent.indexOf('待確認')>=0})[0];
+ if(hp){hp.id='h-pen';hp.style.cursor='pointer';hp.style.color='#1c1c1e';var svg=hp.querySelector('svg');hp.innerHTML='';if(svg)hp.appendChild(svg);hp.insertAdjacentHTML('beforeend',' 待確認 <b>0</b> 筆 ›');hp.onclick=function(){openP1('home')}}
+ pdHome();
+ $('m1-next').onclick=function(){openM2()};
+ $('m2-go').onclick=function(){if(this.disabled)return;doImport()};
+ $('m3-done').onclick=function(){go('more')};
+ $('m3-again').onclick=function(){openM1('more')};
+ $('p2-ok').onclick=p2Confirm;
+ $('p2-ig').onclick=function(){pdIgnore(PS.cur,function(){renderP1();go('pen1')})};
+})();
+(function(){var r0=$('reset').onclick;
+ $('reset').onclick=function(){MS={file:'',step:0,res:null,acc:{},cat:{},catOk:false,db:{},done:false};PS={f:'wait',cur:null,draft:null,sim:0};PD=JSON.parse(PD0);p3Init();pdHome();r0()}})();
 
 resetAll();
 var m=/go=(\w+)/.exec(location.hash);if(m)go(m[1]);
