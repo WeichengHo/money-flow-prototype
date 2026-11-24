@@ -120,6 +120,19 @@ details.grp .row{padding:8px 0}
 .it{display:flex;justify-content:space-between;align-items:center;min-height:48px;border-bottom:1px solid #f0f0f2;font-size:16px;cursor:pointer}.it.on{font-weight:700;background:#fffbe6}.it span{color:#1b7a3a}
 .empty{padding:24px 0;text-align:center;color:#6b6b70}
 .sh-b .cats{padding:4px 0}.sh-b .cat,.sh-b .chip{cursor:pointer}.sh-b .opts{display:flex;flex-wrap:wrap;gap:8px;padding-top:4px}
+.cf{position:relative;width:8em;height:5em;border-radius:.6em;color:#fff;overflow:hidden;flex:none;font-size:6px;line-height:1.2;box-shadow:0 1px 2px rgba(0,0,0,.25);font-style:normal;text-align:left}
+.cf b{position:absolute;left:.8em;bottom:1.15em;font-size:1.3em;font-weight:700;text-shadow:0 1px 1px rgba(0,0,0,.3)}
+.cf u{position:absolute;left:.8em;bottom:.4em;font-size:1em;text-decoration:none;text-shadow:0 1px 1px rgba(0,0,0,.3)}
+.cf i{position:absolute;left:.8em;top:.6em;width:1.3em;height:.8em;border-radius:.25em;background:linear-gradient(135deg,#f3e3a0,#c9a640)}
+.cf em{position:absolute;right:.7em;top:.7em;font-style:normal;font-size:.8em;border:1px solid rgba(255,255,255,.8);border-radius:1em;padding:0 .6em}
+.cf.lg{font-size:36px;margin:16px auto 6px}
+.cf.lg em{font-size:.5em}
+.ag{margin-top:10px}.ah{display:flex;align-items:center;gap:10px;padding:12px 14px;border-bottom:1px solid #f0f0f2;cursor:pointer;background:#fffbe6}
+.ah .ar{color:#6b6b70;width:14px}.ah .at{text-align:right}.ah .at small{display:block;font-size:12px;color:#6b6b70}
+.ah .s{font-size:12px;color:#6b6b70}
+.row[data-card]{cursor:pointer}
+.cap{text-align:center;font-size:12px;color:#6b6b70;padding:0 16px}
+.it .nm{display:flex;align-items:center;gap:10px;color:#1c1c1e}
 </style></head><body>
 <div id="toast"></div>
 
@@ -142,15 +155,15 @@ details.grp .row{padding:8px 0}
 <section class="scr" id="s-accounts">
 <div class="top"><a data-go="home">‹ 首頁</a><span>各帳戶</span></div>
 <h1>各種錢　<span style="font-size:20px" id="total2">$140,855</span></h1>
-<div class="card">
-<div class="row"><span class="ico">🏦</span><div class="grow">銀行<div class="s">永豐銀行、台新銀行</div></div><span class="amt">$168,500</span></div>
-<div class="row"><span class="ico">💵</span><div class="grow">現金</div><span class="amt">$4,200</span></div>
-<div class="row"><span class="ico">💳</span><div class="grow">信用卡還沒繳</div><span class="amt red">$31,845</span></div>
-<div class="row"><span class="ico">📈</span><div class="grow">股票現值<div class="s">之後才有</div></div><span class="amt" style="color:#6b6b70">—</span></div>
-</div>
-<h2>點數（不算在總資產裡）</h2>
-<div class="card"><div class="row"><span class="ico">⭐</span><div class="grow">TP 1,280 點　LP 560 點</div></div></div>
+<div id="acclist"></div>
+<div class="card ag"><div class="row"><span class="ico">📈</span><div class="grow">股票現值<div class="s">之後才有</div></div><span class="amt" style="color:#6b6b70">—</span></div></div>
+<p class="sub" style="margin-top:6px">合計＝存款 − 要繳卡費；點數不算在總資產裡</p>
 <p class="sub" style="margin-top:14px">（示範：這裡的數字是固定的，不會跟著新記的帳變動）</p>
+</section>
+
+<section class="scr" id="s-card">
+<div class="top"><a data-go="accounts">‹ 各帳戶</a><span>卡片</span></div>
+<div id="cd"></div>
 </section>
 
 <section class="scr" id="s-record">
@@ -246,8 +259,19 @@ function qa(s,r){return Array.prototype.slice.call((r||document).querySelectorAl
 var CATS=[['🍱','飲食',['早餐','午餐','晚餐','飲料點心']],['🚇','交通',['etag','大眾運輸','油資']],['🏠','居住',['房租','水電','網路']],['🛍️','購物',['服飾','日用品','3C 數位']],
 ['🎬','娛樂',['影音訂閱','電影','遊戲']],['💊','醫療',['看診','藥品']],['📚','教育',['課程','書籍']],['🎁','人情',['送禮','紅包']],
 ['🧾','金融費用',['海外手續費','手續費','年費','利息']],['🏛️','稅費',['稅金','規費']],['📦','其他',['其他']]];
-var GROUPS=[['信用卡','💳',['台新信用卡','永豐卡','富邦卡','國泰卡','玉山卡']],['銀行','🏦',['永豐銀行','台新銀行','中信銀行']],['現金','💵',['現金','零錢罐']],['點數','⭐',['TP 點數','LP 點數']]];
-var ACCS=[];GROUPS.forEach(function(g){g[2].forEach(function(n){ACCS.push({g:g[0],n:n,v:g[1]+' '+n})})});
+var INSTS=[
+{n:'永豐銀行',c:['#e5a100','#b05f00'],it:[{k:'b',n:'永豐銀行',sub:'大戶存款 餘額',a:112000},{k:'c',n:'永豐卡',cn:'大戶卡',a:8200,due:'每月 5 日',rule:'一般消費 1%、網購 3%'},{k:'c',n:'永豐雙幣卡',cn:'雙幣卡',a:3645,due:'每月 10 日',rule:'外幣消費 2%'}]},
+{n:'台新銀行',c:['#d9467a','#8e1f4c'],it:[{k:'b',n:'台新銀行',sub:'活存 餘額',a:41500},{k:'c',n:'台新信用卡',cn:'信用卡',a:9400,due:'每月 15 日',rule:'一般消費 1%、餐飲 2%'}]},
+{n:'中信銀行',c:['#1f8a70','#0c5240'],it:[{k:'b',n:'中信銀行',sub:'活存 餘額',a:15000}]},
+{n:'富邦銀行',c:['#2f6fd0','#173f86'],it:[{k:'c',n:'富邦卡',cn:'信用卡',a:4100,due:'每月 20 日',rule:'海外消費 2%'}]},
+{n:'國泰銀行',c:['#2a9d57','#176536'],it:[{k:'c',n:'國泰卡',cn:'信用卡',a:2500,due:'每月 25 日',rule:'一般消費 1%'}]},
+{n:'玉山銀行',c:['#4a5b6e','#232d3a'],it:[{k:'c',n:'玉山卡',cn:'信用卡',a:4000,due:'每月 8 日',rule:'一般消費 1%、網購 2%'}]},
+{n:'現金',it:[{k:'m',n:'現金',sub:'皮夾',a:3000},{k:'m',n:'零錢罐',sub:'家裡',a:1200}]},
+{n:'點數',pt:1,it:[{k:'p',n:'TP 點數',txt:'1,280 點'},{k:'p',n:'LP 點數',txt:'560 點'}]}];
+var ICO={b:'🏦',c:'💳',m:'💵',p:'⭐'};
+var ACCS=[];INSTS.forEach(function(g){g.it.forEach(function(x){x.g=g.n;x.inst=g;x.v=ICO[x.k]+' '+x.n;ACCS.push(x)})});
+var acol=[];
+function face(x,lg){var g=x.inst;return '<div class="cf'+(lg?' lg':'')+'" style="background:linear-gradient(135deg,'+g.c[0]+','+g.c[1]+')"><i></i><em>示意</em><b>'+g.n.replace('銀行','')+'</b><u>'+x.cn+'</u></div>'}
 var TPLS=[{n:'🍳 早餐 $60',a:60,c:0,s:'早餐',acc:'💵 現金'},{n:'🚇 捷運 $30',a:30,c:1,s:'大眾運輸',acc:'💳 永豐卡'},{n:'🍽️ 聚餐 $1,280',a:1280,c:0,s:'晚餐',acc:'💳 台新信用卡'}];
 function E(d,ico,t,acc,v){return {d:'2026-'+d,ico:ico,t:t,acc:acc,v:v}}
 var INIT=[
@@ -282,8 +306,9 @@ var WK='日一二三四五六';
 function fmt(x){return Number(x).toLocaleString('en-US')}
 function mo(x){return '$'+fmt(x)}
 function go(name){
+ if(name=='accounts')renderAcc();
  qa('.scr').forEach(function(s){s.classList.toggle('on',s.id=='s-'+name)});
- var t={home:0,accounts:1,record:2,recent:3,more:4,reconcile:4,later:4}[name];
+ var t={home:0,accounts:1,card:1,record:2,recent:3,more:4,reconcile:4,later:4}[name];
  qa('#tabs a').forEach(function(a,i){a.classList.toggle('on',i===t)});
  window.scrollTo(0,0);
  $('tabs').style.display=name=='record'?'none':'flex';
@@ -323,11 +348,33 @@ function curAcc(t){return t=='acc'?$('v-acc').textContent:t=='from'?fromV:toV}
 function setCat(i,s){cat=i;sub=s;setv($('p-cat'),CATS[i][0]+' '+CATS[i][1]+' › '+s)}
 function setType(t){type=t;qa('#seg span').forEach(function(x){x.classList.toggle('on',x.getAttribute('data-t')==t)});$('s-record').classList.toggle('xfer',t=='轉帳');var ai=$('amt');ai.classList.remove('red','green','gray');ai.classList.add(t=='收入'?'green':t=='轉帳'?'gray':'red')}
 /* bottom sheet */
-function itHtml(a,cur){return '<div class="it'+(a.v==cur?' on':'')+'" data-v="'+a.v+'"><span style="color:#1c1c1e">'+a.v+'</span>'+(a.v==cur?'<span>✓</span>':'')+'</div>'}
+function itHtml(a,cur){return '<div class="it'+(a.v==cur?' on':'')+'" data-v="'+a.v+'"><div class="nm">'+(a.k=='c'?face(a)+a.n:a.v)+'</div>'+(a.v==cur?'<span>✓</span>':'')+'</div>'}
+function mo2(x){return '$'+fmt(x)}
+function renderAcc(){
+ var h='';
+ INSTS.forEach(function(g,gi){
+  var dep=0,owe=0,hc=false,hd=false;g.it.forEach(function(x){if(x.k=='c'){owe+=x.a;hc=true}else if(x.k!='p'){dep+=x.a;hd=true}});
+  var tot=dep-owe,f=g.pt?'點數，不算在總資產裡':hc&&hd?'存款 − 要繳卡費':hc?'只有信用卡，顯示要繳的':'現金加起來';
+  var at=g.pt?'':'<div class="at"><small>'+(tot<0?'還要繳':'合計')+'</small><span class="amt'+(tot<0?' red':'')+'">'+mo(Math.abs(tot))+'</span></div>';
+  h+='<div class="card ag"><div class="ah" data-g="'+gi+'"><span class="ar">'+(acol[gi]?'▸':'▾')+'</span><div class="grow"><b>'+g.n+'</b><div class="s">'+f+'</div></div>'+at+'</div>';
+  if(!acol[gi])g.it.forEach(function(x){
+   if(x.k=='c')h+='<div class="row" data-card="'+x.n+'">'+face(x)+'<div class="grow">'+x.n+'<div class="s">本期要繳</div></div><span class="amt red">'+mo(x.a)+'</span><span style="color:#6b6b70">›</span></div>';
+   else if(x.k=='p')h+='<div class="row"><span class="ico">⭐</span><div class="grow">'+x.n+'</div><span class="amt">'+x.txt+'</span></div>';
+   else h+='<div class="row"><span class="ico">'+ICO[x.k]+'</span><div class="grow">'+x.n+'<div class="s">'+x.sub+'</div></div><span class="amt">'+mo(x.a)+'</span></div>'});
+  h+='</div>'});
+ $('acclist').innerHTML=h;
+ qa('#acclist .ah').forEach(function(e){e.onclick=function(){var g=+e.getAttribute('data-g');acol[g]=!acol[g];renderAcc()}});
+ qa('#acclist [data-card]').forEach(function(e){e.onclick=function(){showCard(e.getAttribute('data-card'))}});
+}
+function showCard(n){
+ var x=ACCS.filter(function(a){return a.n==n})[0];
+ $('cd').innerHTML=face(x,true)+'<p class="cap">卡面為示意，正式版會換成該卡實際卡面</p><h1 style="font-size:22px;text-align:center;padding-top:10px">'+x.g.replace('銀行','')+' '+x.cn+'</h1><div class="card" style="margin-top:12px"><div class="row"><div class="grow">本期要繳</div><span class="amt red">'+mo(x.a)+'</span></div><div class="row"><div class="grow">扣繳日</div><span class="amt">'+x.due+'</span></div><div class="row"><div class="grow">回饋規則<div class="s">（示意，之後會換成實際規則）</div></div><span class="amt" style="white-space:normal;text-align:right;max-width:170px;font-weight:400">'+x.rule+'</span></div></div>';
+ go('card');
+}
 function openSheet(kind,target){
  sh={kind:kind,target:target,step:0,mc:null};
  $('shq').value='';$('shs').style.display=(kind=='acc'&&ACCS.length>10)?'block':'none';
- renderSheet();$('ov').classList.add('on');$('sheet').classList.add('on');
+ renderSheet();$('shbody').scrollTop=0;$('ov').classList.add('on');$('sheet').classList.add('on');
 }
 function closeSheet(){$('ov').classList.remove('on');$('sheet').classList.remove('on')}
 function renderSheet(){
@@ -339,9 +386,9 @@ function renderSheet(){
    l.forEach(function(a){h+=itHtml(a,cur)});if(!l.length)h='<div class="empty">找不到「'+q+'」</div>'}
   else{
    h+='<div class="gh2">最近用過</div>';recent.forEach(function(v){h+=itHtml(accBy(v),cur)});
-   GROUPS.forEach(function(g,gi){
-    var l=ACCS.filter(function(a){return a.g==g[0]});
-    h+='<div class="gh" data-g="'+gi+'"><span>'+(gcol[gi]?'▸':'▾')+'</span>'+g[0]+'<small>'+l.length+' 個</small></div>';
+   INSTS.forEach(function(g,gi){
+    var l=g.it;
+    h+='<div class="gh" data-g="'+gi+'"><span>'+(gcol[gi]?'▸':'▾')+'</span>'+g.n+'<small>'+l.length+' 個</small></div>';
     if(!gcol[gi])l.forEach(function(a){h+=itHtml(a,cur)})});
   }
   b.innerHTML=h;
@@ -386,7 +433,7 @@ function resetForm(){
  qa('#nopts .chip').forEach(function(c){c.classList.toggle('on',c.getAttribute('data-n')=='12')});calc();
 }
 function resetAll(){
- total=TOTAL0;entries=INIT.slice();recent=['💳 台新信用卡','💵 現金','💳 永豐卡'];gcol=[false,false,false,false];curM='2026-02';selD=TODAY;
+ total=TOTAL0;entries=INIT.slice();recent=['💳 台新信用卡','💵 現金','💳 永豐卡'];gcol=[];acol=[];curM='2026-02';selD=TODAY;
  renderList();renderTotal();resetForm();
  $('diffs').textContent='帳單 $1,500　你記 $1,050　差 $450';$('diffbtn').style.display='';$('g1t').textContent='1 筆';$('g1t').className='tag red';
  $('fixed').style.display='none';$('g4t').textContent='5 筆';$('rsum').textContent='相符 5 筆　有差異 3 筆';
