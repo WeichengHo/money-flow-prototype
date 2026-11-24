@@ -50,12 +50,13 @@ h2{font-size:14px;font-weight:600;color:#6b6b70;padding:20px 16px 6px}
 details.req{margin:24px 16px 0;border:1px dashed #b0b0b5;border-radius:12px;padding:10px 14px;font-size:14px;background:#fafafa}
 details.req summary{font-weight:600;cursor:pointer}
 details.req li{margin:6px 0 0 18px}
-.tabs{position:fixed;bottom:0;left:0;width:390px;background:#fff;border-top:1px solid #e5e5ea;display:flex;padding:6px 0 18px;z-index:9}
-.tabs a{flex:1;text-align:center;font-size:12px;color:#6b6b70;padding-top:2px}
-.tabs a b{display:block;font-size:22px;font-weight:400;line-height:28px}
+.tabs{position:fixed;bottom:0;left:0;width:390px;background:#fff;border-top:1px solid #e5e5ea;display:flex;padding:4px 0 14px;z-index:9}
+.tabs a b svg{display:block;width:24px;height:24px;margin:0 auto}
+.tabs a{flex:1;text-align:center;font-size:11px;color:#6b6b70;padding-top:2px}
+.tabs a b{display:block;font-size:20px;font-weight:400;line-height:26px}
 .tabs a.on{color:#1c1c1e;font-weight:700}
 .tabs a.on b{filter:none}
-.tabs a.plus b{width:48px;height:48px;line-height:46px;margin:-14px auto 0;background:#ffd60a;color:#1c1c1e;border-radius:50%;font-size:30px;font-weight:700;box-shadow:0 2px 6px rgba(0,0,0,.18)}
+.tabs a.plus b{width:44px;height:44px;line-height:42px;margin:-12px auto 0;background:#ffd60a;color:#1c1c1e;border-radius:50%;font-size:28px;font-weight:700;box-shadow:0 2px 6px rgba(0,0,0,.18)}
 .tabs a.on:not(.plus)::after{content:"";display:block;width:24px;height:3px;background:#ffd60a;border-radius:2px;margin:2px auto 0}
 .top{display:flex;justify-content:space-between;align-items:center;padding:14px 16px 0;color:#6b6b70;font-size:15px}
 .top a{color:#1c1c1e;font-weight:600}
@@ -102,8 +103,8 @@ details.grp summary .tag{margin-left:auto}
 details.grp .row{padding:8px 0}
 .min{display:flex;justify-content:space-between;padding:10px 16px;font-size:14px;color:#6b6b70}
 .compact{margin:8px 16px 0;border:1px solid #e5e5ea;border-radius:12px;padding:10px 14px;font-size:15px}
-@media(min-width:700px){body{margin:0 auto}.tabs a b svg{display:block;width:26px;height:26px;margin:1px auto}
-.tabs a.plus b{border:3px solid #fff;box-sizing:content-box;width:46px;height:46px;line-height:44px;box-shadow:0 2px 8px rgba(0,0,0,.25)}
+@media(min-width:700px){body{margin:0 auto}
+.tabs a.plus b{border:3px solid #fff;box-sizing:content-box;width:42px;height:42px;line-height:40px;box-shadow:0 2px 8px rgba(0,0,0,.25)}
 .tabs,.savebar{left:50%;transform:translateX(-50%)}}
 
 .scr{display:none}.scr.on{display:block}button.btn{font-family:inherit;cursor:pointer}.row[data-go]{cursor:pointer}a[data-go]{cursor:pointer}
@@ -113,6 +114,8 @@ details.grp .row{padding:8px 0}
 .msw a{padding:2px 16px;font-size:26px;cursor:pointer;color:#1c1c1e}.msw a.off{color:#d1d1d6;pointer-events:none}
 .msum{text-align:center;color:#6b6b70;font-size:14px;padding-bottom:2px}
 .cal{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;padding:8px 8px 4px}.cal .w{text-align:center;font-size:13px;color:#6b6b70;padding:4px 0}.cal .c{min-height:48px;border-radius:10px;text-align:center;padding:4px 0 2px;cursor:pointer;border:2px solid transparent;font-size:16px;line-height:1.2}.cal .c small{display:block;font-size:10px;color:#6b6b70;min-height:12px}.cal .c small i{color:#1b7a3a;font-style:normal}.cal .c.td{border-color:#1c1c1e}.cal .c.sel{background:#ffd60a;font-weight:700}.cal .c.sel small{color:#1c1c1e}.cal .c.nb{visibility:hidden;pointer-events:none}
+.addday{padding:0 16px 8px}.addday button{border:0;background:#ffd60a;color:#1c1c1e;font-weight:700;font-size:15px;border-radius:10px;padding:8px 16px;font-family:inherit;cursor:pointer}
+#s-accounts>:first-child,#s-recent>:first-child,#s-more>:first-child{margin-top:14px}
 .dh{display:flex;justify-content:space-between;padding:14px 20px 6px;font-size:14px;color:#6b6b70;font-weight:600}
 .xf{display:none}.xfer .xf{display:block}.xfer #p-acc,.xfer #p-cat{display:none}
 .ov{position:fixed;left:0;top:0;right:0;bottom:0;background:rgba(0,0,0,.35);z-index:100;display:none}.ov.on{display:block}
@@ -161,7 +164,6 @@ details.grp .row{padding:8px 0}
 </section>
 
 <section class="scr" id="s-accounts">
-<div class="top"><a data-go="home">‹ 首頁</a><span>各帳戶</span></div>
 <div id="acclist"></div>
 <div class="card ag"><div class="row"><span class="ico">📈</span><div class="grow">股票現值<div class="s">之後才有</div></div><span class="amt" style="color:#6b6b70">—</span></div></div>
 <p class="sub" style="margin-top:6px">合計＝存款 − 要繳卡費；點數不算在總資產裡</p>
@@ -207,17 +209,15 @@ details.grp .row{padding:8px 0}
 </section>
 
 <section class="scr" id="s-recent">
-<div class="top"><a data-go="home">‹ 首頁</a><span>記錄</span></div>
 <div class="msw"><a id="mprev">‹</a><span id="mlab">2026 年 2 月</span><a id="mnext">›</a></div>
 <div class="msum" id="msum"></div>
 <div class="cal" id="cal"></div>
 <div class="dh" id="dayh"></div>
+<div class="addday"><button id="addday">＋ 記這天</button></div>
 <div class="card" id="list"></div>
 </section>
 
 <section class="scr" id="s-more">
-<div class="top"><a data-go="home">‹ 首頁</a><span>更多</span></div>
-<h1>更多</h1>
 <div class="card">
 <div class="row" data-go="reconcile" style="cursor:pointer"><span class="ico">🧮</span><div class="grow">信用卡對帳</div><span class="s">›</span></div>
 <div class="row later" style="cursor:pointer"><span class="ico">🔔</span><div class="grow">待確認</div><span class="s">›</span></div>
@@ -361,7 +361,7 @@ function renderList(){
  $('dayh').innerHTML='<span>'+(+dd[1])+'/'+(+dd[2])+'（'+WK.charAt(new Date(+dd[0],dd[1]-1,+dd[2]).getDay())+'）</span><span>'+((o||p)?(o?'支出 <span class="red">'+mo(o)+'</span>':'')+(o&&p?'　':'')+(p?'收入 <span class="green">'+mo(p)+'</span>':''):(n2?'<span class="gray">轉帳</span>':''))+'</span>';
  $('list').style.display=n2?'':'none';
  $('list').innerHTML=rows;
- if(!n2)$('dayh').insertAdjacentHTML('afterend','<div class="empty" id="emp">這天沒有記錄</div>');
+ if(!n2)document.querySelector('.addday').insertAdjacentHTML('afterend','<div class="empty" id="emp">這天沒有記錄</div>');
 }
 function renderTotal(){$('total').textContent=mo(total)}
 function openPk(p){qa('.pk').forEach(function(q){if(q.id=='p-date')q.classList.toggle('open',q===p&&!q.classList.contains('open'))})}
@@ -536,6 +536,7 @@ $('save').onclick=function(){
 };
 qa('[data-go]').forEach(function(e){e.onclick=function(){go(e.getAttribute('data-go'))}});
 qa('.later').forEach(function(e){e.onclick=function(){go('later')}});
+$('addday').onclick=function(){go('record');var d=selD.split('-');dval=selD;setv($('p-date'),(+d[1])+'月'+(+d[2])+'日');qa('#dateopts .chip').forEach(function(c){c.classList.remove('on')});$('dinp').style.display='none';$('dinp').value=selD};
 $('back').onclick=function(){resetForm();go(prevScr&&prevScr!='record'?prevScr:'home')};
 $('glogin').onclick=function(){toast('示範：之後這裡會用 Google 登入')};
 $('reset').onclick=function(){resetAll();toast('已重來');go('home')};
