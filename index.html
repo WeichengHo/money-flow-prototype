@@ -97,7 +97,25 @@ details.grp .row{padding:8px 0}
 @media(min-width:700px){body{margin:0 auto}.tabs,.savebar{left:50%;transform:translateX(-50%)}}
 
 .scr{display:none}.scr.on{display:block}button.btn{font-family:inherit;cursor:pointer}.row[data-go]{cursor:pointer}a[data-go]{cursor:pointer}
-#toast{position:fixed;top:60px;left:50%;transform:translateX(-50%);background:#1c1c1e;color:#fff;padding:10px 20px;border-radius:20px;font-size:15px;z-index:99;opacity:0;pointer-events:none;transition:opacity .2s}#toast.on{opacity:1}
+#toast{position:fixed;bottom:104px;left:50%;transform:translateX(-50%);background:#1c1c1e;color:#fff;padding:10px 20px;border-radius:20px;font-size:15px;z-index:99;opacity:0;pointer-events:none;transition:opacity .2s}#toast.on{opacity:1}
+.mrow .chips{flex-wrap:wrap;flex:1;overflow:visible;padding:4px 0}
+.msw{display:flex;justify-content:center;align-items:center;gap:14px;padding:14px 16px 2px;font-size:19px;font-weight:700}
+.msw a{padding:2px 16px;font-size:26px;cursor:pointer;color:#1c1c1e}.msw a.off{color:#d1d1d6;pointer-events:none}
+.msum{text-align:center;color:#6b6b70;font-size:14px;padding-bottom:2px}
+.dh{display:flex;justify-content:space-between;padding:14px 20px 6px;font-size:14px;color:#6b6b70;font-weight:600}
+.xf{display:none}.xfer .xf{display:block}.xfer #p-acc,.xfer #p-cat{display:none}
+.ov{position:fixed;left:0;top:0;right:0;bottom:0;background:rgba(0,0,0,.35);z-index:100;display:none}.ov.on{display:block}
+.sheet{position:fixed;left:0;bottom:0;width:390px;max-height:74%;background:#fff;border-radius:18px 18px 0 0;z-index:101;transform:translateY(105%);transition:transform .22s;display:flex;flex-direction:column;box-shadow:0 -4px 20px rgba(0,0,0,.15)}
+.sheet.on{transform:none}
+@media(min-width:700px){.sheet{left:calc(50% - 195px)}}
+.sh-hd{display:flex;align-items:center;gap:8px;padding:14px 16px 8px;font-size:17px}.sh-hd b{flex:1}.sh-hd a{padding:4px 8px;font-size:20px;color:#6b6b70;cursor:pointer}
+.sh-s{padding:0 16px 8px;display:none}.sh-s input{width:100%;border:1px solid #e5e5ea;background:#f2f2f7;border-radius:10px;padding:10px 12px;font-size:16px;font-family:inherit;outline:0}
+.sh-b{overflow:auto;padding:0 16px 24px}
+.gh2{font-size:13px;color:#6b6b70;font-weight:600;padding:10px 0 4px}
+.gh{display:flex;align-items:center;gap:8px;padding:12px 0 6px;font-size:14px;color:#6b6b70;font-weight:600;cursor:pointer}.gh small{margin-left:auto;font-weight:400}
+.it{display:flex;justify-content:space-between;align-items:center;min-height:48px;border-bottom:1px solid #f0f0f2;font-size:16px;cursor:pointer}.it.on{font-weight:700;background:#fffbe6}.it span{color:#1b7a3a}
+.empty{padding:24px 0;text-align:center;color:#6b6b70}
+.sh-b .cats{padding:4px 0}.sh-b .cat,.sh-b .chip{cursor:pointer}.sh-b .opts{display:flex;flex-wrap:wrap;gap:8px;padding-top:4px}
 </style></head><body>
 <div id="toast"></div>
 
@@ -108,10 +126,10 @@ details.grp .row{padding:8px 0}
 <div class="big" id="total">NT$ 140,855</div>
 <a class="alert" style="margin:24px 20px 0" data-go="reconcile">永豐　03-03 扣繳　需 12,345　餘額 10,000　差 2,345
 <small>錢可能不夠繳信用卡費，點一下看對帳</small></a>
-<div class="links"><a data-go="accounts">看各帳戶<small>銀行、現金、點數</small></a><a data-go="recent">看最近記錄<small>最近 10 筆</small></a></div>
+<div class="links"><a data-go="accounts">看各帳戶<small>銀行、現金、點數</small></a><a data-go="recent">看記錄<small>依日期看</small></a></div>
 <div class="links" style="margin-top:10px;display:block"><span style="display:block;text-align:center;padding:10px;color:#6b6b70;font-size:14px;border:1px dashed #e5e5ea;border-radius:12px">🔔 待確認 0 筆（之後才有）</span></div>
 </div>
-<details class="req"><summary>這頁對應的需求（檢查用）</summary><ul><li>FR-56／FR-05　總資產：全部換算成台幣加起來（首頁最上面）</li><li>FR-26／FR-27　扣繳日前 3 天，扣款銀行餘額不夠，只在首頁用紅字提醒（不發手機通知）</li><li>銀行、現金、信用卡未繳、點數：點「看各帳戶」（1 下）</li><li>最近 10 筆：點「看最近記錄」（1 下）</li><li>「＋記一筆」：只在最下面那排按鈕的中間</li></ul></details>
+<details class="req"><summary>這頁對應的需求（檢查用）</summary><ul><li>FR-56／FR-05　總資產：全部換算成台幣加起來（首頁最上面）</li><li>FR-26／FR-27　扣繳日前 3 天，扣款銀行餘額不夠，只在首頁用紅字提醒（不發手機通知）</li><li>銀行、現金、信用卡未繳、點數：點「看各帳戶」（1 下）</li><li>記錄：依日期分組、上方可切換月份，點「看記錄」（1 下）</li><li>「＋記一筆」：只在最下面那排按鈕的中間</li></ul></details>
 </section>
 
 <section class="scr" id="s-accounts">
@@ -133,19 +151,18 @@ details.grp .row{padding:8px 0}
 <div class="seg" id="seg"><span data-t="收入">收入</span><span class="on" data-t="支出">支出</span><span data-t="轉帳">轉帳</span></div>
 <input class="amtin" id="amt" inputmode="numeric" placeholder="NT$ 0" autocomplete="off">
 
-<div class="pk open" id="p-cat"><div class="hd"><span class="k">分類</span><span class="v" id="v-cat" style="color:#c62828">請選一個</span><span class="go">›</span></div>
-<div class="bd"><div class="cats" id="cats"></div><div class="subs" id="subs"></div></div></div>
-
-<div class="pk" id="p-acc"><div class="hd"><span class="k">帳戶</span><span class="v" id="v-acc">💳 台新信用卡</span><span class="go">›</span></div>
-<div class="bd"><div class="opts" id="accopts"></div></div></div>
+<div class="pk" id="p-cat"><div class="hd"><span class="k">分類</span><span class="v" id="v-cat" style="color:#c62828">請選一個</span><span class="go">›</span></div></div>
+<div class="pk" id="p-acc"><div class="hd"><span class="k">帳戶</span><span class="v" id="v-acc">💳 台新信用卡</span><span class="go">›</span></div></div>
+<div class="pk xf" id="p-from"><div class="hd"><span class="k">從</span><span class="v" id="v-from">💳 台新信用卡</span><span class="go">›</span></div></div>
+<div class="pk xf" id="p-to"><div class="hd"><span class="k">到</span><span class="v" id="v-to" style="color:#c62828">請選一個</span><span class="go">›</span></div></div>
 
 <div class="pk" id="p-date"><div class="hd"><span class="k">日期</span><span class="v" id="v-date">今天　2月28日</span><span class="go">›</span></div>
-<div class="bd"><div class="opts" id="dateopts"><span class="chip on" data-v="今天　2月28日">今天</span><span class="chip" data-v="昨天　2月27日">昨天</span><span class="chip" data-v="選日期" id="pickd">選日期…</span></div>
+<div class="bd"><div class="opts" id="dateopts"><span class="chip on" data-v="今天　2月28日" data-d="2026-02-28">今天</span><span class="chip" data-v="昨天　2月27日" data-d="2026-02-27">昨天</span><span class="chip" data-v="選日期" id="pickd">選日期…</span></div>
 <input type="date" id="dinp" value="2026-02-28" style="display:none;margin-top:8px;font-size:16px;padding:8px;border:1px solid #e5e5ea;border-radius:10px"></div></div>
 
 <div class="pk" id="p-more"><div class="hd"><span class="k" style="width:auto;color:#1c1c1e;font-weight:600">更多</span><span class="v s" style="font-weight:400;font-size:13px;color:#6b6b70">照片、分期、備註、常用範本</span><span class="go">›</span></div></div>
 <div class="moreb" id="moreb">
-<div class="mrow"><span class="k">範本</span><div class="chips" style="padding:0" id="tpls"></div></div>
+<div class="mrow"><span class="k">範本</span><div class="chips" id="tpls"></div></div>
 <div class="mrow"><span class="k">備註</span><input id="memo" placeholder="想記什麼都可以" style="flex:1;border:0;outline:0;font-size:15px;font-family:inherit;padding:8px 0"></div>
 <div class="mrow"><span class="k">照片</span><div class="photos" style="padding:0;gap:6px"><span class="ph" id="ph1" style="width:34px;height:34px;font-size:15px">📷</span><span class="ph" id="ph2" style="width:34px;height:34px;font-size:15px">🖼️</span></div><span class="s">最多 5 張，只存不辨識（示範按鈕）</span></div>
 <div class="mrow"><span class="k">分期</span><div style="flex:1" class="s">這筆要分幾期繳</div><span class="sw" id="sw" style="background:#d1d1d6"><span id="knob" style="position:absolute;left:3px;top:3px;width:22px;height:22px;border-radius:50%;background:#fff;display:block"></span></span></div>
@@ -156,15 +173,16 @@ details.grp .row{padding:8px 0}
 </div>
 </div>
 
-<details class="req"><summary>這頁對應的需求（檢查用）</summary><ul><li>FR-09　分類有小圖示：先選大類再選細項，選完收起來（2 下）</li><li>FR-43／FR-44　照片最多 5 張：「更多」→照片</li><li>FR-46　常用範本：「更多」→範本，點一下自動填好</li><li>分期：「更多」→分期開關；每期記一筆、可填手續費</li></ul></details>
+<details class="req"><summary>這頁對應的需求（檢查用）</summary><ul><li>FR-09　分類有小圖示：點一行→底部選單，先選大類再選細項，選完收起來（3 下）</li><li>帳戶：一行顯示最近用的；點開底部選單，「最近用過」在最上面，下面分信用卡／銀行／現金／點數；超過 10 個帳戶會出現搜尋框；轉帳顯示「從」「到」兩行</li><li>FR-43／FR-44　照片最多 5 張：「更多」→照片</li><li>FR-46　常用範本：「更多」→範本，點一下自動填好</li><li>分期：「更多」→分期開關；每期記一筆、可填手續費</li></ul></details>
 <div style="height:90px"></div>
 <div class="savebar"><button class="btn ghost" id="tplsave">存成範本</button><button class="btn" id="save">存檔</button></div>
 </section>
 
 <section class="scr" id="s-recent">
-<div class="top"><a data-go="home">‹ 首頁</a><span>最近記錄</span></div>
-<h2>最近 10 筆</h2>
-<div class="card" id="list"></div>
+<div class="top"><a data-go="home">‹ 首頁</a><span>記錄</span></div>
+<div class="msw"><a id="mprev">‹</a><span id="mlab">2026 年 2 月</span><a id="mnext">›</a></div>
+<div class="msum" id="msum"></div>
+<div id="list"></div>
 </section>
 
 <section class="scr" id="s-more">
@@ -209,6 +227,8 @@ details.grp .row{padding:8px 0}
 <div style="height:90px"></div>
 </section>
 
+<div class="ov" id="ov"></div>
+<div class="sheet" id="sheet"><div class="sh-hd"><a id="shback" style="display:none">‹</a><b id="shtitle"></b><a id="shx">✕</a></div><div class="sh-s" id="shs"><input id="shq" placeholder="搜尋帳戶，例如：台新" autocomplete="off"></div><div class="sh-b" id="shbody"></div></div>
 <nav class="tabs" id="tabs"><a data-go="home" class="on"><b>🏠</b>首頁</a><a data-go="accounts"><b>👛</b>帳戶</a><a data-go="record" class="plus"><b>＋</b>記一筆</a><a data-go="recent"><b>🧾</b>記錄</a><a data-go="more"><b>⋯</b>更多</a></nav>
 <script>
 (function(){
@@ -217,10 +237,39 @@ function qa(s,r){return Array.prototype.slice.call((r||document).querySelectorAl
 var CATS=[['🍱','飲食',['早餐','午餐','晚餐','飲料點心']],['🚇','交通',['etag','大眾運輸','油資']],['🏠','居住',['房租','水電','網路']],['🛍️','購物',['服飾','日用品','3C 數位']],
 ['🎬','娛樂',['影音訂閱','電影','遊戲']],['💊','醫療',['看診','藥品']],['📚','教育',['課程','書籍']],['🎁','人情',['送禮','紅包']],
 ['🧾','金融費用',['海外手續費','手續費','年費','利息']],['🏛️','稅費',['稅金','規費']],['📦','其他',['其他']]];
-var ACCS=['💳 台新信用卡','💳 永豐卡','💳 富邦卡','💵 現金','🏦 永豐銀行'];
+var GROUPS=[['信用卡','💳',['台新信用卡','永豐卡','富邦卡','國泰卡','玉山卡']],['銀行','🏦',['永豐銀行','台新銀行','中信銀行']],['現金','💵',['現金','零錢罐']],['點數','⭐',['TP 點數','LP 點數']]];
+var ACCS=[];GROUPS.forEach(function(g){g[2].forEach(function(n){ACCS.push({g:g[0],n:n,v:g[1]+' '+n})})});
 var TPLS=[{n:'🍳 早餐 60',a:60,c:0,s:'早餐',acc:'💵 現金'},{n:'🚇 捷運 30',a:30,c:1,s:'大眾運輸',acc:'💳 永豐卡'},{n:'🍽️ 聚餐 1,280',a:1280,c:0,s:'晚餐',acc:'💳 台新信用卡'}];
-var INIT=[['🍱','午餐','02-28　現金','−120'],['🚇','大眾運輸','02-28　永豐卡','−30'],['💡','手機分期 第 3 期 <span class="tag">分期</span>','02-27　台新卡','−3,000'],['🎬','影音訂閱（美金 12.99）','02-26　富邦卡','−418'],['🧾','海外手續費 <span class="tag gray">自動</span>','02-26　富邦卡','−6'],['🥤','飲料點心','02-25　現金','−65'],['⛽','油資','02-24　永豐卡','−900'],['💰','薪資','02-22　永豐銀行','+52,000'],['🍽️','聚餐','02-21　台新卡','−1,280'],['🚗','etag','02-20　富邦卡','−200']];
-var TOTAL0=140855,total,entries,type,cat,sub,n;
+function E(d,ico,t,acc,v){return {d:'2026-'+d,ico:ico,t:t,acc:acc,v:v}}
+var INIT=[
+E('02-28','🍱','午餐','現金',-120),E('02-28','🚇','大眾運輸','永豐卡',-30),E('02-28','🍽️','晚餐','台新信用卡',-888),
+E('02-27','💡','手機分期 第 3 期 <span class="tag">分期</span>','台新信用卡',-3000),E('02-27','🥤','飲料點心','現金',-75),
+E('02-26','🎬','影音訂閱（美金 12.99）','富邦卡',-418),E('02-26','🧾','海外手續費 <span class="tag gray">自動</span>','富邦卡',-6),
+E('02-25','🥤','飲料點心','現金',-65),E('02-25','🍱','午餐','玉山卡',-150),
+E('02-24','⛽','油資','永豐卡',-900),
+E('02-23','🛍️','日用品','國泰卡',-540),E('02-23','🚇','大眾運輸','永豐卡',-30),
+E('02-22','💰','薪資','永豐銀行',52000),E('02-22','🍱','午餐','現金',-110),
+E('02-21','🍽️','聚餐','台新信用卡',-1280),
+E('02-20','🚗','etag','富邦卡',-200),E('02-20','🍳','早餐','現金',-60),
+E('02-18','🌐','網路','中信銀行',-999),
+E('02-15','📚','書籍','玉山卡',-420),E('02-15','🍱','午餐','現金',-130),
+E('02-12','💊','藥品','現金',-180),
+E('02-10','💡','水電','台新銀行',-1350),
+E('02-05','🏠','房租','永豐銀行',-12000),
+E('01-31','💰','薪資','永豐銀行',52000),E('01-31','🍱','午餐','現金',-120),
+E('01-30','🚇','大眾運輸','永豐卡',-30),E('01-30','🥤','飲料點心','現金',-55),
+E('01-28','🍽️','聚餐','富邦卡',-1560),
+E('01-26','⛽','油資','永豐卡',-850),
+E('01-24','🎬','電影','國泰卡',-340),E('01-24','🍱','午餐','現金',-115),
+E('01-20','🛍️','服飾','玉山卡',-1980),
+E('01-18','🌐','網路','中信銀行',-999),
+E('01-15','🍱','晚餐','台新信用卡',-420),E('01-15','🚇','大眾運輸','永豐卡',-30),
+E('01-10','💡','水電','台新銀行',-1280),
+E('01-08','🎁','送禮','現金',-600),
+E('01-05','🏠','房租','永豐銀行',-12000),
+E('01-03','🍳','早餐','現金',-60),E('01-02','🍱','午餐','現金',-125)];
+var TOTAL0=140855,TODAY='2026-02-28',total,entries,type,cat,sub,n,recent,dval,curM,fromV,toV,sh,gcol;
+var WK='日一二三四五六';
 function fmt(x){return Number(x).toLocaleString('en-US')}
 function go(name){
  qa('.scr').forEach(function(s){s.classList.toggle('on',s.id=='s-'+name)});
@@ -230,21 +279,77 @@ function go(name){
  $('tabs').style.display=name=='record'?'none':'flex';
 }
 function toast(m){var t=$('toast');t.textContent=m;t.classList.add('on');clearTimeout(toast.h);toast.h=setTimeout(function(){t.classList.remove('on')},2000)}
+function months(){var ms=[];entries.forEach(function(e){var m=e.d.slice(0,7);if(ms.indexOf(m)<0)ms.push(m)});return ms.sort()}
 function renderList(){
- var h='';entries.slice(0,10).forEach(function(e){h+='<div class="row"><span class="ico">'+e[0]+'</span><div class="grow"><div class="t">'+e[1]+'</div><div class="s">'+e[2]+'</div></div><span class="amt'+(e[3].charAt(0)=='+'?' green':'')+'">'+e[3]+'</span></div>'});
- $('list').innerHTML=h}
+ var ms=months();if(!curM||ms.indexOf(curM)<0)curM=ms[ms.length-1];
+ var i=ms.indexOf(curM);
+ $('mlab').textContent=curM.slice(0,4)+' 年 '+(+curM.slice(5))+' 月';
+ $('mprev').classList.toggle('off',i<=0);$('mnext').classList.toggle('off',i>=ms.length-1);
+ var days=[],map={},ex=0,inc=0,h='';
+ entries.forEach(function(e){if(e.d.slice(0,7)!=curM)return;if(!map[e.d]){map[e.d]=[];days.push(e.d)}map[e.d].push(e)});
+ days.sort().reverse();
+ days.forEach(function(d){
+  var l=map[d],o=0,p=0,rows='',dd=d.split('-');
+  l.forEach(function(e){
+   if(!e.x){if(e.v<0)o-=e.v;else p+=e.v}
+   rows+='<div class="row"><span class="ico">'+e.ico+'</span><div class="grow"><div class="t">'+e.t+'</div><div class="s">'+e.acc+'</div></div><span class="amt'+(e.v>0&&!e.x?' green':'')+'">'+(e.x?fmt(e.v):(e.v<0?'−':'+')+fmt(Math.abs(e.v)))+'</span></div>'});
+  ex+=o;inc+=p;
+  h+='<div class="dh" data-d="'+d+'"><span>'+(+dd[1])+'/'+(+dd[2])+'（'+WK.charAt(new Date(+dd[0],dd[1]-1,+dd[2]).getDay())+'）</span><span>'+((o||p)?(o?'支出 '+fmt(o):'')+(o&&p?'　':'')+(p?'收入 '+fmt(p):''):'轉帳')+'</span></div><div class="card">'+rows+'</div>'});
+ $('msum').textContent=days.length?'本月　支出 '+fmt(ex)+'　收入 '+fmt(inc):'';
+ $('list').innerHTML=h||'<div class="empty">這個月還沒有記錄</div>'}
 function renderTotal(){$('total').textContent='NT$ '+fmt(total);$('total2').textContent=fmt(total)}
-function openPk(p){qa('.pk').forEach(function(q){if(q.id!='p-more')q.classList.toggle('open',q===p&&!q.classList.contains('open'))})}
+function openPk(p){qa('.pk').forEach(function(q){if(q.id=='p-date')q.classList.toggle('open',q===p&&!q.classList.contains('open'))})}
 function setv(p,v){var e=p.querySelector('.v');e.textContent=v;e.style.color='';p.classList.remove('open')}
-function pickMain(i){
- cat=i;sub=null;
- qa('#cats .cat').forEach(function(x,j){x.classList.toggle('on',j==i)});
- var h='';CATS[i][2].forEach(function(s){h+='<span class="chip" data-s="'+s+'">'+s+'</span>'});
- $('subs').innerHTML=h;$('subs').classList.add('on');
- qa('#subs .chip').forEach(function(c){c.onclick=function(){pickSub(c.getAttribute('data-s'))}});
- $('v-cat').textContent='分類：'+CATS[i][1]+' › 請選細項';$('v-cat').style.color='#c62828';
+function accBy(v){return ACCS.filter(function(a){return a.v==v})[0]}
+function curAcc(t){return t=='acc'?$('v-acc').textContent:t=='from'?fromV:toV}
+function setCat(i,s){cat=i;sub=s;setv($('p-cat'),CATS[i][0]+' '+CATS[i][1]+' › '+s)}
+function setType(t){type=t;qa('#seg span').forEach(function(x){x.classList.toggle('on',x.getAttribute('data-t')==t)});$('s-record').classList.toggle('xfer',t=='轉帳')}
+/* bottom sheet */
+function itHtml(a,cur){return '<div class="it'+(a.v==cur?' on':'')+'" data-v="'+a.v+'"><span style="color:#1c1c1e">'+a.v+'</span>'+(a.v==cur?'<span>✓</span>':'')+'</div>'}
+function openSheet(kind,target){
+ sh={kind:kind,target:target,step:0,mc:null};
+ $('shq').value='';$('shs').style.display=(kind=='acc'&&ACCS.length>10)?'block':'none';
+ renderSheet();$('ov').classList.add('on');$('sheet').classList.add('on');
 }
-function pickSub(s){sub=s;setv($('p-cat'),'分類：'+CATS[cat][1]+' › '+s)}
+function closeSheet(){$('ov').classList.remove('on');$('sheet').classList.remove('on')}
+function renderSheet(){
+ var h='',b=$('shbody');
+ if(sh.kind=='acc'){
+  $('shtitle').textContent={acc:'選帳戶',from:'從哪個帳戶轉出',to:'轉到哪個帳戶'}[sh.target];$('shback').style.display='none';
+  var q=$('shq').value.replace(/^\s+|\s+$/g,''),cur=curAcc(sh.target);
+  if(q){var l=ACCS.filter(function(a){return a.n.indexOf(q)>=0});
+   l.forEach(function(a){h+=itHtml(a,cur)});if(!l.length)h='<div class="empty">找不到「'+q+'」</div>'}
+  else{
+   h+='<div class="gh2">最近用過</div>';recent.forEach(function(v){h+=itHtml(accBy(v),cur)});
+   GROUPS.forEach(function(g,gi){
+    var l=ACCS.filter(function(a){return a.g==g[0]});
+    h+='<div class="gh" data-g="'+gi+'"><span>'+(gcol[gi]?'▸':'▾')+'</span>'+g[0]+'<small>'+l.length+' 個</small></div>';
+    if(!gcol[gi])l.forEach(function(a){h+=itHtml(a,cur)})});
+  }
+  b.innerHTML=h;
+  qa('#shbody .it').forEach(function(e){e.onclick=function(){pickAcc(e.getAttribute('data-v'))}});
+  qa('#shbody .gh').forEach(function(e){e.onclick=function(){var g=+e.getAttribute('data-g');gcol[g]=!gcol[g];renderSheet()}});
+ }else{
+  if(sh.step==0){
+   $('shtitle').textContent='選分類';$('shback').style.display='none';
+   CATS.forEach(function(c,i){h+='<div class="cat'+(cat===i?' on':'')+'" data-i="'+i+'"><i>'+c[0]+'</i>'+c[1]+'</div>'});
+   b.innerHTML='<div class="cats">'+h+'</div>';
+   qa('#shbody .cat').forEach(function(e){e.onclick=function(){sh.mc=+e.getAttribute('data-i');sh.step=1;renderSheet()}});
+  }else{
+   $('shtitle').textContent=CATS[sh.mc][0]+' '+CATS[sh.mc][1]+'　選細項';$('shback').style.display='';
+   CATS[sh.mc][2].forEach(function(s){h+='<span class="chip'+(cat===sh.mc&&sub==s?' on':'')+'" data-s="'+s+'">'+s+'</span>'});
+   b.innerHTML='<div class="opts">'+h+'</div>';
+   qa('#shbody .chip').forEach(function(e){e.onclick=function(){setCat(sh.mc,e.getAttribute('data-s'));closeSheet()}});
+  }
+ }
+}
+function pickAcc(v){
+ if(sh.target=='acc')setv($('p-acc'),v);
+ else if(sh.target=='from'){fromV=v;setv($('p-from'),v)}
+ else{toV=v;setv($('p-to'),v)}
+ closeSheet();
+}
+function touchRecent(v){var i=recent.indexOf(v);if(i>=0)recent.splice(i,1);recent.unshift(v);recent=recent.slice(0,3)}
 function inst(on){$('instb').classList.toggle('on',on);$('sw').style.background=on?'#ffd60a':'#d1d1d6';$('knob').style.left=on?'21px':'3px';calc()}
 function amtVal(){return parseInt(($('amt').value||'').replace(/[^0-9]/g,''),10)||0}
 function calc(){
@@ -253,38 +358,42 @@ function calc(){
  var per=Math.round(a/n)+f;$('per').textContent=fmt(per);$('pers').textContent='共 '+n+' 期，每期記一筆'+(f?'（含手續費 '+f+'）':'');
 }
 function resetForm(){
- cat=null;sub=null;type='支出';
- $('amt').value='';$('memo').value='';$('fee').value='0';
- qa('#seg span').forEach(function(s){s.classList.toggle('on',s.getAttribute('data-t')=='支出')});
- qa('#cats .cat').forEach(function(x){x.classList.remove('on')});$('subs').classList.remove('on');$('subs').innerHTML='';
+ cat=null;sub=null;dval=TODAY;
+ $('amt').value='';$('memo').value='';$('fee').value='0';setType('支出');
  $('v-cat').textContent='請選一個';$('v-cat').style.color='#c62828';
- $('v-acc').textContent=ACCS[0];qa('#accopts .chip').forEach(function(c,i){c.classList.toggle('on',i==0)});
+ $('v-acc').textContent=recent[0];fromV=recent[0];$('v-from').textContent=fromV;toV=null;$('v-to').textContent='請選一個';$('v-to').style.color='#c62828';
  $('v-date').textContent='今天　2月28日';qa('#dateopts .chip').forEach(function(c,i){c.classList.toggle('on',i==0)});$('dinp').style.display='none';
- qa('.pk').forEach(function(p){p.classList.remove('open')});$('p-cat').classList.add('open');
+ qa('.pk').forEach(function(p){p.classList.remove('open')});
  $('moreb').classList.remove('open');$('p-more').classList.remove('open');inst(false);
  qa('#nopts .chip').forEach(function(c){c.classList.toggle('on',c.getAttribute('data-n')=='12')});calc();
 }
 function resetAll(){
- total=TOTAL0;entries=INIT.slice();renderList();renderTotal();resetForm();
+ total=TOTAL0;entries=INIT.slice();recent=['💳 台新信用卡','💵 現金','💳 永豐卡'];gcol=[false,false,false,false];curM='2026-02';
+ renderList();renderTotal();resetForm();
  $('diffs').textContent='帳單 1,500　你記 1,050　差 450';$('diffbtn').style.display='';$('g1t').textContent='1 筆';$('g1t').className='tag red';
  $('fixed').style.display='none';$('g4t').textContent='5 筆';$('rsum').textContent='相符 5 筆　有差異 3 筆';
  qa('details.grp').forEach(function(d){d.open=false});
 }
 // build
-var h='';CATS.forEach(function(c,i){h+='<div class="cat" data-i="'+i+'"><i>'+c[0]+'</i>'+c[1]+'</div>'});$('cats').innerHTML=h;
-qa('#cats .cat').forEach(function(c){c.onclick=function(){pickMain(+c.getAttribute('data-i'))}});
-h='';ACCS.forEach(function(a,i){h+='<span class="chip'+(i?'':' on')+'" data-v="'+a+'">'+a+'</span>'});$('accopts').innerHTML=h;
-qa('#accopts .chip').forEach(function(c){c.onclick=function(){qa('#accopts .chip').forEach(function(x){x.classList.remove('on')});c.classList.add('on');setv($('p-acc'),c.getAttribute('data-v'))}});
-h='';TPLS.forEach(function(t,i){h+='<span class="chip" data-i="'+i+'">'+t.n+'</span>'});$('tpls').innerHTML=h;
-qa('#tpls .chip').forEach(function(c){c.onclick=function(){var t=TPLS[+c.getAttribute('data-i')];$('amt').value='NT$ '+fmt(t.a);pickMain(t.c);pickSub(t.s);
- $('v-acc').textContent=t.acc;qa('#accopts .chip').forEach(function(x){x.classList.toggle('on',x.getAttribute('data-v')==t.acc)});calc();toast('已填入範本')}});
-qa('#p-cat .hd,#p-acc .hd,#p-date .hd').forEach(function(hd){hd.onclick=function(){openPk(hd.parentNode)}});
+var h='';TPLS.forEach(function(t,i){h+='<span class="chip" data-i="'+i+'">'+t.n+'</span>'});$('tpls').innerHTML=h;
+qa('#tpls .chip').forEach(function(c){c.onclick=function(){var t=TPLS[+c.getAttribute('data-i')];setType('支出');$('amt').value='NT$ '+fmt(t.a);setCat(t.c,t.s);
+ $('v-acc').textContent=t.acc;calc();toast('已填入範本')}});
+$('p-cat').querySelector('.hd').onclick=function(){openSheet('cat')};
+$('p-acc').querySelector('.hd').onclick=function(){openSheet('acc','acc')};
+$('p-from').querySelector('.hd').onclick=function(){openSheet('acc','from')};
+$('p-to').querySelector('.hd').onclick=function(){openSheet('acc','to')};
+$('p-date').querySelector('.hd').onclick=function(){openPk($('p-date'))};
+$('ov').onclick=$('shx').onclick=closeSheet;
+$('shback').onclick=function(){sh.step=0;renderSheet()};
+$('shq').oninput=renderSheet;
+$('mprev').onclick=function(){var ms=months(),i=ms.indexOf(curM);if(i>0){curM=ms[i-1];renderList();window.scrollTo(0,0)}};
+$('mnext').onclick=function(){var ms=months(),i=ms.indexOf(curM);if(i<ms.length-1){curM=ms[i+1];renderList();window.scrollTo(0,0)}};
 $('p-more').querySelector('.hd').onclick=function(){$('moreb').classList.toggle('open');$('p-more').classList.toggle('open')};
 qa('#dateopts .chip').forEach(function(c){c.onclick=function(){
  qa('#dateopts .chip').forEach(function(x){x.classList.remove('on')});c.classList.add('on');
- if(c.id=='pickd'){$('dinp').style.display='block'}else{$('dinp').style.display='none';setv($('p-date'),c.getAttribute('data-v'))}}});
-$('dinp').onchange=function(){var d=this.value.split('-');setv($('p-date'),(+d[1])+'月'+(+d[2])+'日')};
-qa('#seg span').forEach(function(s){s.onclick=function(){type=s.getAttribute('data-t');qa('#seg span').forEach(function(x){x.classList.toggle('on',x===s)})}});
+ if(c.id=='pickd'){$('dinp').style.display='block'}else{$('dinp').style.display='none';dval=c.getAttribute('data-d');setv($('p-date'),c.getAttribute('data-v'))}}});
+$('dinp').onchange=function(){var d=this.value.split('-');if(d.length<3)return;dval=this.value;setv($('p-date'),(+d[1])+'月'+(+d[2])+'日')};
+qa('#seg span').forEach(function(s){s.onclick=function(){setType(s.getAttribute('data-t'))}});
 $('amt').oninput=function(){var v=amtVal();this.value=v?'NT$ '+fmt(v):'';calc()};
 $('fee').oninput=calc;
 qa('#nopts .chip').forEach(function(c){c.onclick=function(){qa('#nopts .chip').forEach(function(x){x.classList.remove('on')});c.classList.add('on');calc()}});
@@ -292,15 +401,24 @@ $('sw').onclick=function(){inst(!$('instb').classList.contains('on'))};
 $('ph1').onclick=$('ph2').onclick=function(){this.classList.add('has');this.textContent='🧾';toast('示範：已加一張照片')};
 $('tplsave').onclick=function(){toast('示範：已存成範本')};
 $('save').onclick=function(){
- var a=amtVal();
+ var a=amtVal(),ent;
  if(!a){toast('請先輸入金額');return}
- if(cat===null||!sub){toast('請先選分類');$('p-cat').classList.add('open');return}
- var acc=$('v-acc').textContent,d=$('v-date').textContent.indexOf('昨')==0?'02-27':'02-28',sg=type=='收入'?'+':'−',isI=$('instb').classList.contains('on');
- var title=sub+(isI?' 第 1 期 <span class="tag">分期</span>':'');
- var money=isI?(Math.round(a/n)+(parseInt($('fee').value,10)||0)):a;
- if(type=='轉帳')title='轉帳　'+title;
- entries.unshift([CATS[cat][0],title,d+'　'+acc.replace(/^\S+\s/,''),sg+fmt(money)]);
- if(type=='收入')total+=money;else if(type=='支出')total-=money;
+ if(type=='轉帳'){
+  if(!toV){toast('請選「到」哪個帳戶');return}
+  if(toV==fromV){toast('「從」和「到」不能同一個');return}
+  ent={d:dval,ico:'🔁',t:'轉帳',acc:fromV.replace(/^\S+\s/,'')+' → '+toV.replace(/^\S+\s/,''),v:a,x:true};
+  touchRecent(toV);touchRecent(fromV);
+ }else{
+  if(cat===null||!sub){toast('請先選分類');openSheet('cat');return}
+  var acc=$('v-acc').textContent,isI=$('instb').classList.contains('on');
+  var title=sub+(isI?' 第 1 期 <span class="tag">分期</span>':'');
+  var money=isI?(Math.round(a/n)+(parseInt($('fee').value,10)||0)):a;
+  ent={d:dval,ico:CATS[cat][0],t:title,acc:acc.replace(/^\S+\s/,''),v:type=='收入'?money:-money};
+  if(type=='收入')total+=money;else total-=money;
+  touchRecent(acc);
+ }
+ entries.unshift(ent);entries.sort(function(x,y){return x.d<y.d?1:x.d>y.d?-1:0});
+ curM=dval.slice(0,7);
  renderList();renderTotal();resetForm();go('recent');toast('已記一筆');
 };
 qa('[data-go]').forEach(function(e){e.onclick=function(){go(e.getAttribute('data-go'))}});
