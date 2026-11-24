@@ -145,6 +145,36 @@ details.grp .row{padding:8px 0}
 .it .nm{display:flex;align-items:center;gap:10px;color:#1c1c1e}
 .brand{position:sticky;top:0;z-index:8;height:62px;display:flex;align-items:center;padding:0 16px;background:#fff;border-bottom:1px solid #e5e5ea;box-shadow:0 1px 4px rgba(0,0,0,.05)}.brand .wm{display:block;margin-left:2px}.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}.brand img{display:block;border-radius:6px}.brand i{font-style:normal;background:#ffd60a;border-radius:6px;padding:0 6px;font-size:13px;line-height:20px}
 .ei{display:inline-block;width:22px;height:22px;vertical-align:-5px;flex:none}.ico .ei{width:24px;height:24px;vertical-align:0}.cat i .ei{width:30px;height:30px;vertical-align:0}.ph .ei{width:20px;height:20px}.alert .ei{width:20px;height:20px;vertical-align:-4px;margin-right:4px}.sh-hd a .ei{width:22px;height:22px;vertical-align:-5px}.it span .ei{width:20px;height:20px;vertical-align:-4px}.pk .hd .v .ei,.it .nm .ei{width:22px;height:22px}.chip .ei{width:18px;height:18px;vertical-align:-4px}.ico{background:#fff8dc}
+.fr{display:flex;align-items:center;gap:10px;min-height:50px;padding:6px 14px;border-bottom:1px solid #f0f0f2}
+.fr:last-child{border-bottom:0}
+.fr .k{color:#6b6b70;font-size:15px;width:92px;flex:none}
+.fr input,.fr select{flex:1;min-width:0;border:0;outline:0;font-size:16px;font-family:inherit;text-align:right;background:transparent;color:#1c1c1e}
+.fr input[type=date]{text-align:right}
+.fr .v{flex:1;text-align:right;font-weight:600}
+.fr.col{flex-direction:column;align-items:stretch;gap:6px;padding:10px 14px}
+.fr.col .k{width:auto}
+.fr .opts{display:flex;flex-wrap:wrap;gap:8px}
+.fr .hint{font-size:12px;color:#6b6b70;line-height:1.5}
+.fr .chip{cursor:pointer}
+.rr{padding:12px 14px;border-bottom:1px solid #f0f0f2}
+.rr:last-child{border-bottom:0}
+.rr .rt{display:flex;gap:8px;align-items:center;font-weight:600}
+.rr .rs{font-size:13px;color:#6b6b70;margin-top:3px;line-height:1.5}
+.rr .ra{display:flex;gap:8px;margin-top:8px}
+.rr .ra button{border:1px solid #d1d1d6;background:#fff;border-radius:10px;padding:6px 14px;font-size:14px;font-family:inherit;cursor:pointer}
+.rr.arch{opacity:.6}
+.gsub{padding:0 16px 6px;font-size:13px;color:#6b6b70}
+.dng{color:#c62828}
+#cov{z-index:200}
+#cbox{position:fixed;left:50%;top:40%;transform:translate(-50%,-50%);width:320px;background:#fff;border-radius:16px;padding:20px;z-index:201;display:none;box-shadow:0 8px 30px rgba(0,0,0,.25)}
+#cbox.on{display:block}
+#cbox p{font-size:16px;line-height:1.5;margin-bottom:16px}
+#cbox .cb{display:flex;gap:10px}
+#cbox .cb button{flex:1;border-radius:12px;padding:12px;font-size:16px;font-weight:700;font-family:inherit;border:2px solid #ffd60a;background:#fff;cursor:pointer}
+#cbox .cb button#cyes{background:#ffd60a}
+.ptbig{text-align:center;font-size:40px;font-weight:700;padding:6px 16px 0}
+.nextl{font-size:14px;line-height:1.7;padding:10px 14px}
+
 </style></head><body>
 <div id="toast"></div>
 
@@ -169,6 +199,7 @@ details.grp .row{padding:8px 0}
 <div id="acclist"></div>
 <div class="card ag"><div class="row"><span class="ico"><svg class="ei" viewBox="0 0 48 48" aria-hidden="true"><g stroke="#2a2522" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"><rect x="7" y="27" width="9" height="14" rx="2" fill="#4cc9f0"/><rect x="19" y="19" width="9" height="22" rx="2" fill="#ffd166"/><rect x="31" y="11" width="10" height="30" rx="2" fill="#7bc67e"/><path d="M12 32L21 22L28 28L40 13" fill="none" stroke="#c8322a" stroke-width="3.2"/><path d="M33 13H40V20" fill="none" stroke="#c8322a" stroke-width="3.2"/></g></svg></span><div class="grow">股票現值<div class="s">之後才有</div></div><span class="amt" style="color:#6b6b70">—</span></div></div>
 <p class="sub" style="margin-top:6px">合計＝存款 − 要繳卡費；點數不算在總資產裡</p>
+<div class="card ag" id="acctools" style="margin-top:14px"></div>
 <p class="sub" style="margin-top:14px">（示範：這裡的數字是固定的，不會跟著新記的帳變動）</p>
 </section>
 
@@ -267,6 +298,34 @@ details.grp .row{padding:8px 0}
 <div style="height:90px"></div>
 </section>
 
+<section class="scr" id="s-accform"><div id="af"></div>
+<details class="req"><summary>這頁對應的需求（檢查用）</summary><ul><li>FR-01　帳戶類型：銀行存款、現金、信用卡（點數在「點數帳戶」新增）；信用卡掛在銀行底下</li><li>FR-02　銀行清單：預先備好 12 家，只是起始名單，可以再加</li><li>FR-03　新增、改名；名稱不能重複（封存的也算）</li><li>FR-04　有記帳紀錄只能封存、不能刪；沒記過的可以直接刪；封存後記帳選不到，舊紀錄與總資產照舊</li></ul></details>
+<div style="height:90px"></div><div class="savebar"><button class="btn ghost back mfback">返回</button><button class="btn" id="af-save">存檔</button></div></section>
+
+<section class="scr" id="s-pts"><div id="pt"></div>
+<details class="req"><summary>這頁對應的需求（檢查用）</summary><ul><li>FR-07　點數帳戶：TP、LP 記點數餘額，不換算台幣、不算進總資產；不能拿來轉帳或繳卡費；期初不能是負數</li><li>FR-08　刷卡回饋是點數時自動加點；用點數折抵消費時扣點；明細看得到每次增減</li></ul></details>
+<div style="height:90px"></div><div class="savebar"><button class="btn ghost back" id="pt-back">返回</button><button class="btn" id="pt-main">＋ 新增點數帳戶</button></div></section>
+
+<section class="scr" id="s-banks"><div id="bk"></div>
+<details class="req"><summary>這頁對應的需求（檢查用）</summary><ul><li>FR-12　每家銀行可設每月免費跨行轉帳次數</li><li>FR-13　超過免費次數後每筆手續費</li><li>FR-24　電子帳單密碼每家銀行設一次，同銀行的卡共用；畫面只顯示「已設定」與日期，看不到密碼</li></ul></details>
+<div style="height:90px"></div><div class="savebar"><button class="btn ghost back mfback" style="flex:1">返回</button></div></section>
+
+<section class="scr" id="s-bankset"><div id="bs"></div>
+<div style="height:90px"></div><div class="savebar"><button class="btn ghost back mfback">返回</button><button class="btn" id="bs-save">存檔</button></div></section>
+
+<section class="scr" id="s-cardset"><div id="cs"></div>
+<details class="req"><summary>這頁對應的需求（檢查用）</summary><ul><li>FR-18　海外手續費率：每張卡自己設，預設 1.5%，可填 0 到 100，可有小數</li><li>FR-20　結帳日、扣繳日（1 到 31）、扣款銀行；改了只影響還沒結帳的帳期；扣款銀行被封存時顯示紅字</li><li>FR-21　扣繳日遇假日自動往後延到下一個上班日；這裡先看下次實際扣繳日</li></ul></details>
+<div style="height:90px"></div><div class="savebar"><button class="btn ghost back mfback">返回</button><button class="btn" id="cs-save">存檔</button></div></section>
+
+<section class="scr" id="s-rw"><div id="rw"></div>
+<details class="req"><summary>這頁對應的需求（檢查用）</summary><ul><li>FR-15　一張卡可設多筆回饋；基本、加碼分開兩組；規則可複製；失效的可封存（封存的預設藏起來，可切換顯示）</li><li>FR-17　每筆規則各自設計算期（日曆月／帳單週期）與有無上限；上限不跟別的規則共用</li></ul></details>
+<div style="height:90px"></div><div class="savebar"><button class="btn ghost back mfback" style="flex:1">返回</button></div></section>
+
+<section class="scr" id="s-rwe"><div id="re"></div>
+<details class="req"><summary>這頁對應的需求（檢查用）</summary><ul><li>FR-15　類型（基本／加碼）、名稱、通路（加碼必填）、適用範圍、生效起迄、取整、幣種；複製時帶入原值、名稱加「（複製）」，存檔才建立；基本規則期間重疊要拒絕</li><li>FR-16　回饋日期（算好的回饋哪天入帳）、百分比（0 到 100）</li><li>FR-17　計算期（日曆月／帳單週期）、上限（有／無）</li></ul></details>
+<div style="height:90px"></div><div class="savebar"><button class="btn ghost back mfback">返回</button><button class="btn" id="re-save">存檔</button></div></section>
+
+<div class="ov" id="cov"></div><div id="cbox"><p id="cmsg"></p><div class="cb"><button id="cno">取消</button><button id="cyes">確定</button></div></div>
 <div class="ov" id="ov"></div>
 <div class="sheet" id="sheet"><div class="sh-hd"><a id="shback" style="display:none">‹</a><b id="shtitle"></b><a id="shx"><svg class="ei" viewBox="0 0 48 48" aria-hidden="true"><g stroke="#2a2522" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"><circle cx="24" cy="24" r="19" fill="#f2f2f7"/><path d="M16 16L32 32M32 16L16 32" fill="none" stroke="#2a2522" stroke-width="3.6"/></g></svg></a></div><div class="sh-s" id="shs"><input id="shq" placeholder="搜尋帳戶，例如：台新" autocomplete="off"></div><div class="sh-b" id="shbody"></div></div>
 <nav class="tabs" id="tabs"><a data-go="home" class="on"><b><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M8 22 L24 9 L40 22 V39 H8 Z" fill="#ffd166" stroke="#2a2522" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/><rect x="19" y="27" width="10" height="12" rx="2" fill="#fff" stroke="#2a2522" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/><path d="M5 24 L24 7 L43 24" fill="none" stroke="#c8322a" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg></b>首頁</a><a data-go="accounts"><b><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="5" y="12" width="38" height="29" rx="5" fill="#ef476f" stroke="#2a2522" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/><path d="M9 12 L33 6 V12" fill="#ffd166" stroke="#2a2522" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/><rect x="28" y="22" width="15" height="10" rx="4" fill="#fff" stroke="#2a2522" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/><circle cx="34" cy="27" r="1.8" fill="#2a2522"/></svg></b>帳戶</a><a data-go="record" class="plus"><b>＋</b>記一筆</a><a data-go="recent"><b><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="8" y="5" width="28" height="38" rx="4" fill="#fff" stroke="#2a2522" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/><path d="M14 13h16M14 19h16M14 25h8" stroke="#9fb3c4" stroke-width="3" stroke-linecap="round"/><circle cx="33" cy="34" r="9" fill="#ffd166" stroke="#2a2522" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/><path d="M33 29v10M30 31.5h5a2 2 0 0 1 0 4h-4" fill="none" stroke="#c8322a" stroke-width="2.2" stroke-linecap="round"/></svg></b>記錄</a><a data-go="more"><b><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="10" cy="24" r="5" fill="#4cc9f0" stroke="#2a2522" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/><circle cx="24" cy="24" r="5" fill="#ffd166" stroke="#2a2522" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/><circle cx="38" cy="24" r="5" fill="#ef476f" stroke="#2a2522" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/></svg></b>更多</a></nav>
@@ -332,17 +391,17 @@ var TOTAL0=140855,TODAY='2026-02-28',total,entries,type,cat,sub,n,recent,dval,cu
 var WK='日一二三四五六';
 function fmt(x){return Number(x).toLocaleString('en-US')}
 function mo(x){return '$'+fmt(x)}
-var curScr='home',prevScr='home';
+var curScr='home',prevScr='home';var MFS=['accform','pts','banks','bankset','cardset','rw','rwe'];
 function go(name){
  if(name=='record'&&curScr!='record')prevScr=curScr;
  curScr=name;
  if(name=='accounts')renderAcc();
  $('banner').style.display=['home','accounts','recent','more'].indexOf(name)>=0?'':'none';
  qa('.scr').forEach(function(s){s.classList.toggle('on',s.id=='s-'+name)});
- var t={home:0,accounts:1,card:1,record:2,recent:3,more:4,reconcile:4,later:4,login:4}[name];
+ var t={home:0,accounts:1,card:1,record:2,recent:3,more:4,reconcile:4,later:4,login:4,accform:1,pts:1,banks:1,bankset:1,cardset:1,rw:1,rwe:1}[name];
  qa('#tabs a').forEach(function(a,i){a.classList.toggle('on',i===t)});
  window.scrollTo(0,0);
- $('tabs').style.display=name=='record'?'none':'flex';
+ $('tabs').style.display=(name=='record'||MFS.indexOf(name)>=0)?'none':'flex';
 }
 function toast(m){var t=$('toast');t.textContent=m;t.classList.add('on');clearTimeout(toast.h);toast.h=setTimeout(function(){t.classList.remove('on')},2000)}
 function months(){var ms=[];entries.forEach(function(e){var m=e.d.slice(0,7);if(ms.indexOf(m)<0)ms.push(m)});return ms.sort()}
@@ -388,14 +447,14 @@ function renderAcc(){
   var tot=dep-owe,f=g.pt?'點數，不算在總資產裡':hc&&hd?'存款 − 要繳卡費':hc?'只有信用卡，顯示要繳的':g.n=='現金'?'現金合計':'存款合計';
   var at=g.pt?'':'<div class="at"><small>'+(tot<0?'還要繳':'合計')+'</small><span class="amt'+(tot<0?' red':'')+'">'+mo(Math.abs(tot))+'</span></div>';
   h+='<div class="card ag"><div class="ah" data-g="'+gi+'"><span class="ar">'+(acol[gi]?'▸':'▾')+'</span><div class="grow"><b>'+g.n+'</b><div class="s">'+f+'</div></div>'+at+'</div>';
-  if(!acol[gi])g.it.forEach(function(x){
-   if(x.k=='c')h+='<div class="row" data-card="'+x.n+'">'+face(x)+'<div class="grow">'+x.n+'<div class="s">本期要繳</div></div><span class="amt red">'+mo(x.a)+'</span><span style="color:#6b6b70">›</span></div>';
-   else if(x.k=='p')h+='<div class="row"><span class="ico">'+ei(x.ic||'⭐')+'</span><div class="grow">'+x.n+'</div><span class="amt">'+x.txt+'</span></div>';
-   else h+='<div class="row"><span class="ico">'+ei(x.ic||ICO[x.k])+'</span><div class="grow">'+x.n+'<div class="s">'+x.sub+'</div></div><span class="amt">'+mo(x.a)+'</span></div>'});
+  if(!acol[gi])g.it.forEach(function(x){if(x.arch&&!showArch)return;
+   if(x.k=='c')h+='<div class="row" data-card="'+x.n+'">'+face(x)+'<div class="grow">'+x.n+(x.arch?' <span class="tag gray">已封存</span>':'')+'<div class="s">本期要繳</div></div><span class="amt red">'+mo(x.a)+'</span><span style="color:#6b6b70">›</span></div>';
+   else if(x.k=='p')h+='<div class="row" data-pt="'+x.n+'"><span class="ico">'+ei(x.ic||'⭐')+'</span><div class="grow">'+x.n+(x.arch?' <span class="tag gray">已封存</span>':'')+'</div><span class="amt">'+x.txt+'</span><span style="color:#6b6b70;width:8px;text-align:center">›</span></div>';
+   else h+='<div class="row" data-acc="'+x.n+'"><span class="ico">'+ei(x.ic||ICO[x.k])+'</span><div class="grow">'+x.n+(x.arch?' <span class="tag gray">已封存</span>':'')+'<div class="s">'+x.sub+'</div></div><span class="amt">'+mo(x.a)+'</span><span style="color:#6b6b70;width:8px;text-align:center">›</span></div>'});
   h+='</div>'});
  $('acclist').innerHTML=h;
  qa('#acclist .ah').forEach(function(e){e.onclick=function(){var g=+e.getAttribute('data-g');acol[g]=!acol[g];renderAcc()}});
- qa('#acclist [data-card]').forEach(function(e){e.onclick=function(){showCard(e.getAttribute('data-card'))}});
+ qa('#acclist [data-card]').forEach(function(e){e.onclick=function(){showCard(e.getAttribute('data-card'))}});accBind();
 }
 function showCard(n){
  var x=ACCS.filter(function(a){return a.n==n})[0];
@@ -421,12 +480,12 @@ function renderSheet(){
  }else if(sh.kind=='acc'){
   $('shtitle').textContent={acc:'選帳戶',from:'從哪個帳戶轉出',to:'轉到哪個帳戶'}[sh.target];$('shback').style.display='none';
   var q=$('shq').value.replace(/^\s+|\s+$/g,''),cur=curAcc(sh.target);
-  if(q){var l=ACCS.filter(function(a){return a.n.indexOf(q)>=0});
+  if(q){var l=ACCS.filter(function(a){return !a.arch&&a.n.indexOf(q)>=0});
    l.forEach(function(a){h+=itHtml(a,cur)});if(!l.length)h='<div class="empty">找不到「'+q+'」</div>'}
   else{
-   h+='<div class="gh2">最近用過</div>';recent.forEach(function(v){h+=itHtml(accBy(v),cur)});
+   h+='<div class="gh2">最近用過</div>';recent.forEach(function(v){var rv=accBy(v);if(rv&&!rv.arch)h+=itHtml(rv,cur)});
    INSTS.forEach(function(g,gi){
-    var l=g.it;
+    var l=g.it.filter(function(a){return !a.arch});
     h+='<div class="gh" data-g="'+gi+'"><span>'+(gcol[gi]?'▸':'▾')+'</span>'+g.n+'<small>'+l.length+' 個</small></div>';
     if(!gcol[gi])l.forEach(function(a){h+=itHtml(a,cur)})});
   }
@@ -553,6 +612,323 @@ $('fix').onclick=function(){
  $('fixed').style.display='';$('g4t').textContent='6 筆';$('rsum').textContent='相符 6 筆　有差異 2 筆';toast('已照帳單改');
 };
 $('nextp').onclick=function(){toast('示範：已標為下期')};
+/* ===== 批 51：帳戶與信用卡設定（A2 A3 A4 R1 R2 R3） ===== */
+var BANKS=[['永豐','永豐銀行'],['台新','台新銀行'],['富邦','富邦銀行'],['台灣銀行','台灣銀行'],['聯邦','聯邦銀行'],['LineBank','LineBank'],['國泰世華','國泰銀行'],['中國信託','中信銀行'],['凱基','凱基銀行'],['玉山','玉山銀行'],['華南','華南銀行'],['第一','第一銀行']];
+var DEFCOL=['#6b7a8f','#3a4656'];
+var CS0={'永豐卡':[20,5,'永豐銀行'],'永豐雙幣卡':[25,10,'永豐銀行'],'台新信用卡':[1,15,'台新銀行'],'富邦卡':[5,20,'中信銀行'],'國泰卡':[10,25,'中信銀行'],'玉山卡':[22,8,'永豐銀行']};
+var BS0={'永豐銀行':[3,15,'2026-01-10',1],'台新銀行':[2,15,'2026-01-10',0],'中信銀行':[5,10,null,0],'富邦銀行':[3,15,'2026-02-03',0],'國泰銀行':[3,15,null,0],'玉山銀行':[3,15,'2026-01-25',0]};
+var PT0={'TP 點數':['TP',[['2026-01-01','期初',1530,''],['2026-01-15','回饋',8,'台新信用卡 晚餐 $420　餐飲 2%'],['2026-02-14','折抵',-300,'午餐，折抵 $30'],['2026-02-21','回饋',25,'台新信用卡 聚餐 $1,280　餐飲 2%'],['2026-02-28','回饋',17,'台新信用卡 晚餐 $888　餐飲 2%']]],
+ 'LP 點數':['LP',[['2026-01-01','期初',400,''],['2026-01-20','回饋',79,'玉山卡 服飾 $1,980　活動 4%'],['2026-02-15','回饋',16,'玉山卡 書籍 $420　活動 4%'],['2026-02-22','調整',65,'活動贈點']]]};
+var RID=0;
+function R(name,type,ch,scope,from,to,period,pay,pct,rnd,cap,cur){return {id:++RID,name:name,type:type,ch:ch,scope:scope,from:from,to:to,period:period,pay:pay,pct:pct,rnd:rnd,cap:cap,cur:cur,inst:'每期各算',arch:!!(to&&to<TODAY)}}
+var RW0={'永豐卡':[['一般消費 1%','基本','','兩者','2025-06-01','','日曆月','隔月 15 日',1,'四捨五入',null,'台幣'],['網購 3%','加碼','網購','國內','2026-01-01','2026-12-31','帳單週期','隔月 15 日',3,'無條件捨去',300,'台幣'],['舊活動 5%','加碼','旅遊','兩者','2025-07-01','2025-12-31','日曆月','隔月 15 日',5,'四捨五入',200,'台幣']],
+ '永豐雙幣卡':[['外幣消費 2%','基本','','海外','2025-06-01','','帳單週期','隔月 15 日',2,'無條件捨去',null,'台幣']],
+ '台新信用卡':[['一般消費 1%','基本','','兩者','2025-06-01','','日曆月','隔月 15 日',1,'四捨五入',null,'台幣'],['餐飲 2%','加碼','餐飲','國內','2026-01-01','','日曆月','隔月 15 日',2,'無條件捨去',200,'TP']],
+ '富邦卡':[['海外消費 2%','基本','','海外','2025-06-01','','帳單週期','隔月 15 日',2,'四捨五入',null,'台幣']],
+ '國泰卡':[['一般消費 1%','基本','','兩者','2025-06-01','','日曆月','隔月 15 日',1,'四捨五入',null,'台幣']],
+ '玉山卡':[['一般消費 1%','基本','','兩者','2025-06-01','','日曆月','隔月 15 日',1,'四捨五入',null,'台幣'],['網購 2%','加碼','網購','國內','2026-01-01','','日曆月','隔月 15 日',2,'四捨五入',null,'台幣']]};
+var SNAP=null,showArch=false,curCard=null,ASKF=null;
+var BACK={accform:'accounts',pts:'accounts',banks:'accounts',bankset:'banks',cardset:'card',rw:'card',rwe:'rw'};
+function snap(){SNAP=INSTS.map(function(g){var G={n:g.n,c:g.c,pt:g.pt,it:[]};g.it.forEach(function(x){var o={};for(var k in x){if(k!='inst'&&k!='g'&&k!='v')o[k]=x[k]}G.it.push(o)});return G})}
+function seed(){
+ ACCS.forEach(function(x){
+  var c=CS0[x.n];if(x.k=='c'&&c){x.set={close:c[0],pay:c[1],bank:c[2],fee:1.5};x.rw=(RW0[x.n]||[]).map(function(a){return R.apply(null,a)});x.rule=ruleSum(x)}
+  var p=PT0[x.n];if(x.k=='p'&&p){x.code=p[0];x.log=p[1].map(function(l){return l.slice()});x.txt=fmt(ptBal(x))+' 點'}});
+ INSTS.forEach(function(g){var b=BS0[g.n];if(b)g.bs={free:b[0],fee:b[1],pw:b[2],used:b[3]}});
+}
+function restore(){
+ INSTS.length=0;ACCS.length=0;
+ SNAP.forEach(function(g){var G={n:g.n,c:g.c,it:[]};if(g.pt)G.pt=1;g.it.forEach(function(x){var o={};for(var k in x)o[k]=x[k];G.it.push(o)});INSTS.push(G)});
+ INSTS.forEach(function(g){g.it.forEach(function(x){x.g=g.n;x.inst=g;x.v=(x.ic||ICO[x.k])+' '+x.n;ACCS.push(x)})});
+ showArch=false;RID=0;seed();
+}
+/* ---- 小工具 ---- */
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function trim(s){return String(s).replace(/^\s+|\s+$/g,'')}
+function fr(k,inner,col){return '<div class="fr'+(col?' col':'')+'"><span class="k">'+k+'</span>'+inner+'</div>'}
+function chipsH(id,opts,sel){return '<div class="opts" id="'+id+'">'+opts.map(function(o){return '<span class="chip'+(o==sel?' on':'')+'" data-v="'+esc(o)+'">'+esc(o)+'</span>'}).join('')+'</div>'}
+function chipPick(id,fn){qa('#'+id+' .chip').forEach(function(c){c.onclick=function(){qa('#'+id+' .chip').forEach(function(x){x.classList.remove('on')});c.classList.add('on');if(fn)fn(c.getAttribute('data-v'))}})}
+function chipVal(id){var c=qa('#'+id+' .chip.on')[0];return c?c.getAttribute('data-v'):''}
+function ask(msg,yes,fn){$('cmsg').textContent=msg;$('cyes').textContent=yes;$('cov').classList.add('on');$('cbox').classList.add('on');ASKF=fn}
+function askClose(){$('cov').classList.remove('on');$('cbox').classList.remove('on')}
+$('cno').onclick=$('cov').onclick=askClose;
+$('cyes').onclick=function(){var f=ASKF;ASKF=null;askClose();if(f)f()};
+function accOf(n){return ACCS.filter(function(a){return a.n==n})[0]}
+function hasRec(x){return entries.some(function(e){return e.acc==x.n||(e.acc||'').split(' → ').indexOf(x.n)>=0})}
+function recCount(x){return entries.filter(function(e){return e.acc==x.n||(e.acc||'').split(' → ').indexOf(x.n)>=0}).length}
+function fixRecent(){recent=recent.filter(function(v){var a=accBy(v);return a&&!a.arch});if(!recent.length){var f=ACCS.filter(function(a){return !a.arch&&a.k!='p'})[0];recent=[f.v]}resetForm()}
+function goBack(){var t=BACK[curScr]||'accounts';
+ if(t=='card'&&curCard)showCard(curCard.n);else if(t=='banks'){renderBanks();go('banks')}else if(t=='rw'){renderRw();go('rw')}else go(t)}
+qa('.mfback').forEach(function(b){b.onclick=goBack});
+function ymd(s){return s.replace(/-/g,'/')}
+/* ---- 日期：下次結帳／扣繳（FR-20、21） ---- */
+function clampD(y,m,d){return new Date(y,m,Math.min(d,new Date(y,m+1,0).getDate()))}
+function dstr(d){return (d.getMonth()+1)+'月'+d.getDate()+'日（'+WK.charAt(d.getDay())+'）'}
+function nextDates(close,pay){
+ var t=new Date(2026,1,28),c=clampD(2026,1,close);if(c<t)c=clampD(2026,2,close);
+ var p=clampD(c.getFullYear(),c.getMonth(),pay);if(p<=c)p=clampD(c.getFullYear(),c.getMonth()+1,pay);
+ var a=new Date(p.getFullYear(),p.getMonth(),p.getDate());while(a.getDay()==0||a.getDay()==6)a=new Date(a.getFullYear(),a.getMonth(),a.getDate()+1);
+ return {c:c,p:p,a:a}}
+/* ---- 回饋規則摘要 ---- */
+function act(x){return (x.rw||[]).filter(function(r){return !r.arch})}
+function ruleSum(x){var l=act(x).map(function(r){return r.type=='基本'?'基本 '+r.pct+'%'+(r.scope=='海外'?'（海外）':r.scope=='國內'?'（國內）':''):'加碼 '+r.ch+' '+r.pct+'%'});return l.length?l.join('、'):'還沒設回饋'}
+/* ====== A2 新增與編輯帳戶 ====== */
+var AE={};
+function openAcc(x,type){AE={x:x||null,type:x?(x.k=='b'?'銀行存款':x.k=='m'?'現金':'信用卡'):(type||'銀行存款'),name:'',cn:'信用卡',bank:'',cur:'台幣',amt:''};BACK.accform='accounts';renderAF();go('accform')}
+function renderAF(){
+ var x=AE.x,t=AE.type,h='';
+ h+='<h2>'+(x?'編輯帳戶':'新增帳戶')+(x&&x.arch?'　<span class="tag gray">已封存</span>':'')+'</h2><div class="card">';
+ if(!x)h+=fr('類型',chipsH('af-type',['銀行存款','現金','信用卡'],t),1);
+ if(t!='現金'){
+  if(!x)h+=fr('所屬銀行',chipsH('af-bank',BANKS.map(function(b){return b[0]}),AE.bank)+'<div class="hint">先備好 12 家，沒有的銀行可以之後再加；信用卡會放在這家銀行底下</div>',1);
+  else h+=fr('所屬銀行','<span class="v">'+esc(x.g)+'</span>');}
+ h+=fr(t=='信用卡'?'卡名':'帳戶名稱','<input id="af-name" maxlength="20" placeholder="例如：生活費" value="'+esc(x?x.n:AE.name)+'">');
+ if(t=='信用卡')h+=fr('卡別','<input id="af-cn" maxlength="10" placeholder="卡面小字，例如：大戶卡" value="'+esc(x?x.cn:AE.cn)+'">');
+ else{
+  if(!x)h+=fr('幣別',chipsH('af-cur',['台幣','美元','日圓'],AE.cur),1);
+  else h+=fr('幣別','<span class="v">'+(x.cur=='USD'?'美元':'台幣')+'</span>');
+  if(!x||!x.cur)h+=fr(x?'目前餘額':'期初餘額','<span style="color:#6b6b70">$</span><input id="af-amt" inputmode="numeric" placeholder="0" value="'+esc(x?x.a:AE.amt)+'">');
+  else h+=fr('目前餘額','<span class="v">'+esc(x.sub)+'</span>');}
+ h+='</div>';
+ if(t=='信用卡'&&!x)h+='<p class="sub" style="margin-top:8px">存好後，到「帳戶 › 這張卡」再設結帳日、扣繳日和回饋；系統會先放一筆「基本回饋 0%」讓你直接改。</p>';
+ if(x&&x.k=='c')h+='<div class="card" style="margin-top:12px"><div class="row" id="af-goset" style="cursor:pointer"><div class="grow">卡片設定、回饋規則<div class="s">結帳日、扣繳日、手續費率、回饋</div></div><span class="s">›</span></div></div>';
+ if(x){
+  var n=recCount(x);
+  h+='<h2>不用了的帳戶</h2><div class="card">';
+  if(x.arch)h+='<div class="row" id="af-unarch" style="cursor:pointer"><div class="grow">解除封存<div class="s">讓記帳又選得到這個帳戶</div></div><span class="s">›</span></div>';
+  else h+='<div class="row" id="af-arch" style="cursor:pointer"><div class="grow">封存這個帳戶<div class="s">記帳選不到；舊記錄、總資產照舊</div></div><span class="s">›</span></div>';
+  h+='<div class="row" id="af-del" style="cursor:pointer"><div class="grow dng">刪除這個帳戶<div class="s">'+(n?'已有 '+n+' 筆記帳紀錄，只能封存':'沒有任何記錄，可以直接刪')+'</div></div><span class="s">›</span></div></div>';}
+ $('af').innerHTML=h;
+ if(!x){chipPick('af-type',function(v){AE.name=$('af-name').value;AE.type=v;renderAF()});chipPick('af-bank');chipPick('af-cur')}
+ if($('af-goset'))$('af-goset').onclick=function(){showCard(x.n);openCardSet()};
+ if($('af-arch'))$('af-arch').onclick=function(){ask('封存「'+x.n+'」？封存後記帳選不到它，舊記錄和總資產照舊。','封存',function(){x.arch=true;fixRecent();renderAcc();toast('已封存「'+x.n+'」');go('accounts')})};
+ if($('af-unarch'))$('af-unarch').onclick=function(){x.arch=false;toast('已解除封存');renderAcc();go('accounts')};
+ if($('af-del'))$('af-del').onclick=function(){
+  if(hasRec(x)){toast('已有記帳紀錄，只能封存');return}
+  ask('確定刪除「'+x.n+'」？刪掉就找不回來。','刪除',function(){var g=x.inst;g.it.splice(g.it.indexOf(x),1);ACCS.splice(ACCS.indexOf(x),1);fixRecent();renderAcc();toast('已刪除「'+x.n+'」');go('accounts')})};
+}
+function ensureGroup(gn){
+ var g=INSTS.filter(function(q){return q.n==gn})[0];if(g)return g;
+ g={n:gn,c:DEFCOL,it:[],bs:{free:null,fee:null,pw:null,used:0}};
+ var ci=INSTS.map(function(q){return q.n}).indexOf('現金');INSTS.splice(ci<0?INSTS.length:ci,0,g);acol=[];gcol=[];return g}
+function afSave(){
+ var x=AE.x,t=AE.type,name=trim($('af-name').value);
+ if(!name){toast('請填名稱');return}
+ if(ACCS.some(function(a){return a!==x&&a.n==name})){toast('這個名稱已經有了（封存的也算）');return}
+ var bank=null;
+ if(!x&&t!='現金'){bank=chipVal('af-bank');if(!bank){toast('請選銀行');return}}
+ var amt=0;if($('af-amt')){var raw=trim($('af-amt').value);if(raw&&!/^\d+$/.test(raw)){toast('餘額請填整數（不含逗號）');return}amt=raw?parseInt(raw,10):0}
+ if(x){
+  var old=x.n;
+  if(old!=name){entries.forEach(function(e){if(e.acc==old)e.acc=name;else if((e.acc||'').indexOf(' → ')>=0)e.acc=e.acc.split(' → ').map(function(s){return s==old?name:s}).join(' → ')});
+   recent=recent.map(function(v){return v==x.v?(x.ic||ICO[x.k])+' '+name:v});x.n=name;x.v=(x.ic||ICO[x.k])+' '+name}
+  if(x.k=='c')x.cn=trim($('af-cn').value)||'信用卡';
+  else if(!x.cur)x.a=amt;
+  resetForm();renderAcc();toast('已存好「'+name+'」');go('accounts');return}
+ var o,rate={'台幣':1,'美元':32.10,'日圓':0.21}[chipVal('af-cur')||'台幣'];
+ if(t=='現金'){o={k:'m',n:name,sub:'現金',a:amt};var g=ensureGroup('現金')}
+ else{var g=ensureGroup(BANKS.filter(function(b){return b[0]==bank})[0][1]);
+  if(t=='銀行存款'){o={k:'b',n:name,sub:'活存 餘額',a:amt}}
+  else{o={k:'c',n:name,cn:trim($('af-cn').value)||'信用卡',a:0,due:'每月 3 日'}}}
+ var cu=chipVal('af-cur');if(o.k!='c'&&cu&&cu!='台幣'){var code={'美元':'USD','日圓':'JPY'}[cu],sym={'美元':'US$','日圓':'JP¥'}[cu];o.cur=code;o.sub=cu+'活存 '+sym+fmt(amt);o.a=Math.round(amt*rate)}
+ o.g=g.n;o.inst=g;o.v=ICO[o.k]+' '+o.n;g.it.push(o);ACCS.push(o);
+ if(o.k=='c'){var hb=g.it.filter(function(q){return q.k=='b'&&!q.arch})[0]||ACCS.filter(function(q){return q.k=='b'&&!q.arch})[0];
+  o.set={close:15,pay:3,bank:hb?hb.n:'',fee:1.5};
+  o.rw=[{id:++RID,name:'預設基本回饋',type:'基本',ch:'',scope:'兩者',from:TODAY,to:'',period:'日曆月',pay:'隔月 15 日',pct:0,rnd:'無條件捨去',cap:null,cur:'台幣',inst:'每期各算',arch:false}];o.rule=ruleSum(o)}
+ renderAcc();toast('已新增「'+name+'」');go('accounts');
+}
+$('af-save').onclick=afSave;
+/* ====== A3 點數帳戶 ====== */
+var PS={cur:null,mode:'list'};
+function ptAccs(){return ACCS.filter(function(a){return a.k=='p'&&!a.arch})}
+function ptBal(x){return x.log.reduce(function(s,l){return s+l[2]},0)}
+function openPts(back,name){BACK.pts=back;PS.mode='list';PS.cur=name||(ptAccs()[0]||{}).n;renderPts();go('pts')}
+function renderPts(){
+ var h='';
+ if(PS.mode=='new'){
+  h+='<h2>新增點數帳戶</h2><div class="card">'+fr('名稱','<input id="pt-name" maxlength="20" placeholder="例如：台新點數">')+fr('點數種類',chipsH('pt-code',['TP','LP'],'TP'),1)+fr('期初點數','<input id="pt-open" inputmode="numeric" placeholder="0">')+'</div><p class="sub" style="margin-top:8px">TP＝台新點數，LP＝LINE 點數。點數用「點」算，不換算台幣。</p>';
+  $('pt').innerHTML=h;chipPick('pt-code');$('pt-main').textContent='存檔';$('pt-back').textContent='取消';return}
+ var l=ptAccs(),x=accOf(PS.cur)||l[0];
+ h+='<div class="chips" style="padding-top:14px" id="pt-sw">'+l.map(function(a){return '<span class="chip'+(a===x?' on':'')+'" data-v="'+esc(a.n)+'">'+esc(a.n)+'</span>'}).join('')+'</div>';
+ if(x){PS.cur=x.n;
+  h+='<div class="ptbig">'+x.code+' '+fmt(ptBal(x))+' 點</div><p class="cap" style="padding-top:4px">不換算台幣，也不算進總資產</p><h2>增減明細</h2><div class="card">';
+  x.log.slice().reverse().forEach(function(g){var d=g[0].slice(5).replace('-','/');
+   h+='<div class="row"><div class="grow"><div class="t">'+g[1]+'</div><div class="s">'+d+(g[3]?'　'+esc(g[3]):'')+'</div></div><span class="amt '+(g[1]=='期初'?'gray':g[2]>0?'green':'red')+'">'+(g[1]=='期初'?'':g[2]>0?'+':'−')+fmt(Math.abs(g[2]))+'</span></div>'});
+  h+='</div>'}
+ h+='<p class="sub" style="margin-top:12px">信用卡的點數回饋會自動加進來；記帳時用點數折抵會扣點。點數帳戶不能拿來轉帳或繳卡費。</p>';
+ $('pt').innerHTML=h;chipPick('pt-sw',function(v){PS.cur=v;renderPts()});$('pt-main').textContent='＋ 新增點數帳戶';$('pt-back').textContent='返回';
+}
+$('pt-back').onclick=function(){if(PS.mode=='new'){PS.mode='list';renderPts()}else goBack()};
+$('pt-main').onclick=function(){
+ if(PS.mode=='list'){PS.mode='new';renderPts();return}
+ var name=trim($('pt-name').value),raw=trim($('pt-open').value);
+ if(!name){toast('請填名稱');return}
+ if(ACCS.some(function(a){return a.n==name})){toast('這個名稱已經有了');return}
+ if(/^-/.test(raw)){toast('點數不能為負');return}
+ if(raw&&!/^\d+$/.test(raw)){toast('期初點數請填整數');return}
+ var code=chipVal('pt-code'),open=raw?parseInt(raw,10):0,g=INSTS.filter(function(q){return q.pt})[0];
+ var o={k:'p',n:name,ic:code=='TP'?'🔷':'🟣',code:code,log:[[TODAY,'期初',open,'']]};o.txt=fmt(open)+' 點';
+ o.g=g.n;o.inst=g;o.v=o.ic+' '+name;g.it.push(o);ACCS.push(o);
+ PS.mode='list';PS.cur=name;renderPts();toast('已新增點數帳戶「'+name+'」');
+};
+/* ====== A4 銀行設定 ====== */
+function bankGroups(){return INSTS.filter(function(g){return !g.pt&&g.n!='現金'})}
+function bsLine(g){var b=g.bs||{};return [(b.free==null?'免費轉帳次數：沒設':'每月免費跨行轉帳 '+b.free+' 次（本月用了 '+(b.used||0)+' 次）'),(b.fee==null?'手續費：沒設':'超過後每筆 $'+b.fee)+'　帳單密碼：'+(b.pw?'已設定':'還沒設')]}
+function openBanks(back){BACK.banks=back;renderBanks();go('banks')}
+function renderBanks(){
+ var h='<h2>各家銀行</h2><div class="card">';
+ bankGroups().forEach(function(g,i){var l=bsLine(g);h+='<div class="row" data-bk="'+i+'" style="cursor:pointer"><span class="ico">'+ei('🏦')+'</span><div class="grow">'+esc(g.n)+'<div class="s">'+l[0]+'</div><div class="s">'+l[1]+'</div></div><span class="s">›</span></div>'});
+ h+='</div><p class="sub" style="margin-top:8px">同一家銀行的卡共用同一組電子帳單密碼。</p>';
+ $('bk').innerHTML=h;
+ qa('#bk [data-bk]').forEach(function(e){e.onclick=function(){openBankSet(bankGroups()[+e.getAttribute('data-bk')])}});
+}
+var BSC=null;
+function openBankSet(g){BSC=g;var b=g.bs||(g.bs={free:null,fee:null,pw:null,used:0});BACK.bankset='banks';
+ $('bs').innerHTML='<h2>'+esc(g.n)+'　銀行設定</h2><div class="card">'+fr('每月免費轉帳','<input id="bs-free" inputmode="numeric" placeholder="沒設就空著" value="'+(b.free==null?'':b.free)+'"><span>次</span>')+fr('超過後每筆','<span style="color:#6b6b70">$</span><input id="bs-fee" inputmode="numeric" placeholder="沒設就空著" value="'+(b.fee==null?'':b.fee)+'">')+fr('電子帳單密碼','<input id="bs-pw" type="password" autocomplete="new-password" placeholder="'+(b.pw?'要換新的才填':'請輸入')+'">')+'</div><p class="sub" style="margin-top:8px">轉到別家銀行（包含繳他家信用卡費）算一次，超過免費次數才收手續費。</p><p class="sub" id="bs-st" style="margin-top:8px">'+(b.pw?'目前：已設定（'+ymd(b.pw)+' 設定）。不想換就留空；為了安全，畫面看不到密碼。':'目前：還沒設定。設好後，這家銀行的信用卡電子帳單會自動用它打開。')+'</p>';
+ go('bankset')}
+$('bs-save').onclick=function(){
+ var g=BSC,b=g.bs,f=trim($('bs-free').value),m=trim($('bs-fee').value),pw=$('bs-pw').value;
+ if((f&&!/^\d+$/.test(f))||(m&&!/^\d+$/.test(m))){toast('請填 0 以上的整數');return}
+ b.free=f===''?null:parseInt(f,10);b.fee=m===''?null:parseInt(m,10);
+ if(pw){b.pw=TODAY}
+ renderBanks();go('banks');toast('已存好「'+g.n+'」的設定');
+};
+/* ====== A5 卡片頁（接上 R1、R2、A2） ====== */
+function showCard(n){
+ var x=accOf(n);curCard=x;var s=x.set,bk=accOf(s.bank),nd=nextDates(s.close,s.pay);
+ $('cd').innerHTML=face(x,true)+'<p class="cap">卡面為示意，正式版會換成該卡實際卡面</p><h1 style="font-size:22px;text-align:center;padding-top:10px">'+esc(x.g.replace('銀行',''))+' '+esc(x.cn)+'</h1>'
+ +'<div class="card" style="margin-top:12px"><div class="row"><div class="grow">本期要繳</div><span class="amt red">'+mo(x.a)+'</span></div>'
+ +'<div class="row"><div class="grow">扣繳日<div class="s">下次實際扣繳 '+dstr(nd.a)+'</div></div><span class="amt">每月 '+s.pay+' 日</span></div>'
+ +'<div class="row"><div class="grow">扣款銀行'+(bk&&bk.arch?'<div class="s dng">扣款銀行已封存</div>':'')+'</div><span class="amt" style="font-weight:400">'+esc(s.bank||'還沒選')+'</span></div>'
+ +'<div class="row" data-act="rw" style="cursor:pointer"><div class="grow">回饋規則<div class="s">基本、加碼分開算</div></div><span class="amt" style="white-space:normal;text-align:right;max-width:170px;font-weight:400">'+esc(ruleSum(x))+'</span><span class="s">›</span></div></div>'
+ +'<div class="card" style="margin-top:12px"><div class="row" data-act="set" style="cursor:pointer"><div class="grow">卡片設定<div class="s">結帳日、扣繳日、扣款銀行、海外手續費率</div></div><span class="s">›</span></div>'
+ +'<div class="row" data-act="edit" style="cursor:pointer"><div class="grow">卡名與封存</div><span class="s">›</span></div></div>';
+ go('card');
+}
+$('cd').onclick=function(ev){var r=ev.target.closest('[data-act]');if(!r)return;var a=r.getAttribute('data-act');
+ if(a=='set')openCardSet();else if(a=='rw')openRw();else if(a=='edit')openAcc(curCard)};
+/* ====== R1 信用卡設定 ====== */
+function openCardSet(){BACK.cardset='card';renderCS();go('cardset')}
+function banksOpts(x){var l=ACCS.filter(function(a){return a.k=='b'&&(!a.arch||a.n==x.set.bank)}).map(function(a){return a.n});return l}
+function csNext(){
+ var c=parseInt($('cs-close').value,10),p=parseInt($('cs-pay').value,10),e=$('cs-next');
+ if(!(c>=1&&c<=31&&p>=1&&p<=31)){e.innerHTML='填好結帳日和扣繳日，這裡會算出下次日期';return}
+ var d=nextDates(c,p);
+ e.innerHTML='下次結帳日：<b>'+dstr(d.c)+'</b><br>下次扣繳日（原本）：<b>'+dstr(d.p)+'</b><br>下次實際扣繳日：<b>'+dstr(d.a)+'</b>'+(d.a.getTime()!=d.p.getTime()?'<br><span style="color:#6b6b70;font-size:12px">原本那天放假，自動往後延到下一個上班日</span>':'')}
+function renderCS(){
+ var x=curCard,s=x.set,h='';
+ h+='<div style="display:flex;align-items:center;gap:12px;padding:14px 16px 0">'+face(x).replace('style="','style="font-size:10px;')+'<div><b>'+esc(x.n)+'</b><div class="s" style="font-size:13px;color:#6b6b70">'+esc(x.g)+' '+esc(x.cn)+'</div></div></div><h2>卡片設定</h2><div class="card">'
+ +fr('結帳日','<span style="color:#6b6b70">每月</span><input id="cs-close" inputmode="numeric" value="'+s.close+'" style="flex:none;width:60px"><span>日</span>')
+ +fr('扣繳日','<span style="color:#6b6b70">每月</span><input id="cs-pay" inputmode="numeric" value="'+s.pay+'" style="flex:none;width:60px"><span>日</span>')
+ +fr('扣款銀行',chipsH('cs-bank',banksOpts(x),s.bank)+(accOf(s.bank)&&accOf(s.bank).arch?'<div class="hint dng">扣款銀行已封存，請改選</div>':''),1)
+ +fr('海外手續費率','<input id="cs-fee" inputmode="decimal" value="'+s.fee+'"><span>%</span>')
+ +'</div><p class="sub" style="margin-top:6px">海外刷卡會另外記一筆手續費，預設 1.5%。改設定只影響還沒結帳的帳期。</p><div class="card" style="margin-top:12px"><div class="nextl" id="cs-next"></div></div>'
+ +'<div class="card" style="margin-top:12px"><div class="row" id="cs-rw" style="cursor:pointer"><div class="grow">回饋規則<div class="s">'+esc(ruleSum(x))+'</div></div><span class="s">›</span></div></div>';
+ $('cs').innerHTML=h;chipPick('cs-bank');$('cs-close').oninput=$('cs-pay').oninput=csNext;csNext();
+ $('cs-rw').onclick=function(){openRw()};
+}
+$('cs-save').onclick=function(){
+ var x=curCard,c=trim($('cs-close').value),p=trim($('cs-pay').value),f=trim($('cs-fee').value);
+ if(!/^\d+$/.test(c)||+c<1||+c>31||!/^\d+$/.test(p)||+p<1||+p>31){toast('請填 1 到 31');return}
+ if(!/^\d+(\.\d+)?$/.test(f)||+f>100){toast('請填 0 到 100');return}
+ var b=chipVal('cs-bank');if(!b){toast('請選扣款銀行');return}
+ x.set={close:+c,pay:+p,bank:b,fee:+f};x.due='每月 '+p+' 日';
+ toast('已存好卡片設定');showCard(x.n);
+};
+/* ====== R2 回饋規則清單 ====== */
+function openRw(){BACK.rw='card';renderRw();go('rw')}
+function rwRow(r,i){
+ var tag=r.arch?'<span class="tag gray">已封存</span>':r.from>TODAY?'<span class="tag">還沒開始</span>':'<span class="tag ok">生效中</span>';
+ var l1=r.pct+'%　'+r.period+(r.ch?'　通路：'+esc(r.ch):'')+(r.scope!='兩者'?'　'+r.scope:'');
+ var l2=ymd(r.from)+' 起'+(r.to?'，到 '+ymd(r.to):'，沒有迄日');
+ var l3=(r.cap==null?'無上限':'每期上限 '+fmt(r.cap)+(r.cur=='台幣'?' 元':' 點'))+'　'+r.rnd+'　'+r.cur+'回饋　'+r.pay+'入帳';
+ return '<div class="rr'+(r.arch?' arch':'')+'" data-i="'+i+'"><div class="rt"><span class="grow" style="flex:1">'+esc(r.name)+'</span>'+tag+'</div><div class="rs">'+l1+'<br>'+l2+'<br>'+l3+'</div><div class="ra">'+(r.arch?'':'<button data-a="edit">編輯</button>')+'<button data-a="copy">複製</button>'+(r.arch?'':'<button data-a="arch">封存</button>')+'</div></div>'}
+function renderRw(){
+ var x=curCard,h='',na=(x.rw||[]).filter(function(r){return r.arch}).length;
+ h+='<div style="display:flex;align-items:center;gap:12px;padding:14px 16px 0">'+face(x).replace('style="','style="font-size:10px;')+'<div><b>'+esc(x.n)+'</b><div class="s" style="font-size:13px;color:#6b6b70">回饋規則</div></div></div><p class="sub" style="margin-top:8px">基本是基本，加碼是加碼：分開算、分開看，不加在一起。</p>';
+ [['基本','基本回饋','這張卡符合範圍的消費，都照這個比例給'],['加碼','加碼回饋','符合指定通路才多給一份，另外算']].forEach(function(g){
+  h+='<h2>'+g[1]+'</h2><div class="gsub" style="padding-top:0">'+g[2]+'</div><div class="card">';var n=0;
+  x.rw.forEach(function(r,i){if(r.type!=g[0]||(r.arch&&!RWS.arch))return;n++;h+=rwRow(r,i)});
+  if(!n)h+='<div class="empty" style="padding:16px">還沒有'+g[1]+'</div>';
+  h+='<div class="row" data-new="'+g[0]+'" style="cursor:pointer;justify-content:center;color:#5c4a00;font-weight:700">＋ 新增'+g[1]+'</div></div>'});
+ if(na)h+='<p class="sub" style="margin:14px 16px 0;text-align:center"><a id="rw-arch" style="text-decoration:underline;cursor:pointer">'+(RWS.arch?'隱藏已封存':'顯示已封存（'+na+'）')+'</a></p>';
+ $('rw').innerHTML=h;
+ if($('rw-arch'))$('rw-arch').onclick=function(){RWS.arch=!RWS.arch;renderRw()};
+ qa('#rw [data-new]').forEach(function(e){e.onclick=function(){openRwe(null,e.getAttribute('data-new'))}});
+ qa('#rw .ra button').forEach(function(b){b.onclick=function(){
+  var i=+b.closest('.rr').getAttribute('data-i'),r=x.rw[i],a=b.getAttribute('data-a');
+  if(a=='edit')openRwe(r);
+  else if(a=='copy'){var c={};for(var k in r)c[k]=r[k];c.id=null;c.name=r.name+'（複製）';c.arch=false;c.to=r.arch?'':r.to;openRwe(c,null,true)}
+  else ask('封存「'+r.name+'」？封存後不再算新的回饋，已經算出來的不變。','封存',function(){r.arch=true;if(!r.to||r.to>TODAY)r.to=TODAY;x.rule=ruleSum(x);renderRw();toast('已封存「'+r.name+'」')})}});
+}
+var RWS={arch:false};
+/* ====== R3 編輯回饋規則 ====== */
+var RE={};
+function openRwe(r,type,isCopy){RE={rule:isCopy?null:r,src:r,isNew:!r||!!isCopy,type:r?r.type:type};BACK.rwe='rw';renderRwe();go('rwe')}
+function renderRwe(){
+ var r=RE.src||{name:'',ch:'',scope:'兩者',from:TODAY,to:'',period:'日曆月',pay:'隔月 15 日',pct:'',rnd:'四捨五入',cap:null,cur:'台幣',inst:'每期各算'},x=curCard,t=RE.type,h='';
+ h+='<h2>'+(RE.isNew?(r&&r.name?'複製回饋規則（存檔才會新增）':'新增回饋規則'):'編輯回饋規則')+'</h2><div class="card">';
+ h+=fr('類型',(RE.isNew?chipsH('re-type',['基本','加碼'],t):'<span class="v">'+t+'</span>')+'<div class="hint">基本＝這張卡的消費都給；加碼＝符合通路才多給，另外算</div>',1);
+ h+=fr('名稱','<input id="re-name" maxlength="20" placeholder="例如：網購 3%" value="'+esc(r.name)+'">');
+ h+='<div id="re-chrow">'+fr('通路','<input id="re-ch" maxlength="20" placeholder="例如：網購、餐飲" value="'+esc(r.ch)+'">')+'</div>';
+ h+=fr('適用範圍',chipsH('re-scope',['國內','海外','兩者'],r.scope),1);
+ h+=fr('開始日期','<input id="re-from" type="date" value="'+r.from+'">');
+ h+=fr('結束日期','<input id="re-to" type="date" value="'+r.to+'" style="text-align:left"><div class="hint">空著＝一直有效</div>',1);
+ h+=fr('回饋怎麼算',chipsH('re-period',['日曆月','帳單週期'],r.period)+'<div class="hint" id="re-ph"></div>',1);
+ h+=fr('回饋日期',chipsH('re-pay',['計算期結束隔天','隔月 5 日','隔月 15 日','隔月 25 日'],r.pay)+'<div class="hint">算好的回饋哪一天入帳</div>',1);
+ h+=fr('回饋百分比','<input id="re-pct" inputmode="decimal" placeholder="例如：3" value="'+r.pct+'"><span>%</span>');
+ h+=fr('小數怎麼處理',chipsH('re-rnd',['四捨五入','無條件捨去'],r.rnd),1);
+ h+=fr('每期上限',chipsH('re-cap',['無上限','有上限'],r.cap==null?'無上限':'有上限')+'<div id="re-caprow" style="display:'+(r.cap==null?'none':'block')+'"><input id="re-capv" inputmode="numeric" placeholder="填金額，例如：300" value="'+(r.cap==null?'':r.cap)+'" style="width:100%;border:1px solid #e5e5ea;border-radius:10px;padding:8px 10px;text-align:left;font-size:16px;font-family:inherit"></div>',1);
+ h+=fr('回饋給你',chipsH('re-cur',['台幣','TP','LP'],r.cur)+'<div class="hint">選 TP、LP 會直接加進點數帳戶</div>',1);
+ h+=fr('分期回饋',chipsH('re-inst',['每期各算','總額算一次'],r.inst),1);
+ h+='</div>';
+ $('re').innerHTML=h;
+ var ps=function(){var s=x.set;$('re-ph').textContent=chipVal('re-period')=='帳單週期'?'依這張卡的結帳日（每月 '+s.close+' 日）分期，結帳日當天算在本期':'每月 1 日到月底'};
+ ['re-scope','re-pay','re-rnd','re-cur','re-inst'].forEach(function(i){chipPick(i)});
+ chipPick('re-period',ps);ps();
+ chipPick('re-cap',function(v){$('re-caprow').style.display=v=='有上限'?'block':'none'});
+ var tp=function(){$('re-chrow').style.display=(RE.type=='加碼')?'':'none'};
+ if(RE.isNew)chipPick('re-type',function(v){RE.type=v;tp()});tp();
+}
+$('re-save').onclick=function(){
+ var x=curCard,e=RE.rule,t=RE.type,name=trim($('re-name').value),ch=trim($('re-ch').value),from=$('re-from').value,to=$('re-to').value,pctS=trim($('re-pct').value);
+ if(!name){toast('請填名稱');return}
+ if(t=='加碼'&&!ch){toast('加碼要填通路');return}
+ if(!/^\d+(\.\d+)?$/.test(pctS)||+pctS>100){toast('請填 0 到 100');return}
+ if(!from){toast('請選開始日期');return}
+ if(to&&to<from){toast('結束日期不能早於開始日期');return}
+ var cap=null;if(chipVal('re-cap')=='有上限'){var cv=trim($('re-capv').value);if(!/^\d+$/.test(cv)){toast('上限請填 0 以上的整數');return}cap=+cv}
+ var scope=chipVal('re-scope');
+ if(t=='基本'){
+  var bad=x.rw.filter(function(r){return r!==e&&!r.arch&&r.type=='基本'&&(r.scope=='兩者'||scope=='兩者'||r.scope==scope)&&r.from<=(to||'9999-12-31')&&from<=(r.to||'9999-12-31')})[0];
+  if(bad){toast('基本規則生效期間重疊（請先編輯或封存「'+bad.name+'」）');return}}
+ var o={name:name,type:t,ch:t=='加碼'?ch:'',scope:scope,from:from,to:to,period:chipVal('re-period'),pay:chipVal('re-pay'),pct:+pctS,rnd:chipVal('re-rnd'),cap:cap,cur:chipVal('re-cur'),inst:chipVal('re-inst'),arch:false};
+ if(e){for(var k in o)e[k]=o[k];toast('已存好「'+name+'」')}
+ else{o.id=++RID;x.rw.push(o);toast('已新增「'+name+'」')}
+ x.rule=ruleSum(x);renderRw();go('rw');
+};
+/* ====== 入口：帳戶頁、更多 ====== */
+function accBind(){
+ qa('#acclist [data-acc]').forEach(function(e){e.onclick=function(){openAcc(accOf(e.getAttribute('data-acc')))}});
+ qa('#acclist [data-pt]').forEach(function(e){e.onclick=function(){openPts('accounts',e.getAttribute('data-pt'))}});
+ var n=ACCS.filter(function(a){return a.arch}).length;
+ function row(id,ic,t,s){return '<div class="row" id="'+id+'" style="cursor:pointer"><span class="ico"'+(ic.charAt(0)=='<'?'':' style="font-size:24px;font-weight:700"')+'>'+ic+'</span><div class="grow">'+t+(s?'<div class="s">'+s+'</div>':'')+'</div><span class="s">›</span></div>'}
+ $('acctools').innerHTML=row('t-new','＋','新增帳戶','銀行、現金、信用卡')+row('t-pts',ei('⭐'),'點數帳戶','TP、LP 的餘額與增減')+row('t-bank',ei('🏦'),'銀行設定','免費轉帳次數、手續費、帳單密碼')+row('t-arch',ei('🧾'),'已封存的帳戶（'+n+' 個）',showArch?'目前顯示中，點一下隱藏':'目前藏起來了，點一下顯示');
+ $('t-new').onclick=function(){openAcc(null)};
+ $('t-pts').onclick=function(){openPts('accounts')};
+ $('t-bank').onclick=function(){openBanks('accounts')};
+ $('t-arch').onclick=function(){showArch=!showArch;renderAcc()};
+}
+(function(){
+ var card=document.querySelector('#s-more .card'),later=qa('#s-more .later').filter(function(e){return e.textContent.indexOf('設定')>=0})[0];
+ function mrow(id,ic,t){var d=document.createElement('div');d.className='row';d.id=id;d.style.cursor='pointer';d.innerHTML='<span class="ico">'+ic+'</span><div class="grow">'+t+'</div><span class="s">›</span>';card.insertBefore(d,later);return d}
+ mrow('m-pts',ei('⭐'),'點數帳戶').onclick=function(){openPts('more')};
+ mrow('m-bank',ei('🏦'),'銀行設定').onclick=function(){openBanks('more')};
+})();
+snap();seed();
+var oldReset=$('reset').onclick;
+$('reset').onclick=function(){restore();curCard=null;oldReset()};
+
 resetAll();
 var m=/go=(\w+)/.exec(location.hash);if(m)go(m[1]);
 })();
