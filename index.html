@@ -328,7 +328,7 @@ details.grp .row{padding:8px 0}
 </section>
 
 <section class="scr" id="s-record">
-<div class="top"><span></span><b style="color:#1c1c1e">記一筆</b><span></span></div>
+<div style="height:14px"></div>
 <div class="seg" id="seg"><span data-t="收入">收入</span><span class="on" data-t="支出">支出</span><span data-t="轉帳">轉帳</span></div>
 <div class="amtrow"><button class="curb" id="curb" type="button"><span id="curs">NT$</span> <small>▾</small></button><input class="amtin" id="amt" inputmode="numeric" placeholder="0" autocomplete="off"></div>
 <div class="fx" id="fx"><b id="fx1"></b><small id="fx2"></small><small id="fx3"></small><small id="fx4"></small></div>
@@ -568,7 +568,7 @@ var CATS=[['🍱','飲食',['早餐','午餐','晚餐','飲料點心']],['🚇',
 ['🎬','娛樂',['影音訂閱','電影','遊戲']],['💊','醫療',['看診','藥品']],['📚','教育',['課程','書籍']],['🎁','人情',['送禮','紅包']],
 ['🧾','金融費用',['海外手續費','手續費','年費','利息']],['🏛️','稅費',['稅金','規費']],['📦','其他',['其他']]];
 var INSTS=[
-{n:'永豐銀行',c:['#e5a100','#b05f00'],it:[{k:'b',n:'永豐銀行',sub:'大戶存款 餘額',a:112000},{k:'b',n:'永豐美元帳戶',sub:'美元活存 US$1,000',a:32100,cur:'USD'},{k:'c',n:'永豐卡',cn:'大戶卡',a:8200,due:'每月 5 日',rule:'一般消費 1%、網購 3%'},{k:'c',n:'永豐雙幣卡',cn:'雙幣卡',a:3645,due:'每月 10 日',rule:'外幣消費 2%'}]},
+{n:'永豐銀行',c:['#e5a100','#b05f00'],it:[{k:'b',n:'永豐銀行',sub:'大戶存款 餘額（卡費從這裡扣）',a:10000},{k:'b',n:'永豐定存戶',sub:'存款 餘額',a:102000},{k:'b',n:'永豐美元帳戶',sub:'美元活存 US$1,000',a:32100,cur:'USD'},{k:'c',n:'永豐卡',cn:'大戶卡',a:8200,due:'每月 5 日',rule:'一般消費 1%、網購 3%'},{k:'c',n:'永豐雙幣卡',cn:'雙幣卡',a:3645,due:'每月 10 日',rule:'外幣消費 2%'}]},
 {n:'台新銀行',c:['#d9467a','#8e1f4c'],it:[{k:'b',n:'台新銀行',sub:'活存 餘額',a:41500},{k:'c',n:'台新信用卡',cn:'信用卡',a:9400,due:'每月 15 日',rule:'一般消費 1%、餐飲 2%'}]},
 {n:'中信銀行',c:['#1f8a70','#0c5240'],it:[{k:'b',n:'中信銀行',sub:'活存 餘額',a:15000}]},
 {n:'富邦銀行',c:['#2f6fd0','#173f86'],it:[{k:'c',n:'富邦卡',cn:'信用卡',a:4100,due:'每月 20 日',rule:'海外消費 2%'}]},
@@ -905,7 +905,7 @@ var AE={};
 function openAcc(x,type){AE={x:x||null,type:x?(x.k=='b'?'銀行存款':x.k=='m'?'現金':'信用卡'):(type||'銀行存款'),name:'',cn:'信用卡',bank:'',cur:'台幣',amt:''};BACK.accform='accounts';renderAF();go('accform')}
 function renderAF(){
  var x=AE.x,t=AE.type,h='';
- h+='<h2>'+(x?'編輯帳戶':'新增帳戶')+(x&&x.arch?'　<span class="tag gray">已封存</span>':'')+'</h2><div class="card">';
+ h+=(x&&x.arch?'<div style="padding:14px 20px 0"><span class="tag gray">已封存</span></div>':'<div style="height:14px"></div>')+'<div class="card">';
  if(!x)h+=fr('類型',chipsH('af-type',['銀行存款','現金','信用卡'],t),1);
  if(t!='現金'){
   if(!x)h+=fr('所屬銀行',chipsH('af-bank',BANKS.map(function(b){return b[0]}),AE.bank)+'<div class="hint">先備好 12 家，沒有的銀行可以之後再加；信用卡會放在這家銀行底下</div>',1);
@@ -974,7 +974,7 @@ function openPts(back,name){BACK.pts=back;PS.mode='list';PS.cur=name||(ptAccs()[
 function renderPts(){
  var h='';
  if(PS.mode=='new'){
-  h+='<h2>新增點數帳戶</h2><div class="card">'+fr('名稱','<input id="pt-name" maxlength="20" placeholder="例如：台新點數">')+fr('點數種類',chipsH('pt-code',['TP','LP'],'TP'),1)+fr('期初點數','<input id="pt-open" inputmode="numeric" placeholder="0">')+'</div><p class="sub" style="margin-top:8px">TP＝台新點數，LP＝LINE 點數。點數用「點」算，不換算台幣。</p>';
+  h+='<div style="height:14px"></div><div class="card">'+fr('名稱','<input id="pt-name" maxlength="20" placeholder="例如：台新點數">')+fr('點數種類',chipsH('pt-code',['TP','LP'],'TP'),1)+fr('期初點數','<input id="pt-open" inputmode="numeric" placeholder="0">')+'</div><p class="sub" style="margin-top:8px">TP＝台新點數，LP＝LINE 點數。點數用「點」算，不換算台幣。</p>';
   $('pt').innerHTML=h;chipPick('pt-code');$('pt-main').textContent='存檔';$('pt-back').textContent='取消';return}
  var l=ptAccs(),x=accOf(PS.cur)||l[0];
  h+='<div class="chips" style="padding-top:14px" id="pt-sw">'+l.map(function(a){return '<span class="chip'+(a===x?' on':'')+'" data-v="'+esc(a.n)+'">'+esc(a.n)+'</span>'}).join('')+'</div>';
@@ -1012,7 +1012,7 @@ function renderBanks(){
 }
 var BSC=null;
 function openBankSet(g){BSC=g;var b=g.bs||(g.bs={free:null,fee:null,pw:null,used:0});BACK.bankset='banks';
- $('bs').innerHTML='<h2>'+esc(g.n)+'　銀行設定</h2><div class="card">'+fr('每月免費轉帳','<input id="bs-free" inputmode="numeric" placeholder="沒設就空著" value="'+(b.free==null?'':b.free)+'"><span>次</span>')+fr('超過後每筆','<span style="color:#6b6b70">$</span><input id="bs-fee" inputmode="numeric" placeholder="沒設就空著" value="'+(b.fee==null?'':b.fee)+'">')+fr('電子帳單密碼','<input id="bs-pw" type="password" autocomplete="new-password" placeholder="'+(b.pw?'要換新的才填':'請輸入')+'">')+'</div><p class="sub" style="margin-top:8px">轉到別家銀行（包含繳他家信用卡費）算一次，超過免費次數才收手續費。</p><p class="sub" id="bs-st" style="margin-top:8px">'+(b.pw?'目前：已設定（'+ymd(b.pw)+' 設定）。不想換就留空；為了安全，畫面看不到密碼。':'目前：還沒設定。設好後，這家銀行的信用卡電子帳單會自動用它打開。')+'</p>';
+ $('bs').innerHTML='<h2>'+esc(g.n)+'</h2><div class="card">'+fr('每月免費轉帳','<input id="bs-free" inputmode="numeric" placeholder="沒設就空著" value="'+(b.free==null?'':b.free)+'"><span>次</span>')+fr('超過後每筆','<span style="color:#6b6b70">$</span><input id="bs-fee" inputmode="numeric" placeholder="沒設就空著" value="'+(b.fee==null?'':b.fee)+'">')+fr('電子帳單密碼','<input id="bs-pw" type="password" autocomplete="new-password" placeholder="'+(b.pw?'要換新的才填':'請輸入')+'">')+'</div><p class="sub" style="margin-top:8px">轉到別家銀行（包含繳他家信用卡費）算一次，超過免費次數才收手續費。</p><p class="sub" id="bs-st" style="margin-top:8px">'+(b.pw?'目前：已設定（'+ymd(b.pw)+' 設定）。不想換就留空；為了安全，畫面看不到密碼。':'目前：還沒設定。設好後，這家銀行的信用卡電子帳單會自動用它打開。')+'</p>';
  go('bankset')}
 $('bs-save').onclick=function(){
  var g=BSC,b=g.bs,f=trim($('bs-free').value),m=trim($('bs-fee').value),pw=$('bs-pw').value;
@@ -1095,7 +1095,7 @@ var RE={};
 function openRwe(r,type,isCopy){RE={rule:isCopy?null:r,src:r,isNew:!r||!!isCopy,type:r?r.type:type};BACK.rwe='rw';renderRwe();go('rwe')}
 function renderRwe(){
  var r=RE.src||{name:'',ch:'',scope:'兩者',from:TODAY,to:'',period:'日曆月',pay:'隔月 15 日',pct:'',rnd:'四捨五入',cap:null,cur:'台幣',inst:'每期各算'},x=curCard,t=RE.type,h='';
- h+='<h2>'+(RE.isNew?(r&&r.name?'複製回饋規則（存檔才會新增）':'新增回饋規則'):'編輯回饋規則')+'</h2><div class="card">';
+ h+=(RE.isNew&&r&&r.name?'<p class="sub" style="margin:14px 20px 0">複製的規則，存檔才會新增</p>':'<div style="height:14px"></div>')+'<div class="card">';
  h+=fr('類型',(RE.isNew?chipsH('re-type',['基本','加碼'],t):'<span class="v">'+t+'</span>')+'<div class="hint">基本＝這張卡的消費都給；加碼＝符合通路才多給，另外算</div>',1);
  h+=fr('名稱','<input id="re-name" maxlength="20" placeholder="例如：網購 3%" value="'+esc(r.name)+'">');
  h+='<div id="re-chrow">'+fr('通路','<input id="re-ch" maxlength="20" placeholder="例如：網購、餐飲" value="'+esc(r.ch)+'">')+'</div>';
@@ -1607,7 +1607,7 @@ var HTG={'已對平':'tag ok','有差異':'tag red','無法比對':'tag red','�
 function openRecon2(){RS.open='';RS.open2=-1;renderRecon2();go('recon2')}
 function renderRecon2(){
  var h='',rows=billRows(),bsum=0,rsum=0,nd=0;
- rows.forEach(function(r){if(r.b!=null)bsum+=r.b;if(r.s!='add'&&r.r!=null)rsum+=r.r;if(r.s=='diff'||r.s=='mine')nd++});
+ rows.forEach(function(r){if(r.b!=null)bsum+=r.b;if(r.s!='add'&&r.r!=null)rsum+=r.r;if(r.s!='ok')nd++});
  h+='<h2>永豐 範例卡甲　這一期（01-29 到 02-28）</h2><div class="card"><div class="stat"><span>帳單</span><b>'+mo(bsum)+'</b></div><div class="stat"><span>你記的</span><b>'+mo(rsum)+'<span style="font-weight:400;color:#6b6b70">（另外補記 $420）</span></b></div><div class="stat"><span>有差異</span><b class="'+(nd?'red':'green')+'">'+nd+' 筆</b></div></div>';
  h+='<div class="chips" style="padding-top:10px" id="rb-f">'+['全部','有差異','相符'].map(function(t){return '<span class="chip'+(t==RS.f?' on':'')+'" data-v="'+t+'">'+t+'</span>'}).join('')+'</div>';
  h+='<div class="card" style="margin-top:4px"><div class="rbh"><span>商家、日期</span><span>帳單</span><span>你記的</span><span>結果</span></div>';
