@@ -102,6 +102,7 @@ details.grp .row{padding:8px 0}
 .msw{display:flex;justify-content:center;align-items:center;gap:14px;padding:14px 16px 2px;font-size:19px;font-weight:700}
 .msw a{padding:2px 16px;font-size:26px;cursor:pointer;color:#1c1c1e}.msw a.off{color:#d1d1d6;pointer-events:none}
 .msum{text-align:center;color:#6b6b70;font-size:14px;padding-bottom:2px}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;padding:8px 8px 4px}.cal .w{text-align:center;font-size:13px;color:#6b6b70;padding:4px 0}.cal .c{min-height:48px;border-radius:10px;text-align:center;padding:4px 0 2px;cursor:pointer;border:2px solid transparent;font-size:16px;line-height:1.2}.cal .c small{display:block;font-size:10px;color:#6b6b70;min-height:12px}.cal .c small i{color:#1b7a3a;font-style:normal}.cal .c.td{border-color:#1c1c1e}.cal .c.sel{background:#ffd60a;font-weight:700}.cal .c.sel small{color:#1c1c1e}.cal .c.nb{visibility:hidden;pointer-events:none}
 .dh{display:flex;justify-content:space-between;padding:14px 20px 6px;font-size:14px;color:#6b6b70;font-weight:600}
 .xf{display:none}.xfer .xf{display:block}.xfer #p-acc,.xfer #p-cat{display:none}
 .ov{position:fixed;left:0;top:0;right:0;bottom:0;background:rgba(0,0,0,.35);z-index:100;display:none}.ov.on{display:block}
@@ -132,7 +133,7 @@ details.grp .row{padding:8px 0}
 <div class="links"><a data-go="accounts">看各帳戶<small>銀行、現金、點數</small></a><a data-go="recent">看記錄<small>依日期看</small></a></div>
 <div class="links" style="margin-top:16px;display:block"><span style="display:block;text-align:center;padding:10px;color:#6b6b70;font-size:14px;border:1px dashed #e5e5ea;border-radius:12px">🔔 待確認 0 筆（之後才有）</span></div>
 </div>
-<details class="req"><summary>這頁對應的需求（檢查用）</summary><ul><li>FR-56／FR-05　總資產：全部換算成台幣加起來（首頁最上面）</li><li>FR-26／FR-27　扣繳日前 3 天，扣款銀行餘額不夠，只在首頁用紅字提醒（不發手機通知）</li><li>銀行、現金、信用卡未繳、點數：點「看各帳戶」（1 下）</li><li>記錄：依日期分組、上方可切換月份，點「看記錄」（1 下）</li><li>「＋記一筆」：只在最下面那排按鈕的中間</li></ul></details>
+<details class="req"><summary>這頁對應的需求（檢查用）</summary><ul><li>FR-56／FR-05　總資產：全部換算成台幣加起來（首頁最上面）</li><li>FR-26／FR-27　扣繳日前 3 天，扣款銀行餘額不夠，只在首頁用紅字提醒（不發手機通知）</li><li>銀行、現金、信用卡未繳、點數：點「看各帳戶」（1 下）</li><li>記錄：月曆式，點某天看那天的記錄、上方可切換月份，點「看記錄」（1 下）</li><li>「＋記一筆」：只在最下面那排按鈕的中間</li></ul></details>
 </section>
 
 <section class="scr" id="s-accounts">
@@ -185,7 +186,9 @@ details.grp .row{padding:8px 0}
 <div class="top"><a data-go="home">‹ 首頁</a><span>記錄</span></div>
 <div class="msw"><a id="mprev">‹</a><span id="mlab">2026 年 2 月</span><a id="mnext">›</a></div>
 <div class="msum" id="msum"></div>
-<div id="list"></div>
+<div class="cal" id="cal"></div>
+<div class="dh" id="dayh"></div>
+<div class="card" id="list"></div>
 </section>
 
 <section class="scr" id="s-more">
@@ -271,7 +274,7 @@ E('01-10','💡','水電','台新銀行',-1280),
 E('01-08','🎁','送禮','現金',-600),
 E('01-05','🏠','房租','永豐銀行',-12000),
 E('01-03','🍳','早餐','現金',-60),E('01-02','🍱','午餐','現金',-125)];
-var TOTAL0=140855,TODAY='2026-02-28',total,entries,type,cat,sub,n,recent,dval,curM,fromV,toV,sh,gcol;
+var TOTAL0=140855,TODAY='2026-02-28',total,entries,type,cat,sub,n,recent,dval,curM,selD,fromV,toV,sh,gcol;
 var WK='日一二三四五六';
 function fmt(x){return Number(x).toLocaleString('en-US')}
 function go(name){
@@ -284,22 +287,30 @@ function go(name){
 function toast(m){var t=$('toast');t.textContent=m;t.classList.add('on');clearTimeout(toast.h);toast.h=setTimeout(function(){t.classList.remove('on')},2000)}
 function months(){var ms=[];entries.forEach(function(e){var m=e.d.slice(0,7);if(ms.indexOf(m)<0)ms.push(m)});return ms.sort()}
 function renderList(){
- var ms=months();if(!curM||ms.indexOf(curM)<0)curM=ms[ms.length-1];
+ var oe=$('emp');if(oe)oe.remove();
+ var ms=months();if(ms.indexOf(TODAY.slice(0,7))<0)ms.push(TODAY.slice(0,7));ms.sort();
+ if(!curM||ms.indexOf(curM)<0)curM=ms[ms.length-1];
  var i=ms.indexOf(curM);
  $('mlab').textContent=curM.slice(0,4)+' 年 '+(+curM.slice(5))+' 月';
  $('mprev').classList.toggle('off',i<=0);$('mnext').classList.toggle('off',i>=ms.length-1);
- var days=[],map={},ex=0,inc=0,h='';
- entries.forEach(function(e){if(e.d.slice(0,7)!=curM)return;if(!map[e.d]){map[e.d]=[];days.push(e.d)}map[e.d].push(e)});
- days.sort().reverse();
- days.forEach(function(d){
-  var l=map[d],o=0,p=0,rows='',dd=d.split('-');
-  l.forEach(function(e){
-   if(!e.x){if(e.v<0)o-=e.v;else p+=e.v}
-   rows+='<div class="row"><span class="ico">'+e.ico+'</span><div class="grow"><div class="t">'+e.t+'</div><div class="s">'+e.acc+'</div></div><span class="amt'+(e.v>0&&!e.x?' green':'')+'">'+(e.x?fmt(e.v):(e.v<0?'−':'+')+fmt(Math.abs(e.v)))+'</span></div>'});
-  ex+=o;inc+=p;
-  h+='<div class="dh" data-d="'+d+'"><span>'+(+dd[1])+'/'+(+dd[2])+'（'+WK.charAt(new Date(+dd[0],dd[1]-1,+dd[2]).getDay())+'）</span><span>'+((o||p)?(o?'支出 '+fmt(o):'')+(o&&p?'　':'')+(p?'收入 '+fmt(p):''):'轉帳')+'</span></div><div class="card">'+rows+'</div>'});
- $('msum').textContent=days.length?'本月　支出 '+fmt(ex)+'　收入 '+fmt(inc):'';
- $('list').innerHTML=h||'<div class="empty">這個月還沒有記錄</div>'}
+ var y=+curM.slice(0,4),m=+curM.slice(5),nd=new Date(y,m,0).getDate(),fd=new Date(y,m-1,1).getDay(),ex=0,sp={},ic={};
+ entries.forEach(function(e){if(e.d.slice(0,7)!=curM||e.x)return;if(e.v<0){sp[e.d]=(sp[e.d]||0)-e.v;ex-=e.v}else ic[e.d]=1});
+ if(!selD||selD.slice(0,7)!=curM)selD=(TODAY.slice(0,7)==curM)?TODAY:curM+'-01';
+ var h='';for(var k=0;k<7;k++)h+='<div class="w">'+WK.charAt(k)+'</div>';
+ for(k=0;k<fd;k++)h+='<div class="c nb"></div>';
+ for(var d=1;d<=nd;d++){var ds=curM+'-'+(d<10?'0':'')+d;
+  h+='<div class="c'+(ds==selD?' sel':'')+(ds==TODAY?' td':'')+'" data-d="'+ds+'">'+d+'<small>'+(sp[ds]?fmt(sp[ds]):'')+(ic[ds]?'<i>●</i>':'')+'</small></div>'}
+ $('cal').innerHTML=h;
+ $('msum').textContent='本月支出 '+fmt(ex);
+ var rows='',o=0,p=0,n2=0,dd=selD.split('-');
+ entries.forEach(function(e){if(e.d!=selD)return;n2++;
+  if(!e.x){if(e.v<0)o-=e.v;else p+=e.v}
+  rows+='<div class="row"><span class="ico">'+e.ico+'</span><div class="grow"><div class="t">'+e.t+'</div><div class="s">'+e.acc+'</div></div><span class="amt'+(e.v>0&&!e.x?' green':'')+'">'+(e.x?fmt(e.v):(e.v<0?'−':'+')+fmt(Math.abs(e.v)))+'</span></div>'});
+ $('dayh').innerHTML='<span>'+(+dd[1])+'/'+(+dd[2])+'（'+WK.charAt(new Date(+dd[0],dd[1]-1,+dd[2]).getDay())+'）</span><span>'+((o||p)?(o?'支出 '+fmt(o):'')+(o&&p?'　':'')+(p?'收入 '+fmt(p):''):(n2?'轉帳':''))+'</span>';
+ $('list').style.display=n2?'':'none';
+ $('list').innerHTML=rows;
+ if(!n2)$('dayh').insertAdjacentHTML('afterend','<div class="empty" id="emp">這天沒有記錄</div>');
+}
 function renderTotal(){$('total').textContent='NT$ '+fmt(total);$('total2').textContent=fmt(total)}
 function openPk(p){qa('.pk').forEach(function(q){if(q.id=='p-date')q.classList.toggle('open',q===p&&!q.classList.contains('open'))})}
 function setv(p,v){var e=p.querySelector('.v');e.textContent=v;e.style.color='';p.classList.remove('open')}
@@ -371,7 +382,7 @@ function resetForm(){
  qa('#nopts .chip').forEach(function(c){c.classList.toggle('on',c.getAttribute('data-n')=='12')});calc();
 }
 function resetAll(){
- total=TOTAL0;entries=INIT.slice();recent=['💳 台新信用卡','💵 現金','💳 永豐卡'];gcol=[false,false,false,false];curM='2026-02';
+ total=TOTAL0;entries=INIT.slice();recent=['💳 台新信用卡','💵 現金','💳 永豐卡'];gcol=[false,false,false,false];curM='2026-02';selD=TODAY;
  renderList();renderTotal();resetForm();
  $('diffs').textContent='帳單 1,500　你記 1,050　差 450';$('diffbtn').style.display='';$('g1t').textContent='1 筆';$('g1t').className='tag red';
  $('fixed').style.display='none';$('g4t').textContent='5 筆';$('rsum').textContent='相符 5 筆　有差異 3 筆';
@@ -389,8 +400,9 @@ $('p-date').querySelector('.hd').onclick=function(){openPk($('p-date'))};
 $('ov').onclick=$('shx').onclick=closeSheet;
 $('shback').onclick=function(){sh.step=0;renderSheet()};
 $('shq').oninput=renderSheet;
-$('mprev').onclick=function(){var ms=months(),i=ms.indexOf(curM);if(i>0){curM=ms[i-1];renderList();window.scrollTo(0,0)}};
-$('mnext').onclick=function(){var ms=months(),i=ms.indexOf(curM);if(i<ms.length-1){curM=ms[i+1];renderList();window.scrollTo(0,0)}};
+$('cal').onclick=function(ev){var c=ev.target.closest('.c');if(!c||!c.getAttribute('data-d'))return;selD=c.getAttribute('data-d');renderList()};
+$('mprev').onclick=function(){var ms=months(),i=ms.indexOf(curM);if(i>0){curM=ms[i-1];selD=null;renderList();window.scrollTo(0,0)}};
+$('mnext').onclick=function(){var ms=months(),i=ms.indexOf(curM);if(i<ms.length-1){curM=ms[i+1];selD=null;renderList();window.scrollTo(0,0)}};
 $('p-more').querySelector('.hd').onclick=function(){$('moreb').classList.toggle('open');$('p-more').classList.toggle('open')};
 qa('#dateopts .chip').forEach(function(c){c.onclick=function(){
  qa('#dateopts .chip').forEach(function(x){x.classList.remove('on')});c.classList.add('on');
@@ -421,7 +433,7 @@ $('save').onclick=function(){
   touchRecent(acc);
  }
  entries.unshift(ent);entries.sort(function(x,y){return x.d<y.d?1:x.d>y.d?-1:0});
- curM=dval.slice(0,7);
+ curM=dval.slice(0,7);selD=dval;
  renderList();renderTotal();resetForm();go('recent');toast('已記一筆');
 };
 qa('[data-go]').forEach(function(e){e.onclick=function(){go(e.getAttribute('data-go'))}});
