@@ -177,7 +177,7 @@ details.grp .row{padding:8px 0}
 <div class="top"><a data-go="home">取消</a><b style="color:#1c1c1e">記一筆</b><span></span></div>
 <div class="seg" id="seg"><span data-t="收入">收入</span><span class="on" data-t="支出">支出</span><span data-t="轉帳">轉帳</span></div>
 <div class="amtrow"><button class="curb" id="curb" type="button"><span id="curs">NT$</span> <small>▾</small></button><input class="amtin" id="amt" inputmode="numeric" placeholder="0" autocomplete="off"></div>
-<div class="fx" id="fx"><b id="fx1"></b><small id="fx2"></small><small id="fx3"></small></div>
+<div class="fx" id="fx"><b id="fx1"></b><small id="fx2"></small><small id="fx3"></small><small id="fx4"></small></div>
 
 <div class="pk" id="p-cat"><div class="hd"><span class="k">分類</span><span class="v" id="v-cat" style="color:#c62828">請選一個</span><span class="go">›</span></div></div>
 <div class="pk" id="p-acc"><div class="hd"><span class="k">帳戶</span><span class="v" id="v-acc">💳 台新信用卡</span><span class="go">›</span></div></div>
@@ -438,19 +438,21 @@ function touchRecent(v){var i=recent.indexOf(v);if(i>=0)recent.splice(i,1);recen
 function inst(on){$('instb').classList.toggle('on',on);$('sw').style.background=on?'#ffd60a':'#d1d1d6';$('knob').style.left=on?'21px':'3px';calc()}
 function amtVal(){return parseInt(($('amt').value||'').replace(/[^0-9]/g,''),10)||0}
 function isCard(){var a=accBy($('v-acc').textContent);return !!a&&a.k=='c'}
-function twdVal(){var a=amtVal();if(cur=='TWD'||type=='轉帳')return a;return Math.floor(a*curBy(cur)[3]*(isCard()?1.015:1))}
+function twdVal(){var a=amtVal();if(cur=='TWD'||type=='轉帳')return a;return Math.floor(a*curBy(cur)[3])}
+function feeVal(){return (cur=='TWD'||type!='支出'||!isCard())?0:Math.round(twdVal()*0.015)}
 function setCur(c,auto){cur=c;curAuto=!!auto;$('curs').textContent=curBy(c)[1];calc()}
 function fxRender(){
  var f=$('fx'),on=cur!='TWD'&&type!='轉帳';f.classList.toggle('on',on);if(!on)return;
  var c=curBy(cur),a=amtVal(),card=isCard();
- $('fx1').textContent=a?'約台幣 '+mo(twdVal())+(card?'（含手續費 1.5%）':''):'輸入金額就會算出約台幣';
+ $('fx1').textContent=a?'約台幣 '+mo(twdVal()):'輸入金額就會算出約台幣';
  $('fx2').textContent=cur+' 1 = TWD '+c[3]+'（2/28 台銀賣出）';
  $('fx3').textContent=card?'帳單來了會改成帳單金額':'';
+ $('fx4').textContent=(card&&a&&type=='支出')?'另外會自動記一筆：海外交易手續費 約 '+mo(feeVal())+'（1.5%）':'';
 }
 function calc(){
  fxRender();var a=twdVal(),f=parseInt($('fee').value,10)||0;n=parseInt((qa('#nopts .chip.on')[0]||{getAttribute:function(){return 12}}).getAttribute('data-n'),10);
  if(!a){$('per').textContent='—';$('pers').textContent='先填金額就會算出來';return}
- var per=Math.round(a/n)+f;$('per').textContent=mo(per);$('pers').textContent='共 '+n+' 期，每期記一筆'+(f?'（含手續費 $'+f+'）':'');
+ var per=Math.round(a/n)+f;$('per').textContent=mo(per);$('pers').textContent='共 '+n+' 期，每期記一筆'+(f?'（另加每期手續費 $'+f+'）':'');
 }
 function resetForm(){
  cat=null;sub=null;dval=TODAY;
@@ -498,7 +500,7 @@ $('sw').onclick=function(){inst(!$('instb').classList.contains('on'))};
 $('ph1').onclick=$('ph2').onclick=function(){this.classList.add('has');this.textContent='🧾';toast('示範：已加一張照片')};
 $('tplsave').onclick=function(){toast('示範：已存成範本')};
 $('save').onclick=function(){
- var a=amtVal(),ent;
+ var a=amtVal(),ent,feeMsg=0;
  if(!a){toast('請先輸入金額');return}
  if(type=='轉帳'){
   if(!toV){toast('請選「到」哪個帳戶');return}
@@ -514,10 +516,12 @@ $('save').onclick=function(){
   if(cur!='TWD')ent.fc=curBy(cur)[1]+fmt(a);
   if(type=='收入')total+=money;else total-=money;
   touchRecent(acc);
+  var fee=isI?0:feeVal();
+  if(fee){entries.unshift({d:dval,ico:'🧾',t:'海外交易手續費 <span class="tag gray">自動</span>',acc:ent.acc,v:-fee});total-=fee;feeMsg=fee}
  }
  entries.unshift(ent);entries.sort(function(x,y){return x.d<y.d?1:x.d>y.d?-1:0});
  curM=dval.slice(0,7);selD=dval;
- renderList();renderTotal();resetForm();go('recent');toast('已記一筆');
+ renderList();renderTotal();resetForm();go('recent');toast(feeMsg?'已記兩筆：消費 + 海外交易手續費 $'+feeMsg:'已記一筆');
 };
 qa('[data-go]').forEach(function(e){e.onclick=function(){go(e.getAttribute('data-go'))}});
 qa('.later').forEach(function(e){e.onclick=function(){go('later')}});
