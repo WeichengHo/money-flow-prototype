@@ -294,6 +294,7 @@ details.grp .row{padding:8px 0}
 .fr .chip.on{cursor:pointer}
 #archsec .row .s{color:#6b6b70}
 
+.mvb{display:inline-flex;margin-right:6px}.mvb button{border:1px solid #d1d1d6;background:#fff;border-radius:8px;width:30px;height:30px;margin-left:4px;font-size:13px;cursor:pointer}.mvb button:disabled{opacity:.35}.xfer #p-shop,.xfer #mxbox{display:none!important}
 </style></head><body>
 <div id="toast"></div>
 
@@ -355,7 +356,7 @@ details.grp .row{padding:8px 0}
 </div>
 </div>
 
-<details class="req"><summary>這頁對應的需求（檢查用）</summary><ul><li>FR-09　分類有小圖示：點一行→底部選單，先選大類再選細項，選完收起來（3 下）</li><li>帳戶：一行顯示最近用的；點開底部選單，「最近用過」在最上面，下面分信用卡／銀行／現金／點數；超過 10 個帳戶會出現搜尋框；轉帳顯示「從」「到」兩行</li><li>FR-43／FR-44　照片最多 5 張：「更多」→照片</li><li>FR-46　常用範本：「更多」→範本，點一下自動填好</li><li>分期：「更多」→分期開關；每期記一筆、可填手續費</li></ul></details>
+<details class="req"><summary>這頁對應的需求（檢查用）</summary><ul><li>FR-09　分類有小圖示：點一行→底部選單，先選大類再選細項，選完收起來（3 下）</li><li>帳戶：一行顯示最近用的；點開底部選單，「最近用過」在最上面，下面分信用卡／銀行／現金／點數；超過 10 個帳戶會出現搜尋框；轉帳顯示「從」「到」兩行</li><li>FR-43／FR-44　照片最多 5 張：「更多」→照片</li><li>FR-46　常用範本：「更多」→範本，點一下自動填好</li><li>分期：「更多」→分期開關；每期記一筆、可填手續費</li><li>大老闆定案：記一筆有「商家」欄（自己填）；信用卡消費若商家符合加碼規則的關鍵字，顯示「符合：規則名」可取消勾選，也可手動勾選其他加碼規則；幣別「常用」預設台幣、美元、日圓，可自己新增；外幣刷卡分期照收海外手續費（四捨五入）再分期；分期 0 利率不算回饋</li></ul></details>
 <div style="height:90px"></div>
 <div class="savebar"><button class="btn ghost back" id="back">返回</button><button class="btn ghost" id="tplsave">存成範本</button><button class="btn" id="save">存檔</button></div>
 </section>
@@ -385,8 +386,7 @@ details.grp .row{padding:8px 0}
 <section class="scr" id="s-login">
 <div class="top"><a data-go="more">‹ 更多</a><span>登入</span></div>
 <div style="padding:40px 24px 0;text-align:center"><svg role="img" aria-label="找你算帳　想清楚，帳才算得準" viewBox="120 120 960 410" style="width:100%;max-width:342px;height:auto;display:block;margin:0 auto"><g transform="translate(115 345) scale(1.5)"><path fill="#111" d="M82.9 -17.9Q82.9 -19.9 83.3 -22.1Q83.8 -24.3 84.3 -26.2Q84.7 -27.1 85.1 -27.1Q85.6 -27.1 86.5 -25.8Q87.0 -24.8 87.4 -24.8Q88.1 -24.8 88.8 -26.4L93.2 -33.6Q96.3 -38.4 97.6 -42.7Q97.9 -43.8 98.8 -45.8Q99.8 -47.7 99.8 -49.1Q99.3 -52.2 96.6 -59.7Q93.8 -67.3 92.4 -70.1Q91.7 -73.5 90.1 -73.5Q89.1 -73.5 87.9 -72.8Q86.8 -72.0 85.6 -71.4Q82.2 -68.6 78.6 -66.0Q77.3 -65.1 72.4 -61.2Q70.7 -59.9 67.5 -58.2Q64.3 -56.6 63.2 -56.6Q61.7 -56.9 60.5 -58.2Q59.2 -59.4 59.2 -60.5Q59.2 -61.4 59.9 -62.0Q61.2 -63.0 65.3 -65.0Q69.6 -66.8 70.9 -68.1Q74.6 -70.9 81.0 -74.6Q84.0 -76.5 86.0 -77.8Q87.9 -79.2 87.9 -80.1Q87.9 -80.9 87.4 -82.3Q86.8 -83.7 86.8 -84.8Q86.8 -85.3 87.1 -87.0Q87.6 -90.7 90.1 -90.7Q92.5 -90.7 94.7 -88.3Q95.6 -87.3 95.7 -87.0Q95.8 -86.6 95.3 -85.8Q94.2 -84.2 95.0 -84.2H95.3Q96.0 -84.2 96.8 -84.8Q103.0 -88.8 103.7 -89.9Q104.2 -91.4 106.0 -91.4Q106.8 -91.4 107.4 -90.8Q108.0 -90.2 108.0 -89.2Q108.4 -88.1 105.5 -85.4Q102.5 -82.7 99.4 -80.6L97.5 -79.4L97.8 -77.1Q98.4 -72.0 103.0 -61.9Q103.5 -60.5 104.0 -60.5Q104.7 -60.5 104.8 -61.7L105.2 -62.8Q106.8 -68.1 110.4 -72.2Q111.9 -73.5 112.5 -73.8Q113.0 -74.2 114.4 -74.2Q115.8 -74.2 117.0 -73.6Q118.1 -73.0 118.1 -72.2Q118.1 -71.7 115.8 -69.1Q113.5 -66.3 113.5 -66.1Q111.6 -59.1 109.6 -55.3Q108.9 -54.5 108.9 -52.3Q108.9 -49.5 109.9 -45.7Q110.9 -41.8 111.4 -41.2Q112.5 -37.4 114.0 -37.4Q115.5 -37.4 118.1 -33.0Q121.9 -26.4 123.0 -26.6Q124.2 -26.6 123.9 -32.0V-33.0Q123.9 -37.7 126.2 -36.4Q126.7 -36.1 127.1 -35.8Q127.6 -34.8 129.0 -22.8L129.3 -18.2L127.5 -16.4Q125.8 -14.6 124.4 -14.6Q122.9 -14.6 121.1 -16.6Q118.3 -19.0 115.3 -24.3Q112.5 -29.0 110.6 -31.7Q108.9 -33.1 107.6 -35.6Q106.5 -37.7 104.7 -39.4Q104.0 -39.5 103.7 -39.0Q103.0 -38.4 102.4 -36.1Q101.6 -33.5 95.6 -25.8L93.7 -23.0Q91.7 -19.4 89.5 -17.0Q87.3 -14.6 86.0 -14.6Q82.9 -14.8 82.9 -17.9ZM24.3 2.8Q23.1 1.6 22.0 -1.1Q20.8 -3.4 18.4 -7.2Q15.3 -12.1 14.9 -13.5Q14.9 -13.9 16.4 -15.4Q17.7 -16.2 22.6 -22.0L27.4 -27.2L28.1 -31.2Q28.7 -34.5 28.9 -41.2L29.0 -45.6Q29.0 -49.4 29.2 -50.0V-51.2Q29.2 -52.5 29.4 -53.0Q29.5 -54.1 28.7 -54.1Q28.1 -54.1 26.7 -53.4Q25.3 -52.7 24.1 -52.3Q19.9 -49.9 18.0 -50.2Q16.6 -50.5 16.0 -51.1Q15.4 -51.7 15.4 -53.0Q15.4 -54.5 16.8 -55.9Q18.2 -57.4 20.2 -57.9Q22.3 -58.6 26.2 -60.6Q30.0 -62.7 30.5 -63.5Q31.2 -64.1 31.2 -65.8Q31.5 -67.4 31.8 -69.1Q32.2 -71.9 32.8 -75.0Q34.1 -80.6 37.2 -80.6Q38.6 -80.6 40.7 -79.2Q42.2 -78.4 44.8 -78.4Q47.2 -78.4 48.6 -78.8Q49.2 -78.9 49.7 -78.9Q50.2 -78.9 50.4 -78.7Q50.5 -78.4 50.7 -77.9Q50.5 -75.0 46.8 -69.7Q43.1 -64.5 40.0 -62.3Q38.4 -61.4 37.6 -60.3Q36.8 -59.2 36.3 -57.4Q35.8 -55.5 35.8 -54.3L35.1 -44.3Q34.9 -39.9 35.1 -38.3Q35.3 -36.8 35.9 -36.8Q36.8 -36.8 40.0 -40.0Q42.8 -42.8 45.8 -44.8Q48.4 -46.8 49.4 -46.4Q51.2 -45.6 46.3 -41.2Q44.1 -39.0 41.0 -35.3Q38.7 -32.6 36.4 -30.0Q35.4 -29.2 34.0 -24.1Q32.5 -19.0 32.5 -15.3Q32.5 -10.3 31.7 -5.1Q30.7 0.0 29.5 1.8Q28.4 3.8 26.6 3.8Q25.3 3.8 24.3 2.8ZM26.2 -12.1Q26.2 -15.6 25.1 -15.6Q24.8 -15.6 24.1 -14.4Q23.6 -12.8 23.6 -11.5Q23.6 -10.0 24.1 -9.0Q24.6 -8.0 25.1 -8.2Q26.2 -8.9 26.2 -12.1ZM44.6 -74.6Q44.6 -75.1 43.0 -75.6Q42.2 -75.8 41.3 -75.8Q40.7 -75.8 40.3 -75.3Q39.9 -74.8 39.4 -73.8Q38.6 -71.7 38.6 -70.9Q38.6 -69.9 39.4 -69.6Q39.9 -69.2 42.2 -71.5Q44.6 -73.8 44.6 -74.6ZM122.9 -105.8Q121.4 -105.8 119.9 -108.1Q118.3 -110.1 117.1 -110.9Q114.5 -112.7 114.0 -113.0Q111.9 -114.7 109.9 -115.8Q107.6 -117.0 106.6 -118.2Q105.5 -119.4 105.0 -121.6Q105.0 -122.4 104.8 -123.2Q104.8 -124.2 105.2 -124.7Q105.3 -125.5 106.5 -125.5Q108.8 -125.5 114.8 -120.6Q117.6 -118.1 118.1 -118.1Q121.2 -115.8 123.3 -112.5Q125.3 -109.3 125.0 -107.1Q125.0 -106.3 124.7 -106.1Q124.4 -105.8 123.2 -105.8Z M261.3 0.5Q260.0 0.0 255.2 -3.4Q251.0 -6.9 249.3 -10.1Q247.5 -13.3 246.9 -18.9V-20.3Q246.9 -22.5 247.5 -22.5Q248.5 -22.5 250.8 -17.6Q252.3 -14.4 254.8 -11.9Q257.2 -9.4 258.4 -9.8Q259.8 -10.0 263.0 -67.8Q263.4 -76.8 263.9 -85.8L264.1 -89.9Q264.1 -93.0 263.3 -95.3Q261.1 -94.7 258.9 -94.7Q255.2 -94.7 253.1 -96.8Q251.6 -98.3 251.3 -100.2Q251.0 -102.7 251.6 -109.1Q252.3 -119.1 253.6 -120.6Q255.1 -122.1 256.6 -122.1Q258.4 -122.1 258.9 -120.1Q259.2 -118.1 258.9 -113.7Q258.2 -110.6 258.2 -106.1Q258.2 -102.7 260.2 -102.7Q262.1 -102.7 267.7 -105.8Q273.1 -109.3 274.4 -108.3Q275.4 -107.6 275.4 -105.8Q274.9 -102.9 273.8 -97.0Q272.5 -89.7 267.5 -17.9Q266.7 -6.2 266.4 -4.3Q265.9 -1.5 264.6 -0.7Q262.8 1.1 261.3 0.5ZM190.9 -14.1Q190.9 -16.7 191.6 -19.9Q192.6 -26.6 193.7 -39.7Q194.9 -52.8 194.9 -58.6Q194.9 -61.0 194.5 -61.7Q194.2 -62.0 193.9 -62.0Q193.1 -62.0 191.3 -60.2Q179.9 -47.6 176.8 -47.7Q175.0 -48.1 175.0 -49.5Q175.0 -51.7 179.3 -56.8Q184.4 -62.8 187.3 -66.9Q198.3 -82.0 204.1 -87.4Q208.8 -91.9 210.6 -91.9Q211.3 -91.9 211.8 -91.1V-90.6Q211.8 -89.2 210.6 -87.4L202.7 -76.3Q196.8 -68.7 196.8 -67.4Q196.5 -66.3 200.0 -66.6L202.9 -66.8L202.4 -55.5Q200.6 -25.3 197.7 -16.1Q195.7 -9.5 193.4 -9.5Q190.9 -9.5 190.9 -14.1ZM225.9 -34.9Q226.0 -37.6 234.7 -47.4Q236.5 -49.2 238.8 -52.7Q241.0 -56.1 241.0 -57.1Q241.0 -58.1 242.1 -60.2Q243.1 -62.5 246.1 -62.5Q248.8 -62.5 248.7 -61.4Q249.2 -53.0 235.4 -37.6Q231.0 -32.6 228.3 -32.6Q226.9 -32.6 226.3 -33.1Q225.7 -33.6 225.9 -34.9ZM304.3 -30.0Q302.2 -30.0 300.4 -35.3Q297.2 -43.6 293.1 -50.5Q288.9 -57.4 286.4 -58.1Q284.3 -58.7 284.3 -60.5Q284.3 -62.3 286.6 -64.1Q289.4 -66.3 290.2 -66.3Q291.5 -66.3 295.7 -60.0Q299.9 -53.8 302.7 -47.6Q306.4 -39.2 307.2 -36.1Q307.4 -35.6 307.4 -34.8Q307.4 -32.8 306.4 -31.5Q305.4 -30.0 304.3 -30.0Z M418.3 31.0Q416.8 31.0 415.9 29.9Q415.0 28.7 415.7 27.2Q416.0 22.6 416.0 13.1Q416.0 -7.2 415.2 -15.8Q414.8 -19.2 414.5 -20.2Q414.2 -21.2 413.0 -21.2L410.1 -20.7L406.6 -19.7Q400.1 -17.9 398.4 -17.1Q397.6 -16.2 395.3 -7.2Q394.8 -4.9 393.4 -3.1Q392.0 -1.3 390.6 -1.3Q389.7 -1.3 388.9 -2.1Q387.8 -2.8 387.8 -4.3Q387.8 -5.7 389.2 -8.4Q390.9 -11.6 390.9 -13.1Q390.9 -14.3 389.4 -14.3Q387.8 -14.3 385.0 -13.1Q365.8 -7.2 358.4 -5.9Q353.0 -4.8 351.8 -4.8Q350.4 -4.8 349.7 -5.7Q349.0 -6.6 349.0 -9.0Q349.0 -11.3 350.3 -12.0Q351.5 -12.6 355.3 -12.6Q362.7 -12.6 375.3 -16.4L389.4 -20.5H389.7Q391.0 -20.5 391.0 -22.5Q391.0 -23.6 390.4 -26.2Q389.7 -28.9 389.7 -29.4Q389.1 -30.5 390.7 -32.4Q392.4 -34.3 393.5 -33.8Q395.8 -33.0 396.0 -29.5Q396.8 -23.6 398.3 -23.6Q399.1 -24.4 400.8 -24.9Q402.5 -25.4 405.5 -25.9L411.2 -27.1Q413.2 -27.6 413.8 -28.5Q414.3 -29.4 414.2 -32.0Q414.2 -32.8 413.8 -35.3Q413.4 -37.7 413.4 -39.0Q413.4 -41.3 414.5 -42.7Q415.5 -43.6 416.6 -43.6Q418.1 -43.6 418.8 -42.7Q419.8 -41.5 420.1 -35.4Q420.2 -32.5 420.5 -31.2Q420.7 -29.9 421.4 -30.5Q420.7 -30.4 425.0 -31.7Q429.4 -33.0 433.9 -34.1Q438.8 -35.4 440.1 -37.7Q441.1 -39.7 443.1 -39.7Q444.4 -39.7 445.2 -38.7Q446.0 -37.7 445.8 -36.1Q445.4 -33.1 443.8 -31.7Q442.2 -30.4 437.8 -29.2Q425.5 -25.3 424.2 -24.6Q421.7 -23.5 421.2 -22.0Q421.1 -19.4 421.6 -10.0Q422.1 -1.6 421.7 2.0Q421.6 2.5 421.6 5.1L421.7 14.3L422.1 24.4Q422.1 29.9 421.4 28.7Q420.4 31.0 418.3 31.0ZM386.0 -50.5Q386.0 -51.4 386.8 -54.6Q390.4 -70.2 390.4 -79.9Q390.4 -82.7 390.2 -83.8L389.9 -87.1L391.5 -88.4Q392.9 -89.7 394.3 -90.2Q395.1 -90.2 397.4 -92.0Q399.6 -93.5 401.9 -93.4Q410.6 -91.9 412.5 -87.8Q413.9 -85.1 414.3 -81.4Q414.7 -76.1 414.7 -68.1Q414.7 -56.3 415.7 -54.8Q416.0 -53.8 416.1 -53.1Q416.1 -52.3 415.8 -51.7Q415.2 -50.9 413.9 -49.9Q412.7 -48.9 412.2 -48.2Q409.8 -45.8 406.0 -45.3Q402.4 -44.8 399.7 -43.6Q394.7 -41.0 392.0 -41.0Q389.6 -41.0 388.9 -43.1Q388.3 -45.4 387.1 -47.3Q386.0 -49.2 386.0 -50.5ZM406.0 -52.7Q407.8 -53.5 408.3 -55.0Q408.9 -56.4 409.1 -60.2V-61.4Q409.1 -62.8 409.3 -63.5Q409.4 -64.1 409.3 -64.6Q409.1 -65.0 408.8 -65.0Q408.1 -65.1 406.9 -64.2Q405.6 -63.3 404.8 -62.7Q401.9 -61.2 399.7 -59.6Q397.6 -57.9 397.1 -57.6Q396.5 -57.3 396.0 -55.9Q395.5 -54.6 395.5 -54.0Q394.2 -49.5 394.8 -49.2Q395.1 -48.9 399.8 -50.4Q404.5 -51.8 406.0 -52.7ZM398.6 -65.5Q399.2 -65.5 402.0 -67.3Q403.8 -68.2 406.1 -70.7Q408.4 -73.2 408.4 -74.0Q408.4 -74.3 407.9 -74.3Q407.1 -74.3 403.7 -73.0Q399.2 -71.0 397.9 -69.4Q396.1 -67.1 397.1 -65.8Q397.8 -65.1 398.6 -65.5ZM360.4 -96.1Q360.4 -97.1 360.9 -97.6Q363.2 -100.6 367.1 -110.1Q370.5 -118.8 374.1 -122.7Q374.6 -123.4 375.5 -123.5Q376.3 -123.7 376.4 -123.0Q376.8 -122.6 376.8 -121.4Q376.8 -120.3 376.4 -119.4Q375.6 -116.6 373.3 -111.4L372.0 -107.8Q370.0 -102.9 370.4 -102.9Q370.9 -102.4 376.6 -105.8Q382.4 -109.3 384.8 -111.7Q385.5 -112.2 386.0 -112.5Q386.5 -112.9 386.9 -112.9L388.3 -112.7Q391.5 -111.4 391.5 -110.4Q391.5 -109.6 390.1 -108.3Q389.1 -107.3 388.8 -106.4Q388.6 -105.5 388.4 -102.7V-99.6Q388.4 -95.6 388.6 -94.7Q389.2 -93.4 388.3 -92.4Q387.4 -91.5 386.1 -91.5Q383.8 -91.5 383.3 -93.4Q382.2 -95.0 382.2 -97.6Q382.2 -99.6 383.0 -102.9Q381.9 -102.4 380.5 -101.9L376.6 -99.8Q373.2 -97.3 368.2 -94.8Q363.2 -92.4 362.2 -92.7Q361.5 -93.0 360.9 -94.1Q360.4 -95.2 360.4 -96.1ZM404.7 -79.9Q407.5 -80.7 407.5 -82.7Q407.5 -84.0 406.0 -85.5Q404.7 -86.6 403.2 -86.6Q401.4 -86.6 400.0 -84.9Q398.6 -83.2 398.3 -80.2Q398.3 -79.7 398.1 -79.1Q398.1 -77.6 399.2 -77.6Q400.2 -77.6 402.2 -78.8Q404.0 -79.9 404.7 -79.9ZM429.9 -107.8Q428.8 -108.6 426.8 -110.7Q423.9 -113.7 423.0 -114.9Q422.1 -116.2 422.1 -117.5Q422.1 -117.6 422.7 -120.9V-121.4Q422.7 -122.6 421.2 -121.9L420.1 -120.9L416.0 -118.3Q413.7 -117.0 412.0 -116.6Q410.2 -116.2 407.8 -116.2Q405.2 -116.2 404.0 -117.5Q402.9 -118.8 402.9 -122.2Q402.9 -124.7 403.4 -128.1Q403.5 -129.0 403.5 -129.8Q403.5 -131.6 402.4 -133.3Q401.2 -135.0 401.1 -135.8Q401.9 -137.6 403.8 -139.1Q405.6 -140.6 407.1 -139.6Q409.1 -138.1 409.1 -129.0Q409.1 -124.0 409.3 -123.5Q409.6 -122.4 410.2 -122.4Q418.6 -125.5 425.0 -132.1Q427.3 -134.0 428.6 -134.0Q431.6 -133.5 431.6 -131.9Q431.6 -130.1 428.0 -127.5Q424.2 -124.2 424.8 -123.9Q426.6 -122.9 428.3 -119.8Q429.1 -118.1 429.6 -117.1Q430.1 -116.0 430.4 -115.5Q432.7 -111.7 432.7 -109.9Q432.7 -108.3 431.1 -107.6Q430.6 -107.3 429.9 -107.8Z M628.1 -1.1Q626.8 -1.1 624.0 -3.3Q618.1 -6.7 610.2 -9.7Q605.3 -11.5 600.8 -13.5Q596.1 -15.3 590.8 -17.1Q585.4 -18.9 582.2 -20.3Q579.0 -21.7 576.6 -23.5Q575.4 -24.6 574.1 -24.6Q573.1 -24.6 572.6 -24.1Q571.5 -23.0 570.6 -21.3Q569.7 -19.7 569.3 -19.4Q568.0 -17.4 565.7 -13.9Q563.3 -10.5 562.1 -9.5Q560.2 -7.5 558.2 -7.5Q557.0 -7.5 555.7 -8.4Q555.1 -9.0 555.1 -10.8Q554.9 -12.0 554.9 -19.9V-24.8Q554.9 -30.7 554.6 -31.0Q554.7 -32.0 551.3 -30.4Q547.9 -28.9 547.9 -28.9Q547.4 -28.9 545.6 -27.6Q543.9 -25.9 541.9 -25.9Q540.1 -25.9 539.2 -27.2Q538.0 -28.4 538.0 -29.7Q538.0 -30.7 538.8 -31.3Q542.3 -34.8 549.3 -37.7L553.1 -39.2L552.9 -42.5V-43.6Q552.9 -46.1 553.8 -47.4Q555.7 -50.9 556.1 -58.6Q556.4 -62.5 556.7 -64.3Q557.0 -67.6 556.7 -71.2Q556.5 -72.7 556.5 -75.8Q556.5 -80.2 557.2 -84.4Q557.9 -88.6 559.0 -90.9Q559.0 -91.4 558.4 -91.4Q557.2 -91.4 554.1 -89.7Q547.4 -87.0 546.2 -87.0Q544.7 -87.0 544.1 -87.5Q543.4 -88.1 543.3 -89.6V-89.9Q543.3 -91.4 545.1 -92.2Q547.0 -93.4 547.2 -93.8Q548.2 -94.8 552.4 -96.1Q556.2 -97.3 558.0 -98.6Q560.6 -100.2 564.3 -101.6L572.0 -105.3Q577.9 -108.4 580.5 -109.3Q581.3 -109.6 582.5 -109.6Q583.6 -109.6 583.9 -109.3Q584.8 -108.8 584.8 -107.3Q584.8 -105.8 583.8 -105.0Q580.8 -102.4 573.3 -99.1Q566.2 -96.0 563.3 -94.2Q564.1 -93.5 564.6 -92.9Q565.1 -92.4 565.1 -91.7Q565.1 -91.2 564.3 -87.1L563.9 -84.5Q563.9 -83.5 564.6 -83.5Q564.9 -83.5 567.5 -84.7Q574.9 -87.9 576.6 -87.4Q578.5 -86.5 578.5 -85.3Q578.5 -83.5 573.9 -80.9L572.3 -80.1Q571.0 -79.7 569.2 -78.4L566.7 -76.9Q565.1 -76.1 564.4 -75.0Q563.8 -73.8 563.4 -71.5Q563.4 -70.9 563.3 -70.1Q563.3 -67.3 565.7 -68.2Q571.5 -72.0 576.6 -78.6Q577.9 -80.4 579.4 -80.4Q581.2 -80.4 581.6 -76.8Q581.2 -74.8 574.8 -68.1Q568.5 -61.4 565.6 -59.9Q563.4 -58.9 562.9 -58.1Q562.5 -57.3 562.0 -54.0L561.1 -48.6L563.4 -48.9Q564.6 -48.7 565.7 -49.5Q566.9 -50.4 569.2 -52.7Q572.8 -56.3 573.9 -57.1Q575.1 -58.2 576.5 -59.6Q577.9 -61.0 579.0 -61.0Q579.8 -61.0 580.5 -60.5Q581.2 -59.9 581.2 -59.1Q581.2 -57.9 579.0 -54.6Q576.6 -51.5 572.1 -46.7Q567.7 -41.8 566.2 -40.9Q562.5 -38.6 561.5 -30.4Q561.0 -25.6 561.3 -21.2Q561.6 -19.0 562.1 -19.0Q562.5 -19.0 563.4 -20.5Q564.9 -22.6 566.4 -24.8Q568.7 -27.6 568.7 -28.7Q568.7 -29.5 568.0 -30.7Q567.2 -32.6 567.2 -33.6Q567.2 -35.3 568.5 -36.3Q570.7 -38.4 573.0 -40.0Q574.8 -41.2 577.4 -42.3Q580.7 -43.8 581.5 -44.3Q585.3 -46.4 586.9 -46.4Q587.9 -46.4 588.9 -45.8Q590.0 -45.3 590.0 -43.6Q590.0 -42.8 589.7 -41.8Q589.4 -40.9 588.9 -40.4Q588.7 -39.9 583.6 -36.8Q578.7 -34.1 578.2 -32.3Q578.2 -31.2 581.9 -28.5Q585.6 -25.9 587.1 -25.9L591.8 -23.8Q596.1 -21.8 596.6 -21.8Q597.1 -21.8 598.5 -21.2Q599.9 -20.7 601.5 -20.0Q607.2 -17.4 610.5 -16.2Q613.3 -15.8 619.5 -13.3Q626.3 -10.8 626.8 -10.7Q629.1 -10.7 630.7 -9.3Q632.3 -7.9 632.3 -6.1Q632.3 -4.4 630.5 -2.6Q629.1 -1.1 628.1 -1.1ZM500.4 4.6Q498.1 4.6 496.8 1.5Q496.3 -0.3 496.3 -1.5Q496.3 -3.6 497.6 -4.9Q498.8 -5.2 499.1 -7.5Q499.5 -9.7 499.6 -14.4Q499.9 -23.3 500.8 -28.1Q501.1 -29.7 501.1 -36.8Q501.1 -47.1 500.4 -52.0Q499.8 -51.4 499.1 -50.4Q498.0 -48.9 497.5 -48.7Q490.4 -42.7 489.4 -34.5Q488.5 -29.2 485.3 -29.2Q482.2 -29.2 482.2 -33.8Q482.4 -35.4 482.6 -37.1Q482.9 -40.0 482.9 -42.5Q482.9 -46.3 482.4 -50.3Q481.9 -54.3 481.2 -56.8Q480.9 -58.4 480.9 -58.7Q480.9 -61.2 483.4 -61.2Q484.2 -61.2 485.8 -60.5Q487.3 -60.2 488.0 -55.6Q488.8 -51.2 490.1 -50.9H490.3Q490.8 -50.9 491.6 -52.0Q492.1 -52.8 496.5 -57.3L500.9 -61.5L500.4 -67.6Q499.9 -74.5 499.9 -77.9Q499.9 -80.7 500.3 -81.4Q501.3 -82.2 502.6 -82.2Q505.4 -82.2 505.5 -78.4Q505.5 -77.8 506.5 -74.3Q507.5 -71.2 507.5 -69.2Q507.5 -67.8 507.7 -66.9Q507.8 -66.1 508.3 -66.1Q508.8 -66.1 509.4 -66.4Q510.0 -66.8 510.8 -67.1Q512.7 -68.4 515.9 -68.4Q520.0 -68.4 521.8 -66.1Q522.6 -64.1 522.6 -62.3Q522.6 -61.5 522.3 -59.9Q521.4 -56.8 520.3 -54.9Q519.1 -53.0 519.0 -52.2Q518.3 -50.5 516.7 -49.3Q515.0 -48.1 514.9 -47.9Q513.7 -46.8 511.1 -45.8Q509.1 -45.0 508.3 -44.1Q507.5 -43.1 508.0 -40.9Q507.8 -30.4 506.3 -15.8Q504.7 -1.3 502.9 3.1Q501.9 4.6 500.4 4.6ZM515.7 -59.1 516.0 -60.5Q516.0 -62.0 513.7 -61.5Q512.1 -61.2 511.3 -60.7Q509.1 -59.7 508.6 -58.6Q508.0 -57.4 507.8 -54.6Q507.8 -50.9 509.1 -50.9Q509.8 -50.9 510.4 -51.4Q514.2 -55.1 515.7 -59.1Z"/></g><path d="M140 400 Q600 425 1062 392" fill="none" stroke="#ffd60a" stroke-width="18" stroke-linecap="round"/><text x="142" y="508" font-size="41.6" fill="#8a8a8e" font-family="PingFang TC, Heiti TC, sans-serif" letter-spacing="5.78">想清楚，帳才算得準</text></svg></div>
-<div style="padding:36px 24px 0"><button class="btn" id="glogin" style="width:100%;height:50px;border:1px solid #d1d1d6;background:#fff;border-radius:12px;font-size:17px;font-weight:600;color:#1c1c1e">用 Google 登入</button>
-<p class="sub" style="text-align:center;margin-top:16px">登入後，不同手機都看得到同一份帳。</p></div>
+<div style="padding:36px 24px 0"><button class="btn" id="glogin" style="width:100%;height:50px;border:1px solid #d1d1d6;background:#fff;border-radius:12px;font-size:17px;font-weight:600;color:#1c1c1e">用 Google 登入</button></div>
 </section>
 
 <section class="scr" id="s-later">
@@ -443,12 +443,12 @@ details.grp .row{padding:8px 0}
 <div style="height:90px"></div><div class="savebar"><button class="btn ghost back mfback" style="flex:1">返回</button></div></section>
 
 <section class="scr" id="s-rwe"><div id="re"></div>
-<details class="req"><summary>這頁對應的需求（檢查用）</summary><ul><li>FR-15　類型（基本／加碼）、名稱、通路（加碼必填）、適用範圍、生效起迄、取整、幣種；複製時帶入原值、名稱加「（複製）」，存檔才建立；基本規則期間重疊要拒絕</li><li>FR-16　回饋日期（算好的回饋哪天入帳）、百分比（0 到 100）</li><li>FR-17　計算期（日曆月／帳單週期）、上限（有／無）</li></ul></details>
+<details class="req"><summary>這頁對應的需求（檢查用）</summary><ul><li>FR-15　類型（基本／加碼）、名稱、通路（加碼必填）、適用範圍、生效起迄、取整、幣種；複製時帶入原值、名稱加「（複製）」，存檔才建立；基本規則期間重疊要拒絕</li><li>FR-16　回饋日期（算好的回饋哪天入帳）、百分比（0 到 100）</li><li>FR-17　計算期（日曆月／帳單週期）、上限（有／無）</li><li>大老闆定案：加碼規則的「關鍵字」可填多個（逗號分開），比對商家和請款說明；手續費小數一律四捨五入</li></ul></details>
 <div style="height:90px"></div><div class="savebar"><button class="btn ghost back mfback">返回</button><button class="btn" id="re-save">存檔</button></div></section>
 
 <div class="ov" id="cov"></div><div id="cbox"><p id="cmsg"></p><div class="cb"><button id="cno">取消</button><button id="cyes">確定</button></div></div>
 <section class="scr" id="s-detail"><div id="dt"></div>
-<details class="req"><summary>這頁對應的需求（檢查用）</summary><ul><li>FR-45　複製：日期改成今天、其他欄位帶入、存了才算；自動記的回饋與手續費、照片都不複製；原帳戶已封存要重選；返回＝什麼都不建立</li><li>FR-43　每筆最多 5 張照片，第 6 張擋下「最多 5 張」；刪除這筆時照片一起刪</li><li>FR-19　海外消費的手續費另外一筆（大老闆：「海外手續費應該要另外一筆，而不是混在一起看」），標「自動」，連到原消費</li><li>FR-16　每筆信用卡消費依回饋規則自動算回饋，基本、加碼分開列；回饋日還沒到標「預計」</li><li>修改、刪除、記錄頁依帳戶與分類篩選：SRS 10.7 #2，留待小老闆或大老闆定要不要保留</li></ul></details>
+<details class="req"><summary>這頁對應的需求（檢查用）</summary><ul><li>FR-45　複製：日期改成今天、其他欄位帶入、存了才算；自動記的回饋與手續費、照片都不複製；原帳戶已封存要重選；返回＝什麼都不建立</li><li>FR-43　每筆最多 5 張照片，第 6 張擋下「最多 5 張」；刪除這筆時照片一起刪</li><li>FR-19　海外消費的手續費另外一筆（大老闆：「海外手續費應該要另外一筆，而不是混在一起看」），標「自動」，連到原消費</li><li>FR-16　每筆信用卡消費依回饋規則自動算回饋，基本、加碼分開列；回饋日還沒到標「預計」</li><li>修改、刪除、記錄頁依帳戶與分類篩選：SRS 10.7 #2，留待小老闆或大老闆定要不要保留</li><li>大老闆定案：信用卡消費顯示「商家」和「請款說明」（對帳後自動帶入銀行原文，沒對帳是空的）</li></ul></details>
 <div style="height:90px"></div><div class="savebar"><button class="btn ghost back mfb2" id="dt-b1">返回</button><button class="btn ghost" id="dt-b2">複製</button><button class="btn" id="dt-b3">修改</button></div></section>
 
 <section class="scr" id="s-xfers"><div id="xf"></div>
@@ -467,7 +467,7 @@ details.grp .row{padding:8px 0}
 <div style="height:90px"></div><div class="savebar"><button class="btn ghost back mfb2">返回</button><button class="btn" id="is-new">＋ 新增分期</button></div></section>
 
 <section class="scr" id="s-inst"><div id="ins"></div>
-<details class="req"><summary>這頁對應的需求（檢查用）</summary><ul><li>FR-59　每期一筆，到日期才會記；日期已過的在建立時就記好</li><li>FR-61　每期歸入該卡的帳期，和電子帳單逐筆對；已對帳的期顯示「已對帳」</li><li>FR-62　回饋：每張卡各自設「每期各算」或「總額算一次」</li><li>FR-63　提前清償：剩餘各期一次繳清，之後各期取消，不能復原</li><li>FR-64　還沒記任何一期可全部修改；記過之後只能改名稱與分類；刪除連同各期一起刪，已對帳的不能刪</li></ul></details>
+<details class="req"><summary>這頁對應的需求（檢查用）</summary><ul><li>FR-59　每期一筆，到日期才會記；日期已過的在建立時就記好</li><li>FR-61　每期歸入該卡的帳期，和電子帳單逐筆對；已對帳的期顯示「已對帳」</li><li>FR-62　回饋：每張卡各自設「每期各算」或「總額算一次」</li><li>FR-63　提前清償：剩餘各期一次繳清，之後各期取消，不能復原</li><li>FR-64　還沒記任何一期可全部修改；記過之後只能改名稱與分類；刪除連同各期一起刪，已對帳的不能刪</li><li>大老闆定案：0 利率的分期不算回饋；有利率照規則的「每期各算／總額算一次」</li></ul></details>
 <div style="height:90px"></div><div class="savebar"><button class="btn ghost back mfb2">返回</button><button class="btn" id="id-edit">編輯</button></div></section>
 
 <section class="scr" id="s-instf"><div id="ifm"></div>
@@ -529,11 +529,11 @@ details.grp .row{padding:8px 0}
 <details class="req"><summary>這頁對應的需求（檢查用）</summary><ul><li>FR-40　自己寫的 Android 小 App 只讀勾選的銀行、信用卡、券商 App 的通知，只送到本系統；沒勾的不讀不存不送；通知含驗證碼整則不送；沒開「通知存取」權限時顯示「尚未授權」、不送任何資料；送出失敗稍後重送、60 秒內同一則只留一筆；換 Samsung 手機要重新安裝與授權，舊裝置可停用</li><li>FR-42　Gmail 通知信寄件者清單由大老闆設定，不在清單的信不讀；沿用 Google 授權（T3）</li><li>各銀行 App 的名稱、通知寫法、Android 小 App 怎麼發佈、Samsung 實際操作與限制：沒查（SRS 10.2 #7、#9），畫面上的 App 名單是示範</li></ul></details>
 <div style="height:90px"></div><div class="savebar"><button class="btn ghost back mfb2" style="flex:1">返回</button></div></section>
 <section class="scr" id="s-stk1"><div id="st1"></div>
-<details class="req"><summary>這頁對應的需求（檢查用）</summary><ul><li>FR-28　股票：台股、美股，每檔記市場、代號、名稱；ETF 和個股一樣處理；同一檔可以出現在不同證券戶，各算各的</li><li>FR-29　美股現值用最新匯率換成台幣，同時看到美元和台幣；匯率抓不到時標日期</li><li>FR-30　每個證券戶一個持股清單；每天收盤價算現值；抓不到沿用最近一筆並標「股價日期」</li><li>FR-32　成本、還沒賣的損益（未實現）、賣掉的損益（已實現）自動算，平均成本法</li><li>FR-33　現金股利不降成本、另外算；損益和股利兩個數字分開列、不加成總損益</li><li>示範用編造的股票與收盤價；總資產（首頁、帳戶、總資產報表）暫不含股票現值：推測</li></ul></details>
+<details class="req"><summary>這頁對應的需求（檢查用）</summary><ul><li>FR-28　股票：台股、美股，每檔記市場、代號、名稱；ETF 和個股一樣處理；同一檔可以出現在不同證券戶，各算各的</li><li>FR-29　美股現值用最新匯率換成台幣，同時看到美元和台幣；匯率抓不到時標日期</li><li>FR-30　每個證券戶一個持股清單；每天收盤價算現值；抓不到沿用最近一筆並標「股價日期」</li><li>FR-32　成本、還沒賣的損益（未實現）、賣掉的損益（已實現）自動算，平均成本法</li><li>FR-33　現金股利不降成本、另外算；損益和股利兩個數字分開列、不加成總損益</li><li>示範用編造的股票與收盤價；總資產（首頁、帳戶、總資產報表）暫不含股票現值：推測</li><li>大老闆定案：「領到的股利」「賣掉的賺賠」可切換 全部／今年／選年份；成本、現值、未實現不分年；股價日期另起一行</li></ul></details>
 <div style="height:90px"></div><div class="savebar"><button class="btn ghost back mfb2">返回</button><button class="btn" id="st1-trade">記買進或賣出</button></div></section>
 
 <section class="scr" id="s-stk2"><div id="st2"></div>
-<details class="req"><summary>這頁對應的需求（檢查用）</summary><ul><li>FR-31　每筆買賣記日期、股數、價格、手續費（賣出多一個交易稅）；可修改、刪除，修改後成本與損益重算</li><li>FR-32　平均成本＝總成本 ÷ 持股數，賣出照比例扣成本；已實現損益＝賣出金額 − 手續費 − 交易稅 − 扣掉的成本</li><li>FR-33　累計現金股利另列，不進成本、不進損益</li><li>FR-34　股票股利只增加股數、總成本不變，所以平均成本會變低</li><li>FR-38　定期定額記的「預估買進」標「估算」，等券商通知後改成實際</li></ul></details>
+<details class="req"><summary>這頁對應的需求（檢查用）</summary><ul><li>FR-31　每筆買賣記日期、股數、價格、手續費（賣出多一個交易稅）；可修改、刪除，修改後成本與損益重算</li><li>FR-32　平均成本＝總成本 ÷ 持股數，賣出照比例扣成本；已實現損益＝賣出金額 − 手續費 − 交易稅 − 扣掉的成本</li><li>FR-33　累計現金股利另列，不進成本、不進損益</li><li>FR-34　股票股利只增加股數、總成本不變，所以平均成本會變低</li><li>FR-38　定期定額記的「預估買進」標「估算」，等券商通知後改成實際</li><li>大老闆定案：「領到的股利」「賣掉的賺賠」可切換 全部／今年／選年份；匯率與股價日期各自一行</li></ul></details>
 <div style="height:90px"></div><div class="savebar"><button class="btn ghost back mfb2">返回</button><button class="btn ghost" id="st2-sell">記賣出</button><button class="btn" id="st2-buy">記買進</button></div></section>
 
 <section class="scr" id="s-stk3"><div id="st3"></div>
@@ -669,19 +669,18 @@ function mo2(x){return '$'+fmt(x)}
 function renderAcc(){
  var h='';
  INSTS.forEach(function(g,gi){
-  if(!g.it.some(function(x){return !x.arch})&&!((SEC||[]).some(function(s){return s.g==g.n})))return;
+  if(!g.it.some(function(x){return !x.arch}))return;
   var dep=0,owe=0,hc=false,hd=false;g.it.forEach(function(x){if(x.k=='c'){owe+=x.a;hc=true}else if(x.k!='p'){dep+=x.a;hd=true}});
   var tot=dep-owe,f=g.pt?'點數，不算在總資產裡':hc&&hd?'存款 − 要繳卡費':hc?'只有信用卡，顯示要繳的':g.n=='現金'?'現金合計':'存款合計';
   var at=g.pt?'':'<div class="at"><small>'+(tot<0?'還要繳':'合計')+'</small><span class="amt'+(tot<0?' red':'')+'">'+mo(Math.abs(tot))+'</span></div>';
-  h+='<div class="card ag"><div class="ah" data-g="'+gi+'"><span class="ar">'+(acol[gi]?'▸':'▾')+'</span><div class="grow"><b>'+g.n+'</b><div class="s">'+f+'</div></div>'+at+'</div>';
+  h+='<div class="card ag"><div class="ah" data-g="'+gi+'"><span class="ar">'+(acol[gi]?'▸':'▾')+'</span><div class="grow"><b>'+g.n+'</b><div class="s">'+f+'</div></div>'+mvh(gi)+at+'</div>';
   if(!acol[gi])g.it.forEach(function(x){if(x.arch)return;
    if(x.k=='c')h+='<div class="row" data-card="'+x.n+'">'+face(x)+'<div class="grow">'+x.n+(x.arch?' <span class="tag gray">已封存</span>':'')+'<div class="s">本期要繳</div></div><span class="amt red">'+mo(x.a)+'</span><span style="color:#6b6b70">›</span></div>';
    else if(x.k=='p')h+='<div class="row" data-pt="'+x.n+'"><span class="ico">'+ei(x.ic||'⭐')+'</span><div class="grow">'+x.n+(x.arch?' <span class="tag gray">已封存</span>':'')+'</div><span class="amt">'+x.txt+'</span><span style="color:#6b6b70;width:8px;text-align:center">›</span></div>';
    else h+='<div class="row" data-acc="'+x.n+'"><span class="ico">'+ei(x.ic||ICO[x.k])+'</span><div class="grow">'+x.n+(x.arch?' <span class="tag gray">已封存</span>':'')+'<div class="s">'+x.sub+'</div></div><span class="amt">'+mo(x.a)+'</span><span style="color:#6b6b70;width:8px;text-align:center">›</span></div>'});
-  if(!acol[gi])h+=skAccRows(g);
   h+='</div>'});
- $('acclist').innerHTML=h;
- qa('#acclist .ah').forEach(function(e){e.onclick=function(){var g=+e.getAttribute('data-g');acol[g]=!acol[g];renderAcc()}});
+ h+=secGroup();$('acclist').innerHTML=h;
+ qa('#acclist .ah').forEach(function(e){e.onclick=function(){var g=e.getAttribute('data-g');g=g=='s'?'s':+g;acol[g]=!acol[g];renderAcc()}});
  qa('#acclist [data-card]').forEach(function(e){e.onclick=function(){showCard(e.getAttribute('data-card'))}});accBind();
 }
 function showCard(n){
@@ -702,9 +701,9 @@ function renderSheet(){
   $('shtitle').textContent='選幣別';$('shback').style.display='none';
   var q=$('shq').value.replace(/^\s+|\s+$/g,'').toUpperCase();
   if(q){var l=CURS.filter(function(c){return c[0].indexOf(q)>=0||c[2].indexOf(q)>=0||c[1].toUpperCase().indexOf(q)>=0});l.forEach(function(c){h+=curIt(c)});if(!l.length)h='<div class="empty">找不到「'+q+'」</div>'}
-  else{h+='<div class="gh2">常用</div>';CURS.slice(0,3).forEach(function(c){h+=curIt(c)});h+='<div class="gh2">其他</div>';CURS.slice(3).forEach(function(c){h+=curIt(c)})}
+  else{h+='<div class="gh2">常用</div>';favCurs().forEach(function(c){h+=curIt(c)});h+='<div class="it" id="favadd" style="cursor:pointer"><div class="nm" style="color:#5c4a00;font-weight:700">'+(sh.addFav?'點下面一個幣別，加進常用':'＋ 新增常用')+'</div></div><div class="gh2">其他</div>';CURS.filter(function(c){return FAVC.indexOf(c[0])<0}).forEach(function(c){h+=curIt(c)})}
   b.innerHTML=h;
-  qa('#shbody .it').forEach(function(e){e.onclick=function(){setCur(e.getAttribute('data-c'),false);closeSheet()}});
+  qa('#shbody .it').forEach(function(e){e.onclick=function(){if(e.id=='favadd'){sh.addFav=!sh.addFav;renderSheet();return}var c=e.getAttribute('data-c');if(sh.addFav){addFav(c);return}setCur(c,false);closeSheet()}});
  }else if(sh.kind=='acc'){
   $('shtitle').textContent={acc:'選帳戶',from:'從哪個帳戶轉出',to:'轉到哪個帳戶'}[sh.target];$('shback').style.display='none';
   var q=$('shq').value.replace(/^\s+|\s+$/g,''),cur=curAcc(sh.target);
@@ -745,7 +744,7 @@ function inst(on){$('instb').classList.toggle('on',on);$('sw').style.background=
 function amtVal(){return parseInt(($('amt').value||'').replace(/[^0-9]/g,''),10)||0}
 function isCard(){var a=accBy($('v-acc').getAttribute('data-v'));return !!a&&a.k=='c'}
 function twdVal(){var a=amtVal();if(cur=='TWD'||type=='轉帳')return a;return Math.floor(a*curBy(cur)[3])}
-function feeVal(){return (cur=='TWD'||type!='支出'||!isCard())?0:Math.floor(twdVal()*0.015)}
+function feeVal(){return (cur=='TWD'||type!='支出'||!isCard())?0:Math.round(twdVal()*0.015)}
 function setCur(c,auto){cur=c;curAuto=!!auto;$('curs').textContent=curBy(c)[1];calc()}
 function fxRender(){
  var f=$('fx'),on=cur!='TWD'&&type!='轉帳';f.classList.toggle('on',on);if(!on)return;
@@ -753,12 +752,12 @@ function fxRender(){
  $('fx1').textContent=a?'約台幣 '+mo(twdVal()):'輸入金額就會算出約台幣';
  $('fx2').textContent=cur+' 1 = TWD '+c[3]+'（2/28 台銀賣出）';
  $('fx3').textContent=card?'帳單來了會改成帳單金額':'';
- $('fx4').textContent=(card&&a&&type=='支出')?'另外會自動記一筆：海外交易手續費 約 '+mo(feeVal())+'（1.5%）':'';
+ $('fx4').textContent=(card&&a&&type=='支出')?'另外會自動記一筆：海外交易手續費 約 '+mo(feeVal())+'（1.5%）'+($('instb').classList.contains('on')?'，再分期':''):'';
 }
 function calc(){
  fxRender();var a=twdVal(),f=parseInt($('fee').value,10)||0;n=parseInt((qa('#nopts .chip.on')[0]||{getAttribute:function(){return 12}}).getAttribute('data-n'),10);
  if(!a){$('per').textContent='—';$('pers').textContent='先填金額就會算出來';return}
- var per=Math.floor(a/n)+f;$('per').textContent=mo(per);$('pers').textContent='共 '+n+' 期，每期記一筆'+(f?'（另加每期手續費 $'+f+'）':'');
+ var per=Math.floor(a/n)+f;$('per').textContent=mo(per);$('pers').textContent='共 '+n+' 期，每期記一筆'+(f?'（另加每期手續費 $'+f+'）':'（0 利率，不算回饋）');
 }
 function resetForm(){
  cat=null;sub=null;dval=TODAY;
@@ -822,7 +821,7 @@ $('save').onclick=function(){
   if(cur!='TWD')ent.fc=curBy(cur)[1]+fmt(a);
   if(type=='收入')total+=money;else total-=money;
   touchRecent(acc);
-  var fee=isI?0:feeVal();
+  var fee=feeVal();
   if(fee){entries.unshift({d:dval,ico:'🧾',t:'海外交易手續費 <span class="tag gray">自動</span>',acc:ent.acc,v:-fee});total-=fee;feeMsg=fee}
  }
  k1Hook(ent,typeof isI=='undefined'?false:isI,typeof base=='undefined'?0:base,n);entries.unshift(ent);entries.sort(function(x,y){return x.d<y.d?1:x.d>y.d?-1:0});
@@ -1067,14 +1066,14 @@ $('cs-save').onclick=function(){
 function openRw(){BACK.rw='card';renderRw();go('rw')}
 function rwRow(r,i){
  var tag=r.arch?'<span class="tag gray">已封存</span>':r.from>TODAY?'<span class="tag">還沒開始</span>':'<span class="tag ok">生效中</span>';
- var l1=r.pct+'%　'+r.period+(r.ch?'　通路：'+esc(r.ch):'')+(r.scope!='兩者'?'　'+r.scope:'');
+ var l1=r.pct+'%　'+r.period+(r.ch?'　關鍵字：'+esc(r.ch):'')+(r.scope!='兩者'?'　'+r.scope:'');
  var l2=ymd(r.from)+' 起'+(r.to?'，到 '+ymd(r.to):'，沒有迄日');
  var l3=(r.cap==null?'無上限':'每期上限 '+fmt(r.cap)+(r.cur=='台幣'?' 元':' 點'))+'　'+r.rnd+'　'+r.cur+'回饋　'+r.pay+'入帳';
  return '<div class="rr'+(r.arch?' arch':'')+'" data-i="'+i+'"><div class="rt"><span class="grow" style="flex:1">'+esc(r.name)+'</span>'+tag+'</div><div class="rs">'+l1+'<br>'+l2+'<br>'+l3+'</div><div class="ra">'+(r.arch?'':'<button data-a="edit">編輯</button>')+'<button data-a="copy">複製</button>'+(r.arch?'':'<button data-a="arch">封存</button>')+'</div></div>'}
 function renderRw(){
  var x=curCard,h='',na=(x.rw||[]).filter(function(r){return r.arch}).length;
- h+='<div style="display:flex;align-items:center;gap:12px;padding:14px 16px 0">'+face(x).replace('style="','style="font-size:10px;')+'<div><b>'+esc(x.n)+'</b><div class="s" style="font-size:13px;color:#6b6b70">回饋規則</div></div></div><p class="sub" style="margin-top:8px">基本是基本，加碼是加碼：分開算、分開看，不加在一起。</p>';
- [['基本','基本回饋','這張卡符合範圍的消費，都照這個比例給'],['加碼','加碼回饋','符合指定通路才多給一份，另外算']].forEach(function(g){
+ h+='<div style="display:flex;align-items:center;gap:12px;padding:14px 16px 0">'+face(x).replace('style="','style="font-size:10px;')+'<div><b>'+esc(x.n)+'</b><div class="s" style="font-size:13px;color:#6b6b70">回饋規則</div></div></div>';
+ [['基本','基本回饋','這張卡符合範圍的消費，都照這個比例給'],['加碼','加碼回饋','符合指定關鍵字才多給一份，另外算']].forEach(function(g){
   h+='<h2>'+g[1]+'</h2><div class="gsub" style="padding-top:0">'+g[2]+'</div><div class="card">';var n=0;
   x.rw.forEach(function(r,i){if(r.type!=g[0]||(r.arch&&!RWS.arch))return;n++;h+=rwRow(r,i)});
   if(!n)h+='<div class="empty" style="padding:16px">還沒有'+g[1]+'</div>';
@@ -1096,9 +1095,9 @@ function openRwe(r,type,isCopy){RE={rule:isCopy?null:r,src:r,isNew:!r||!!isCopy,
 function renderRwe(){
  var r=RE.src||{name:'',ch:'',scope:'兩者',from:TODAY,to:'',period:'日曆月',pay:'隔月 15 日',pct:'',rnd:'四捨五入',cap:null,cur:'台幣',inst:'每期各算'},x=curCard,t=RE.type,h='';
  h+=(RE.isNew&&r&&r.name?'<p class="sub" style="margin:14px 20px 0">複製的規則，存檔才會新增</p>':'<div style="height:14px"></div>')+'<div class="card">';
- h+=fr('類型',(RE.isNew?chipsH('re-type',['基本','加碼'],t):'<span class="v">'+t+'</span>')+'<div class="hint">基本＝這張卡的消費都給；加碼＝符合通路才多給，另外算</div>',1);
+ h+=fr('類型',(RE.isNew?chipsH('re-type',['基本','加碼'],t):'<span class="v">'+t+'</span>')+'<div class="hint">基本＝這張卡的消費都給；加碼＝符合關鍵字才多給，另外算</div>',1);
  h+=fr('名稱','<input id="re-name" maxlength="20" placeholder="例如：網購 3%" value="'+esc(r.name)+'">');
- h+='<div id="re-chrow">'+fr('通路','<input id="re-ch" maxlength="20" placeholder="例如：網購、餐飲" value="'+esc(r.ch)+'">')+'</div>';
+ h+='<div id="re-chrow">'+fr('關鍵字','<input id="re-ch" maxlength="60" placeholder="例如：早餐，全聯" value="'+esc(r.ch)+'" style="text-align:left"><div class="hint">可填多個，用逗號分開，比對商家和請款說明</div>',1)+'</div>';
  h+=fr('適用範圍',chipsH('re-scope',['國內','海外','兩者'],r.scope),1);
  h+=fr('開始日期','<input id="re-from" type="date" value="'+r.from+'">');
  h+=fr('結束日期','<input id="re-to" type="date" value="'+r.to+'" style="text-align:left"><div class="hint">空著＝一直有效</div>',1);
@@ -1121,7 +1120,7 @@ function renderRwe(){
 $('re-save').onclick=function(){
  var x=curCard,e=RE.rule,t=RE.type,name=trim($('re-name').value),ch=trim($('re-ch').value),from=$('re-from').value,to=$('re-to').value,pctS=trim($('re-pct').value);
  if(!name){toast('請填名稱');return}
- if(t=='加碼'&&!ch){toast('加碼要填通路');return}
+ if(t=='加碼'&&!ch){toast('加碼要填關鍵字');return}
  if(!/^\d+(\.\d+)?$/.test(pctS)||+pctS>100){toast('請填 0 到 100');return}
  if(!from){toast('請選開始日期');return}
  if(to&&to<from){toast('結束日期不能早於開始日期');return}
@@ -1213,8 +1212,9 @@ function rwOf(e){
  (a.rw||[]).forEach(function(r){
   if(r.from>e.d||(r.to&&r.to<e.d))return;
   if(r.scope!='兩者'&&r.scope!=sc)return;
-  if(r.type=='加碼'&&r.ch!=ch)return;
+  if(r.type=='加碼'&&!bonusOn(e,r,ch))return;
   if(e.inst&&r.inst=='總額算一次')return;
+  if(e.inst){var mi=insBy(e.inst);if(mi&&!mi.F)return}
   var raw=amt*r.pct/100,v=r.rnd=='四捨五入'?r45(raw):Math.floor(raw);
   if(r.cap!=null&&v>r.cap)v=r.cap;
   if(v<=0)return;
@@ -1239,6 +1239,7 @@ function renderDt(){
  if(e.x)h+='<div class="stat"><span>從</span><b>'+esc(xs[0])+'</b></div><div class="stat"><span>到</span><b>'+esc(xs[1])+'</b></div>';
  else h+='<div class="stat"><span>帳戶</span><b>'+esc(e.acc)+(accOf(e.acc)&&accOf(e.acc).arch?' <span class="tag gray">已封存</span>':'')+'</b></div>';
  h+='<div class="stat"><span>備註</span><b style="font-weight:400;text-align:right;max-width:230px">'+(e.memo?esc(e.memo):'<span style="color:#6b6b70">沒寫</span>')+'</b></div>';
+ if(!e.x&&accOf(e.acc)&&accOf(e.acc).k=='c'&&e.v<0&&!isFee(e)){h+='<div class="stat"><span>商家</span><b style="font-weight:400;text-align:right;max-width:230px">'+(e.shop?esc(e.shop):'<span style="color:#6b6b70">沒寫</span>')+'</b></div><div class="stat"><span>請款說明</span><b style="font-weight:400;text-align:right;max-width:230px">'+(billOf(e)?esc(billOf(e)):'<span style="color:#6b6b70">還沒對帳，銀行帳單來了才有</span>')+'</b></div>'}
  h+='<div class="stat"><span>怎麼記的</span><b>'+(e.inst?'分期（系統依日期記）':isAuto(e)?'系統自動記':'自己記的')+(e.hand?'・已手改':'')+'</b></div></div>';
  var n=e.ph||0;
  h+='<h2>照片（'+n+' / 5）</h2><div class="card"><div class="photos" id="dt-ph">';
@@ -1286,7 +1287,7 @@ $('dt-b3').onclick=function(){
  if(nv!=old){
   if(!e.x)total+=nv-old;
   if((isAuto(e)||e.inst)&&!e.hand){e.hand=1;e.t+=' <span class="tag gray">已手改</span>'}
-  var fe=feeOf(e);if(fe&&!fe.hand){var nf=Math.floor((+a)*0.015);total+=-nf-fe.v;fe.v=-nf}
+  var fe=feeOf(e);if(fe&&!fe.hand){var nf=Math.round((+a)*0.015);total+=-nf-fe.v;fe.v=-nf}
   e.v=nv}
  if(d!=e.d){var fe2=feeOf(e);if(fe2)fe2.d=d;e.d=d;if(e.inst&&!e.hand){e.hand=1;e.t+=' <span class="tag gray">已手改</span>'}}
  if($('de-cat')){var ci=+$('de-cat').value,sb=$('de-sub').value;e.ico=CATS[ci][0];e.t=sb}
@@ -1312,7 +1313,7 @@ function dtDelete(){
   renderList();renderTotal();go('recent');toast('已刪除')})}
 /* 記一筆時順手存備註與照片數；分期同時建立分期主檔 */
 function k1Hook(ent,isI,base,nn){
- ent.memo=$('memo').value;ent.ph=qa('#moreb .ph.has').length;
+ ent.memo=$('memo').value;ent.shop=trim($('shop').value);ent.bill='';ent.bx=JSON.parse(JSON.stringify(MX));ent.ph=qa('#moreb .ph.has').length;
  if(isI){var d=dval,m=mkM({name:sub,card:ent.acc,cat:cat,sub:sub,buy:d,P:base,N:nn,first:d.slice(0,7),day:+d.slice(8),F:(parseInt($('fee').value,10)||0)*nn,rec:[]});
   var ps=periodsOf(m),old=ent.v;ent.v=-(ps[0].p+ps[0].f);total+=ent.v-old;ent.inst=m.id;ent.per=1;
   ps.forEach(function(pr){if(pr.k>1&&pr.d<=TODAY)addPeriodEntry(m,pr)})}}
@@ -1482,7 +1483,7 @@ function openInst(m,back){if(!m)return;INSC=m;BK2.inst=back=='detail'?function()
 function renderInst(m){
  var f=insInfo(m),a=accOf(m.card),h='',base=a&&(a.rw||[]).filter(function(r){return r.type=='基本'&&!r.arch})[0];
  h+='<div style="display:flex;align-items:center;gap:12px;padding:14px 16px 0">'+(a?face(a).replace('style="','style="font-size:10px;'):'')+'<div><b style="font-size:18px">'+esc(m.name)+'</b> '+stTag(f.status)+'<div class="s" style="font-size:13px;color:#6b6b70">'+esc(m.card)+'</div></div></div>';
- h+='<div class="card" style="margin-top:12px"><div class="stat"><span>已記</span><b>'+f.done+' / '+m.N+' 期</b></div>'+(f.status=='進行中'?'<div class="stat"><span>剩餘</span><b>'+f.restN+' 期，剩餘本金 '+mo(f.restP)+'</b></div>':'')+(m.prep?'<div class="stat"><span>提前清償</span><b>'+md(m.prep.d)+'　'+mo(m.prep.amt)+(m.prep.fee?'（另手續費 '+mo(m.prep.fee)+'）':'')+'</b></div>':'')+'<div class="stat"><span>購買日</span><b>'+dlab(m.buy)+'</b></div><div class="stat"><span>本金總額</span><b>'+mo(m.P)+'</b></div>'+(m.F?'<div class="stat"><span>手續費或利息</span><b>'+mo(m.F)+'</b></div>':'')+'<div class="stat"><span>每期記帳日</span><b>每月 '+m.day+' 日</b></div><div class="stat"><span>回饋</span><b style="font-weight:400">'+(base?'這張卡的「'+esc(base.name)+'」：'+base.inst:'這張卡沒設基本回饋')+'</b></div></div>';
+ h+='<div class="card" style="margin-top:12px"><div class="stat"><span>已記</span><b>'+f.done+' / '+m.N+' 期</b></div>'+(f.status=='進行中'?'<div class="stat"><span>剩餘</span><b>'+f.restN+' 期，剩餘本金 '+mo(f.restP)+'</b></div>':'')+(m.prep?'<div class="stat"><span>提前清償</span><b>'+md(m.prep.d)+'　'+mo(m.prep.amt)+(m.prep.fee?'（另手續費 '+mo(m.prep.fee)+'）':'')+'</b></div>':'')+'<div class="stat"><span>購買日</span><b>'+dlab(m.buy)+'</b></div><div class="stat"><span>本金總額</span><b>'+mo(m.P)+'</b></div>'+(m.F?'<div class="stat"><span>手續費或利息</span><b>'+mo(m.F)+'</b></div>':'')+'<div class="stat"><span>每期記帳日</span><b>每月 '+m.day+' 日</b></div><div class="stat"><span>回饋</span><b style="font-weight:400">'+(!m.F?'0 利率，不算回饋':base?'這張卡的「'+esc(base.name)+'」：'+base.inst:'這張卡沒設基本回饋')+'</b></div></div>';
  h+='<p class="sub" style="margin-top:6px">每一期的錢都記在這張卡上，並和電子帳單逐筆對。剩餘本金只供看，不算進報表。</p>';
  h+='<h2>各期明細</h2><div class="card">';
  f.ps.forEach(function(p){var e=entries.filter(function(x){return x.inst==m.id&&x.per==p.k&&!x.fee&&!x.prep})[0],rec=m.rec.indexOf(p.k)>=0;
@@ -1708,8 +1709,9 @@ function rwRaw(e){
  (a.rw||[]).forEach(function(r){
   if(r.from>e.d||(r.to&&r.to<e.d))return;
   if(r.scope!='兩者'&&r.scope!=sc)return;
-  if(r.type=='加碼'&&r.ch!=ch)return;
+  if(r.type=='加碼'&&!bonusOn(e,r,ch))return;
   if(e.inst&&r.inst=='總額算一次')return;
+  if(e.inst){var mi=insBy(e.inst);if(mi&&!mi.F)return}
   var raw=amt*r.pct/100,v=r.rnd=='四捨五入'?r45(raw):Math.floor(raw);
   if(v<=0)return;
   out.push({r:r,v:v,day:payWhen(r,e.d)})});
@@ -2208,7 +2210,7 @@ function p2Confirm(){
   var a=+d.amt,cp=d.cat.split('／'),ci=0;CATS.forEach(function(c,i){if(c[1]==cp[0])ci=i});
   var e={d:d.date,ico:CATS[ci][0],t:cp[1],acc:d.acc,v:-a};if(x.fc)e.fc=x.fc+x.fcn;
   entries.unshift(e);total-=a;msg='已入帳 '+mo(a);
-  if(x.fc){var fe=Math.floor(a*0.015);entries.unshift({d:d.date,ico:'🧾',t:'海外交易手續費 <span class="tag gray">自動</span>',acc:d.acc,v:-fe});total-=fe;msg+='，回饋與海外手續費 '+mo(fe)+' 一併算好'}
+  if(x.fc){var fe=Math.round(a*0.015);entries.unshift({d:d.date,ico:'🧾',t:'海外交易手續費 <span class="tag gray">自動</span>',acc:d.acc,v:-fe});total-=fe;msg+='，回饋與海外手續費 '+mo(fe)+' 一併算好'}
   entries.sort(function(p,q){return p.d<q.d?1:p.d>q.d?-1:0});renderList();renderTotal()}
  else if(x.kind=='現金股利'){var b=+d.amt;entries.unshift({d:x.date,ico:'📈',t:'股利',acc:d.bank,v:b});total+=b;entries.sort(function(p,q){return p.d<q.d?1:p.d>q.d?-1:0});renderList();renderTotal();msg='已入帳 '+mo(b)+'，'+d.bank+'餘額增加'}
  else if(x.kind=='股票股利')msg='已確認：持股增加 '+d.qty+' 股，銀行不動';
@@ -2276,7 +2278,7 @@ pdInit();p3Init();
 function r45(x){return Math.floor(x+0.5)}
 function q4(x){return r45(x*10000)/10000}
 function qf(x){var p=String(x).split('.');return fmt(+p[0])+(p[1]?'.'+p[1]:'')}
-var SEC=[],STK=[],TRD=[],DIV=[],SIP=[],SKID=100,SKPX={},SKPD='2026-02-27',SKS={st:0,tf:null,e2back:null,e4add:'',e4new:false,msg:'',sf:null,cmp:{}},SK0=null;
+var SEC=[],STK=[],TRD=[],DIV=[],SIP=[],SKID=100,SKPX={},SKPD='2026-02-27',SKS={yr:{m:'全部',y:'2026'},st:0,tf:null,e2back:null,e4add:'',e4new:false,msg:'',sf:null,cmp:{}},SK0=null;
 function skInit(){
  SKID=100;SKPX={'2330':118,'0050':58,'VOO':200};
  SEC=[{n:'範例證券戶',g:'永豐銀行',bank:'永豐銀行'},{n:'範例證券戶乙',g:'台新銀行',bank:'台新銀行'}];
@@ -2293,7 +2295,7 @@ function skInit(){
   {id:7,st:4,type:'買進',d:'2026-02-03',q:100,p:57.5,fee:20,tax:0,rate:1}];
  DIV=[{id:1,st:1,d:'2026-02-20',amt:3500,note:'每股 1.75 元 × 2,000 股（除息前一天的持股）'}];
  SIP=[{id:1,st:2,day:5,amt:10000,bank:'永豐銀行'},{id:2,st:3,day:8,amt:12800,bank:'台新銀行'},{id:3,st:4,day:15,amt:20000,bank:'中信銀行'}];
- SKS={st:0,tf:null,e2back:null,e4add:'',e4new:false,msg:'',sf:null,e1back:'more',e4back:'more',f1back:'more'}}
+ SKS={yr:{m:'全部',y:'2026'},st:0,tf:null,e2back:null,e4add:'',e4new:false,msg:'',sf:null,e1back:'more',e4back:'more',f1back:'more'}}
 skInit();
 function stkBy(id){return STK.filter(function(s){return s.id==id})[0]}
 function secBy(n){return SEC.filter(function(s){return s.n==n})[0]}
@@ -2305,9 +2307,9 @@ function skCalc(st,list){
  tr.forEach(function(t){var r=t.rate||1;
   if(t.type=='買進'){cost+=r45(t.q*t.p*r+t.fee*r);q=q4(q+t.q)}
   else{if(bad!==null)return;if(t.q>q+0.00001){bad=q;return}
-   var rem=q>0?r45(cost*t.q/q):0,net=r45(t.q*t.p*r-t.fee*r)-t.tax;real+=net-rem;cost-=rem;q=q4(q-t.q);if(q==0)cost=0}});
+   var rem=q>0?r45(cost*t.q/q):0,net=r45(t.q*t.p*r-t.fee*r)-t.tax;if(yrOk(t.d))real+=net-rem;cost-=rem;q=q4(q-t.q);if(q==0)cost=0}});
  var rate=skRate(st),px=skPx(st),mv=r45(q*px*rate),unr=mv-cost,dv=0,est=0;
- DIV.forEach(function(d){if(d.st==st.id)dv+=d.amt});
+ DIV.forEach(function(d){if(d.st==st.id&&yrOk(d.d))dv+=d.amt});
  tr.forEach(function(t){if(t.est)est++});
  return {q:q,cost:cost,avg:q>0?cost/q:0,real:real,px:px,mvO:q*px,mv:mv,unr:unr,ret:cost>0?(unr/cost*100).toFixed(1)+'%':'—',div:dv,bad:bad,rate:rate,est:est}}
 function skSum(list){var s={mv:0,cost:0,unr:0,div:0,real:0};list.forEach(function(st){var c=skCalc(st);s.mv+=c.mv;s.cost+=c.cost;s.unr+=c.unr;s.div+=c.div;s.real+=c.real});s.ret=s.cost>0?(s.unr/s.cost*100).toFixed(1)+'%':'—';return s}
@@ -2324,11 +2326,11 @@ function stkTag(st){return '<span class="tag gray">'+st.mkt+'</span>'}
 function renderE1(){
  var A=skAll(),fx=fxRate('USD'),h='';
  h+='<div class="rpbig"><small>持股現值（美股換成台幣）</small><b id="e1-mv">'+mo(A.mv)+'</b></div>';
- h+='<div class="rpnote">美股用最新匯率：1 美元 ＝ 台幣 '+rtxt(fx.r)+'（'+md(fx.d)+'）｜股價日期 '+dfull(SKPD)+'</div>';
- h+='<h2>賺賠和股利（兩個分開看，不加在一起）</h2><div class="card">'
+ h+='<div class="rpnote">美股用最新匯率：1 美元 ＝ 台幣 '+rtxt(fx.r)+'（'+md(fx.d)+'）</div><div class="rpnote">股價日期 '+dfull(SKPD)+'</div>';
+ h+=yrBar('e1')+'<h2>賺賠和股利（兩個分開看，不加在一起）</h2><div class="card">'
   +rowI('🧮','買進總成本','買進花的錢，含手續費','<span class="amt" id="e1-cost">'+mo(A.cost)+'</span>','')
   +rowI('📈','還沒賣掉的賺賠','現在值多少 − 總成本，約 '+A.ret,'<span class="amt" id="e1-unr">'+gl(A.unr)+'</span>','')
-  +rowI('💰','領到的股利','已經入帳的現金股利，不算在賺賠裡','<span class="amt green" id="e1-div">'+mo(A.div)+'</span>','')+'</div>';
+  +rowI('💰','領到的股利','已經入帳的現金股利，不算在賺賠裡','<span class="amt green" id="e1-div">'+mo(A.div)+'</span>','')+rowI('🧾','賣掉的賺賠','賣出去賺或賠多少，不含還沒賣的','<span class="amt" id="e1-real">'+gl(A.real)+'</span>','')+'</div>';
  if(!SEC.length)h+='<div class="card"><div class="empty">還沒有證券戶。到「證券戶設定」新增一個。</div></div>';
  SEC.forEach(function(sc,si){
   var ls=STK.filter(function(s){return s.sec==sc.n}),S=skSum(ls);
@@ -2339,7 +2341,7 @@ function renderE1(){
   h+=srow('🗂','這個證券戶的設定','預設股利銀行：'+esc(sc.bank||'還沒設'),'',' data-e4="'+si+'"')+'</div>'});
  h+='<h2>其他</h2><div class="card">'+srow('🔁','定期定額','每月自動買進，扣款日記「估算」買進','<span class="amt" style="font-weight:400">'+SIP.length+' 檔</span>',' id="e1-sip"')+srow('🏦','證券戶設定','新增證券戶、加入股票、股利銀行','',' id="e1-set"')+'</div>';
  h+='<h2>成本怎麼算（平均成本法）</h2><div class="card"><div class="bd"><div class="grow" style="font-size:14px;line-height:1.7">每次買進：把「股數 × 價格 ＋ 手續費」加進總成本。<br>平均每股成本 ＝ 總成本 ÷ 持股數。<br>賣出時：照賣掉的股數占全部持股的比例，把成本扣掉；賣出賺賠 ＝ 賣到的錢 − 手續費 − 交易稅 − 扣掉的成本。<br>股利不會讓成本變低，另外算。美股成本用買進那天的匯率固定下來，現值用最新匯率。<small style="display:block;margin-top:4px">這是常見的算法，大老闆說「看通常是怎麼算」</small></div></div></div>';
- $('st1').innerHTML=h;
+ $('st1').innerHTML=h;yrBind(renderE1,'e1');
  qa('#st1 [data-st]').forEach(function(r){r.onclick=function(){openE2(+r.getAttribute('data-st'),function(){openE1(SKS.e1back)})}});
  qa('#st1 [data-e4]').forEach(function(r){r.onclick=function(){openE4(function(){openE1(SKS.e1back)})}});
  $('e1-sip').onclick=function(){openF1(function(){openE1(SKS.e1back)})};
@@ -2348,15 +2350,15 @@ function openE1(b){if(b!==undefined)SKS.e1back=b||'more';BK2.stk1=SKS.e1back;ren
 /* ---------- E2 單檔股票明細 ---------- */
 function renderE2(){
  var st=stkBy(SKS.st),c=skCalc(st),h='',fx=fxRate('USD');
- h+='<h2 style="padding-top:14px">'+stName(st)+' '+stkTag(st)+'</h2><p class="sub" style="margin-top:-2px">'+esc(st.sec)+'　股價 '+(st.cur=='USD'?'US$':'$')+c.px+'（'+md(SKPD)+' 收盤）</p>';
+ h+='<h2 style="padding-top:14px">'+stName(st)+' '+stkTag(st)+'</h2><p class="sub" style="margin-top:-2px">'+esc(st.sec)+'<br>股價 '+(st.cur=='USD'?'US$':'$')+c.px+'（'+md(SKPD)+' 收盤）</p>';
  h+='<div class="rpbig"><small>現在值多少（台幣）</small><b id="e2-mv">'+mo(c.mv)+'</b></div>';
- if(st.cur=='USD')h+='<div class="rpnote" id="e2-usd">US$'+qf(c.q)+' × '+c.px+' ＝ US$'+fmt(+c.mvO.toFixed(2))+'　×　匯率 '+rtxt(fx.r)+'（'+md(fx.d)+'）＝ 台幣 '+mo(c.mv)+'</div>';
+ if(st.cur=='USD')h+='<div class="rpnote" id="e2-usd">US$'+qf(c.q)+' × '+c.px+' ＝ US$'+fmt(+c.mvO.toFixed(2))+'<br>× 匯率 '+rtxt(fx.r)+'（'+md(fx.d)+'）＝ 台幣 '+mo(c.mv)+'</div>';
  h+='<h2>持有和成本</h2><div class="card">'
   +rowI('📈','持股數','','<span class="amt" id="e2-q">'+qf(c.q)+' 股</span>','')
   +rowI('🧮','平均每股成本','總成本 ÷ 持股數'+(st.cur=='USD'?'（台幣）':''),'<span class="amt" id="e2-avg">'+(c.q?c.avg.toFixed(2):'—')+'</span>','')
   +rowI('🧮','總成本','','<span class="amt" id="e2-cost">'+mo(c.cost)+'</span>','')
   +(st.oq?rowI('🗂','其中期初持股','加入時填的 '+qf(st.oq)+' 股、成本 '+(st.cur=='USD'?'US$'+fmt(st.oc):mo(st.oc)),'',''):'')+'</div>';
- h+='<h2>賺賠和股利（分開看，不加在一起）</h2><div class="card">'
+ h+=yrBar('e2')+'<h2>賺賠和股利（分開看，不加在一起）</h2><div class="card">'
   +rowI('📈','還沒賣掉的賺賠','現在值多少 − 總成本','<span class="amt" id="e2-unr">'+gl(c.unr)+'<small id="e2-ret">'+(c.cost?'約 '+c.ret:'成本是 0，不算比率')+'</small></span>','')
   +rowI('💰','賣掉的賺賠（累計）','每次賣出都算一筆，賣光了也保留','<span class="amt" id="e2-real">'+gl(c.real)+'</span>','')
   +rowI('🎁','領到的股利（累計）','現金股利，不算在賺賠裡','<span class="amt green" id="e2-div">'+mo(c.div)+'</span>','')+'</div>';
@@ -2368,11 +2370,11 @@ function renderE2(){
  tr.slice().reverse().forEach(function(t){var r=t.rate||1,v=t.type=='買進'?r45(t.q*t.p*r+t.fee*r):r45(t.q*t.p*r-t.fee*r)-t.tax;
   h+='<div class="row" data-t="'+t.id+'" style="cursor:pointer"><div class="grow">'+md(t.d)+'　<b>'+t.type+'</b> '+qf(t.q)+' 股 × '+t.p+(t.est?' <span class="tag">估算</span>':'')+'<div class="s">'+(t.fee?'手續費 '+t.fee+'　':'')+(t.tax?'交易稅 '+t.tax+'　':'')+(st.cur=='USD'?'匯率 '+rtxt(r):'')+'</div></div><span class="amt '+(t.type=='買進'?'red':'green')+'">'+mo(v)+'</span><span class="s" style="width:10px;text-align:center">›</span></div>'});
  h+='</div><h2>領到的股利</h2><div class="card" id="e2-div-list">';
- var ds=DIV.filter(function(d){return d.st==st.id});
+ var ds=DIV.filter(function(d){return d.st==st.id&&yrOk(d.d)});
  if(!ds.length)h+='<div class="empty">還沒有領到股利</div>';
  ds.forEach(function(d){h+='<div class="row"><div class="grow">'+md(d.d)+'　現金股利<div class="s">'+esc(d.note||'')+'</div></div><span class="amt green">'+mo(d.amt)+'</span></div>'});
  h+='</div><p class="sub" style="margin-top:6px">發放日系統會先放進「待確認」，你確認了才算入帳。</p>';
- $('st2').innerHTML=h;
+ $('st2').innerHTML=h;yrBind(renderE2,'e2');
  qa('#st2 [data-t]').forEach(function(r){r.onclick=function(){openE3({tid:+r.getAttribute('data-t'),back:function(){openE2(SKS.st)}})}})}
 function openE2(id,b){SKS.st=id;if(b)SKS.e2back=b;BK2.stk2=SKS.e2back||function(){openE1()};renderE2();go('stk2')}
 /* ---------- E3 記買進賣出 ---------- */
@@ -2599,6 +2601,59 @@ function skAccBind(){
 })();
 (function(){var r0=$('reset').onclick;
  $('reset').onclick=function(){skInit();r0()}})();
+
+/* ====== 76：大老闆定案對齊 ====== */
+var FAVC=['TWD','USD','JPY'],acRe=false,MX={},MXopen=false;
+function favCurs(){return FAVC.map(function(c){return curBy(c)})}
+function addFav(c){if(FAVC.indexOf(c)>=0){toast('已經在常用裡');return}FAVC.push(c);sh.addFav=false;toast('已加進常用：'+curBy(c)[2]);renderSheet()}
+function bxKey(r){return String(r.id||r.name)}
+function billOf(e){if(e.bill!=null)return e.bill;var a=accOf(e.acc);if(!a||a.k!='c'||e.x||e.v>=0||isFee(e)||e.d>'2026-02-20')return '';var p=plain(e.t);return /早餐/.test(p)?'連加＊三三活力早餐':'＊'+p.replace(/\s.*$/,'')}
+function bonusAuto(e,r,ch){var kws=String(r.ch||'').split(/[,，、]/).map(function(k){return trim(k)}).filter(Boolean),tx=plain(e.t)+' '+(e.shop||'')+' '+billOf(e);return kws.some(function(k){return k==ch||tx.indexOf(k)>=0})}
+function bonusOn(e,r,ch){var k=bxKey(r);if(e.bx&&Object.prototype.hasOwnProperty.call(e.bx,k))return !!e.bx[k];return bonusAuto(e,r,ch)}
+/* 證券自成一組、銀行順序 */
+function secGroup(){
+ if(!SEC||!SEC.length)return '';
+ var tot=0,h='';SEC.forEach(function(sc){tot+=skSum(STK.filter(function(s){return s.sec==sc.n})).mv});
+ h+='<div class="card ag"><div class="ah" data-g="s"><span class="ar">'+(acol.s?'▸':'▾')+'</span><div class="grow"><b>證券</b><div class="s">持股現值，不算在總資產裡</div></div><div class="at"><small>持股現值</small><span class="amt">'+mo(tot)+'</span></div></div>';
+ if(!acol.s)SEC.forEach(function(sc){var S=skSum(STK.filter(function(s){return s.sec==sc.n}));
+  h+='<div class="row" data-sec="'+esc(sc.n)+'"><span class="ico">'+ei('📈')+'</span><div class="grow">'+esc(sc.n)+'<div class="s">'+esc(sc.g)+'　持股現值</div></div><span class="amt">'+mo(S.mv)+'</span><span style="color:#6b6b70;width:8px;text-align:center">›</span></div>'});
+ return h+'</div>'}
+function visG(g){return g.it.some(function(x){return !x.arch})}
+function nbG(gi,d){for(var j=gi+d;j>=0&&j<INSTS.length;j+=d)if(visG(INSTS[j]))return j;return -1}
+function mvh(gi){if(!acRe)return '';return '<span class="mvb"><button type="button" data-mv="-1" data-gi="'+gi+'"'+(nbG(gi,-1)<0?' disabled':'')+'>▲</button><button type="button" data-mv="1" data-gi="'+gi+'"'+(nbG(gi,1)<0?' disabled':'')+'>▼</button></span>'}
+var ra0=renderAcc;
+renderAcc=function(){ra0();
+ $('acclist').insertAdjacentHTML('beforeend','<p class="sub" style="text-align:center;margin:14px 16px 0"><a id="acre" style="text-decoration:underline;cursor:pointer">'+(acRe?'完成':'調整順序')+'</a>'+(acRe?'　用 ▲ ▼ 移動銀行的順序':'')+'</p>');
+ $('acre').onclick=function(){acRe=!acRe;renderAcc()};
+ qa('#acclist [data-mv]').forEach(function(b){b.onclick=function(ev){ev.stopPropagation();var gi=+b.getAttribute('data-gi'),j=nbG(gi,+b.getAttribute('data-mv'));if(j<0)return;
+  var t=INSTS[gi];INSTS[gi]=INSTS[j];INSTS[j]=t;var c=acol[gi];acol[gi]=acol[j];acol[j]=c;renderAcc()}})};
+/* 記一筆：商家與符合的加碼 */
+$('p-acc').insertAdjacentHTML('afterend','<div class="pk" id="p-shop"><div class="hd"><span class="k">商家</span><input id="shop" maxlength="30" placeholder="選填，例如：三三活力早餐" autocomplete="off" style="flex:1;border:0;outline:0;text-align:right;font-size:16px;font-family:inherit;background:transparent;color:#1c1c1e;min-width:0"></div></div><div id="mxbox" style="display:none;padding:2px 16px 8px"></div>');
+function mxRules(){if(type!='支出'||!isCard())return [];var a=accOf($('v-acc').getAttribute('data-v').replace(/^\S+\s/,''));if(!a||!dval)return [];var sc=cur=='TWD'?'國內':'海外';
+ return (a.rw||[]).filter(function(r){return r.type=='加碼'&&!r.arch&&r.from<=dval&&(!r.to||r.to>=dval)&&(r.scope=='兩者'||r.scope==sc)})}
+function mxRender(){
+ var b=$('mxbox'),rs=mxRules();if(!rs.length){b.style.display='none';b.innerHTML='';return}
+ var e={t:sub||'',shop:trim($('shop').value),bill:'',d:dval},ch=chOf(plain(e.t)),mt=[],ot=[],h='',cs='display:inline-flex;align-items:center;gap:6px;border-radius:20px;padding:6px 12px;margin:4px 6px 0 0;font-size:14px;';
+ rs.forEach(function(r){(bonusAuto(e,r,ch)?mt:ot).push(r)});
+ mt.forEach(function(r){var k=bxKey(r),on=MX[k]!==false;h+='<label style="'+cs+'background:#fff4bf;color:#5c4a00"><input type="checkbox" data-k="'+esc(k)+'"'+(on?' checked':'')+'>符合：'+esc(r.name)+'</label>'});
+ if(!mt.length&&!MXopen)h+='<div class="s" style="font-size:13px;color:#6b6b70;padding-top:4px">沒有符合的加碼規則</div>';
+ if(ot.length){h+='<div style="padding-top:4px"><a id="mxmore" style="font-size:13px;color:#6b6b70;text-decoration:underline;cursor:pointer">'+(MXopen?'收起手動選擇':'手動選加碼規則（'+ot.length+'）')+'</a></div>';
+  if(MXopen)ot.forEach(function(r){var k=bxKey(r),on=MX[k]===true;h+='<label style="'+cs+'background:#f2f2f7;color:#1c1c1e"><input type="checkbox" data-k="'+esc(k)+'"'+(on?' checked':'')+'>手動加：'+esc(r.name)+'</label>'})}
+ b.innerHTML=h;b.style.display='block';
+ qa('#mxbox input').forEach(function(i){i.onchange=function(){MX[i.getAttribute('data-k')]=i.checked}});
+ if($('mxmore'))$('mxmore').onclick=function(){MXopen=!MXopen;mxRender()}}
+(function(){var f=function(){mxRender()};$('shop').addEventListener('input',f);$('amt').addEventListener('input',f);
+ var mo2=new MutationObserver(f);['v-acc','v-cat','v-date','curs'].forEach(function(i){mo2.observe($(i),{childList:true,subtree:true,attributes:true,characterData:true})});
+ qa('#seg span').forEach(function(x){x.addEventListener('click',f)})})();
+var rf1=resetForm;resetForm=function(){rf1();MX={};MXopen=false;$('shop').value='';mxRender()};
+var ORD0=INSTS.map(function(g){return g.n}),rall0=resetAll;resetAll=function(){FAVC=['TWD','USD','JPY'];acRe=false;rall0();INSTS.sort(function(a,b){var x=ORD0.indexOf(a.n),y=ORD0.indexOf(b.n);return (x<0?99:x)-(y<0?99:y)})};
+/* 證券 E1/E2：看哪一年 */
+function yrYears(){var o={};TRD.concat(DIV).forEach(function(x){o[x.d.slice(0,4)]=1});o['2025']=1;o[TODAY.slice(0,4)]=1;return Object.keys(o).sort()}
+function yrOk(d){var y=SKS&&SKS.yr;if(!y||y.m=='全部')return true;var yy=String(d).slice(0,4);return y.m=='今年'?yy==TODAY.slice(0,4):yy==y.y}
+function yrBar(p){var y=SKS.yr,h='<div class="yrbar" id="'+p+'-yr" style="padding:12px 16px 0"><div style="font-size:13px;color:#6b6b70;margin-bottom:6px">股利和賣掉的賺賠，看哪一段</div>'+chipsH(p+'-yrm',['全部','今年','選年份'],y.m);
+ if(y.m=='選年份')h+=chipsH(p+'-yry',yrYears(),y.y);
+ return h+'<div style="font-size:12px;color:#6b6b70;margin-top:6px">成本、現值、還沒賣掉的賺賠照目前持有算，不分年</div></div>'}
+function yrBind(fn,p){chipPick(p+'-yrm',function(v){SKS.yr.m=v;fn()});if($(p+'-yry'))chipPick(p+'-yry',function(v){SKS.yr.y=v;fn()})}
 
 resetAll();
 var m=/go=(\w+)/.exec(location.hash);if(m)go(m[1]);
