@@ -294,7 +294,7 @@ details.grp .row{padding:8px 0}
 .fr .chip.on{cursor:pointer}
 #archsec .row .s{color:#6b6b70}
 
-.mvb{display:inline-flex;margin-right:6px}.mvb button{border:1px solid #d1d1d6;background:#fff;border-radius:8px;width:30px;height:30px;margin-left:4px;font-size:13px;cursor:pointer}.mvb button:disabled{opacity:.35}.xfer #p-shop,.xfer #mxbox{display:none!important}
+.ah.dg{cursor:grab;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}body.dgb,body.dgb *{cursor:grabbing!important}.ag.dragging{box-shadow:0 8px 24px rgba(0,0,0,.2);transform:scale(1.02);position:relative;z-index:5}.xfer #p-shop,.xfer #mxbox{display:none!important}
 </style></head><body>
 <div id="toast"></div>
 
@@ -673,7 +673,7 @@ function renderAcc(){
   var dep=0,owe=0,hc=false,hd=false;g.it.forEach(function(x){if(x.k=='c'){owe+=x.a;hc=true}else if(x.k!='p'){dep+=x.a;hd=true}});
   var tot=dep-owe,f=g.pt?'點數，不算在總資產裡':hc&&hd?'存款 − 要繳卡費':hc?'只有信用卡，顯示要繳的':g.n=='現金'?'現金合計':'存款合計';
   var at=g.pt?'':'<div class="at"><small>'+(tot<0?'還要繳':'合計')+'</small><span class="amt'+(tot<0?' red':'')+'">'+mo(Math.abs(tot))+'</span></div>';
-  h+='<div class="card ag"><div class="ah" data-g="'+gi+'"><span class="ar">'+(acol[gi]?'▸':'▾')+'</span><div class="grow"><b>'+g.n+'</b><div class="s">'+f+'</div></div>'+mvh(gi)+at+'</div>';
+  h+='<div class="card ag"><div class="ah" data-g="'+gi+'"><span class="ar">'+(acol[gi]?'▸':'▾')+'</span><div class="grow"><b>'+g.n+'</b><div class="s">'+f+'</div></div>'+at+'</div>';
   if(!acol[gi])g.it.forEach(function(x){if(x.arch)return;
    if(x.k=='c')h+='<div class="row" data-card="'+x.n+'">'+face(x)+'<div class="grow">'+x.n+(x.arch?' <span class="tag gray">已封存</span>':'')+'<div class="s">本期要繳</div></div><span class="amt red">'+mo(x.a)+'</span><span style="color:#6b6b70">›</span></div>';
    else if(x.k=='p')h+='<div class="row" data-pt="'+x.n+'"><span class="ico">'+ei(x.ic||'⭐')+'</span><div class="grow">'+x.n+(x.arch?' <span class="tag gray">已封存</span>':'')+'</div><span class="amt">'+x.txt+'</span><span style="color:#6b6b70;width:8px;text-align:center">›</span></div>';
@@ -1240,7 +1240,7 @@ function renderDt(){
  else h+='<div class="stat"><span>帳戶</span><b>'+esc(e.acc)+(accOf(e.acc)&&accOf(e.acc).arch?' <span class="tag gray">已封存</span>':'')+'</b></div>';
  h+='<div class="stat"><span>備註</span><b style="font-weight:400;text-align:right;max-width:230px">'+(e.memo?esc(e.memo):'<span style="color:#6b6b70">沒寫</span>')+'</b></div>';
  if(!e.x&&accOf(e.acc)&&accOf(e.acc).k=='c'&&e.v<0&&!isFee(e)){h+='<div class="stat"><span>商家</span><b style="font-weight:400;text-align:right;max-width:230px">'+(e.shop?esc(e.shop):'<span style="color:#6b6b70">沒寫</span>')+'</b></div><div class="stat"><span>請款說明</span><b style="font-weight:400;text-align:right;max-width:230px">'+(billOf(e)?esc(billOf(e)):'<span style="color:#6b6b70">還沒對帳，銀行帳單來了才有</span>')+'</b></div>'}
- h+='<div class="stat"><span>怎麼記的</span><b>'+(e.inst?'分期（系統依日期記）':isAuto(e)?'系統自動記':'自己記的')+(e.hand?'・已手改':'')+'</b></div></div>';
+ h+='<div class="stat"><span>來源</span><b>'+(e.inst?'分期（系統依日期記）':isAuto(e)?'系統自動記':'自己記的')+(e.hand?'・已手改':'')+'</b></div></div>';
  var n=e.ph||0;
  h+='<h2>照片（'+n+' / 5）</h2><div class="card"><div class="photos" id="dt-ph">';
  for(var i=0;i<n;i++)h+='<span class="ph has" data-ph="'+i+'">'+ei('🧾')+'</span>';
@@ -1365,7 +1365,7 @@ function renderXf(){
  shown.forEach(function(t){
   var id=t.i,det='';
   det+='<b>轉出</b>　'+esc(t.from)+'<br><b>轉入</b>　'+esc(t.to)+'<br>';
-  det+='<b>怎麼記的</b>　'+(t.auto?'扣繳日系統自動記（金額＝帳單應繳額，同一張卡同一期只記一次）':t.mine?'剛剛在「記一筆」記的':'自己記的轉帳')+'<br>';
+  det+='<b>來源</b>　'+(t.auto?'扣繳日系統自動記（金額＝帳單應繳額，同一張卡同一期只記一次）':t.mine?'剛剛在「記一筆」記的':'自己記的轉帳')+'<br>';
   det+='<b>跨行</b>　'+(t.cross?'是，這是 '+esc(t.fb)+' 這個月第 '+t.ord+' 次跨行'+(t.free!=null?'（免費 '+t.free+' 次）':''):'不是，同一家銀行不計次、不收費')+'<br>';
   det+='<b>手續費</b>　'+(t.fee?'$'+t.fee+'（超過免費次數，自動帶入）。手續費另外記成一筆「金融費用／手續費」，標「自動」':t.over?'超過免費次數，但這家銀行沒設手續費，不收':'不收');
   h+='<div class="row" data-x="'+id+'" style="cursor:pointer"><span class="ico">'+ei(t.k=='轉帳'?'🔁':'💳')+'</span><div class="grow">'+esc(t.from)+' → '+esc(t.to)+'<div class="s">'+md(t.d)+'　'+t.k+(t.auto?'　<span class="tag">自動</span>':'')+(t.cross?'　跨行第 '+t.ord+' 次':'　同銀行')+(t.fee?'　<span class="tag red">手續費 $'+t.fee+'</span>':'')+'</div></div><span class="amt gray">'+mo(t.amt)+'</span><span class="s">'+(XS.open==id?'▾':'›')+'</span></div><div class="xd'+(XS.open==id?' on':'')+'">'+det+'</div>'});
@@ -2603,7 +2603,7 @@ function skAccBind(){
  $('reset').onclick=function(){skInit();r0()}})();
 
 /* ====== 76：大老闆定案對齊 ====== */
-var FAVC=['TWD','USD','JPY'],acRe=false,MX={},MXopen=false;
+var FAVC=['TWD','USD','JPY'],MX={},MXopen=false;
 function favCurs(){return FAVC.map(function(c){return curBy(c)})}
 function addFav(c){if(FAVC.indexOf(c)>=0){toast('已經在常用裡');return}FAVC.push(c);sh.addFav=false;toast('已加進常用：'+curBy(c)[2]);renderSheet()}
 function bxKey(r){return String(r.id||r.name)}
@@ -2619,14 +2619,35 @@ function secGroup(){
   h+='<div class="row" data-sec="'+esc(sc.n)+'"><span class="ico">'+ei('📈')+'</span><div class="grow">'+esc(sc.n)+'<div class="s">'+esc(sc.g)+'　持股現值</div></div><span class="amt">'+mo(S.mv)+'</span><span style="color:#6b6b70;width:8px;text-align:center">›</span></div>'});
  return h+'</div>'}
 function visG(g){return g.it.some(function(x){return !x.arch})}
-function nbG(gi,d){for(var j=gi+d;j>=0&&j<INSTS.length;j+=d)if(visG(INSTS[j]))return j;return -1}
-function mvh(gi){if(!acRe)return '';return '<span class="mvb"><button type="button" data-mv="-1" data-gi="'+gi+'"'+(nbG(gi,-1)<0?' disabled':'')+'>▲</button><button type="button" data-mv="1" data-gi="'+gi+'"'+(nbG(gi,1)<0?' disabled':'')+'>▼</button></span>'}
+function dragOk(g){return visG(g)&&!g.pt&&g.n!='現金'}
+var dgNow=null,dgSkip=false;
+function dgDown(e,h){if(dgNow||(e.pointerType=='mouse'&&e.button!=0))return;
+ var card=h.parentNode,x0=e.clientX,y0=e.clientY,touch=e.pointerType!='mouse',st={on:false,pid:e.pointerId},tm=null;
+ function start(){st.on=true;dgNow=st;card.classList.add('dragging');document.body.classList.add('dgb');if(navigator.vibrate){try{navigator.vibrate(15)}catch(_){}}}
+ function mv(ev){if(ev.pointerId!=st.pid)return;
+  if(!st.on){var d=Math.abs(ev.clientX-x0)+Math.abs(ev.clientY-y0);if(touch){if(d>10)end(true)}else if(d>4)start();return}
+  var L=qa('#acclist .ag[data-gi]');
+  for(var k=0;k<L.length;k++){var o=L[k];if(o===card)continue;var r=o.getBoundingClientRect();
+   if(ev.clientY>=r.top&&ev.clientY<=r.bottom){if(o.compareDocumentPosition(card)&4)o.parentNode.insertBefore(card,o);else o.parentNode.insertBefore(card,o.nextSibling);break}}
+  if(ev.clientY<60)window.scrollBy(0,-12);else if(ev.clientY>window.innerHeight-60)window.scrollBy(0,12)}
+ function end(cancel){clearTimeout(tm);document.removeEventListener('pointermove',mv);document.removeEventListener('pointerup',up);document.removeEventListener('pointercancel',cn);
+  if(!st.on)return;dgNow=null;document.body.classList.remove('dgb');card.classList.remove('dragging');
+  if(!cancel){var cs=qa('#acclist .ag[data-gi]'),olds=cs.map(function(c){return +c.getAttribute('data-gi')}),slots=olds.slice().sort(function(a,b){return a-b}),ni=olds.map(function(o){return INSTS[o]}),nc=olds.map(function(o){return acol[o]});
+   slots.forEach(function(sl,k){INSTS[sl]=ni[k];acol[sl]=nc[k]});toast('順序已更新')}
+  dgSkip=true;setTimeout(function(){dgSkip=false},80);renderAcc()}
+ function up(ev){if(ev.pointerId==st.pid)end(false)}
+ function cn(ev){if(ev.pointerId==st.pid)end(true)}
+ document.addEventListener('pointermove',mv);document.addEventListener('pointerup',up);document.addEventListener('pointercancel',cn);
+ if(touch)tm=setTimeout(start,400)}
+document.addEventListener('touchmove',function(e){if(dgNow&&dgNow.on)e.preventDefault()},{passive:false});
 var ra0=renderAcc;
 renderAcc=function(){ra0();
- $('acclist').insertAdjacentHTML('beforeend','<p class="sub" style="text-align:center;margin:14px 16px 0"><a id="acre" style="text-decoration:underline;cursor:pointer">'+(acRe?'完成':'調整順序')+'</a>'+(acRe?'　用 ▲ ▼ 移動銀行的順序':'')+'</p>');
- $('acre').onclick=function(){acRe=!acRe;renderAcc()};
- qa('#acclist [data-mv]').forEach(function(b){b.onclick=function(ev){ev.stopPropagation();var gi=+b.getAttribute('data-gi'),j=nbG(gi,+b.getAttribute('data-mv'));if(j<0)return;
-  var t=INSTS[gi];INSTS[gi]=INSTS[j];INSTS[j]=t;var c=acol[gi];acol[gi]=acol[j];acol[j]=c;renderAcc()}})};
+ $('acclist').insertAdjacentHTML('beforeend','<p class="sub" style="text-align:center;margin:14px 16px 0">按住銀行那一列不放，上下拖動就能換順序</p>');
+ qa('#acclist .ah').forEach(function(h){var a=h.getAttribute('data-g');if(a=='s'||!INSTS[+a]||!dragOk(INSTS[+a]))return;
+  h.parentNode.setAttribute('data-gi',a);h.classList.add('dg');
+  h.addEventListener('click',function(e){if(dgSkip){e.stopImmediatePropagation();e.preventDefault()}},true);
+  h.addEventListener('contextmenu',function(e){e.preventDefault()});
+  h.addEventListener('pointerdown',function(e){dgDown(e,h)})})};
 /* 記一筆：商家與符合的加碼 */
 $('p-acc').insertAdjacentHTML('afterend','<div class="pk" id="p-shop"><div class="hd"><span class="k">商家</span><input id="shop" maxlength="30" placeholder="選填，例如：三三活力早餐" autocomplete="off" style="flex:1;border:0;outline:0;text-align:right;font-size:16px;font-family:inherit;background:transparent;color:#1c1c1e;min-width:0"></div></div><div id="mxbox" style="display:none;padding:2px 16px 8px"></div>');
 function mxRules(){if(type!='支出'||!isCard())return [];var a=accOf($('v-acc').getAttribute('data-v').replace(/^\S+\s/,''));if(!a||!dval)return [];var sc=cur=='TWD'?'國內':'海外';
@@ -2646,7 +2667,7 @@ function mxRender(){
  var mo2=new MutationObserver(f);['v-acc','v-cat','v-date','curs'].forEach(function(i){mo2.observe($(i),{childList:true,subtree:true,attributes:true,characterData:true})});
  qa('#seg span').forEach(function(x){x.addEventListener('click',f)})})();
 var rf1=resetForm;resetForm=function(){rf1();MX={};MXopen=false;$('shop').value='';mxRender()};
-var ORD0=INSTS.map(function(g){return g.n}),rall0=resetAll;resetAll=function(){FAVC=['TWD','USD','JPY'];acRe=false;rall0();INSTS.sort(function(a,b){var x=ORD0.indexOf(a.n),y=ORD0.indexOf(b.n);return (x<0?99:x)-(y<0?99:y)})};
+var ORD0=INSTS.map(function(g){return g.n}),rall0=resetAll;resetAll=function(){FAVC=['TWD','USD','JPY'];rall0();INSTS.sort(function(a,b){var x=ORD0.indexOf(a.n),y=ORD0.indexOf(b.n);return (x<0?99:x)-(y<0?99:y)})};
 /* 證券 E1/E2：看哪一年 */
 function yrYears(){var o={};TRD.concat(DIV).forEach(function(x){o[x.d.slice(0,4)]=1});o['2025']=1;o[TODAY.slice(0,4)]=1;return Object.keys(o).sort()}
 function yrOk(d){var y=SKS&&SKS.yr;if(!y||y.m=='全部')return true;var yy=String(d).slice(0,4);return y.m=='今年'?yy==TODAY.slice(0,4):yy==y.y}
