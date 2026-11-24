@@ -285,6 +285,15 @@ details.grp .row{padding:8px 0}
 #m2-hint:empty{display:none}
 .btn:disabled{cursor:default}
 
+/* ===== 批 55：股票與定期定額（E1 E2 E3 E4 F1 F2） ===== */
+#s-stk4 .rr .rs select,#s-stk4 .fr select{font-family:inherit;border:1px solid #d1d1d6;border-radius:8px;background:#fff;color:#1c1c1e}
+#s-stk4 .fr select{border:0;background:transparent}
+#sp1 .rr .ra{margin-top:6px;font-size:13px;color:#6b6b70}
+#sp1 .rr .rs{font-size:14px;color:#3a3a3c;line-height:1.7}
+#st1 .amt small,#st2 .amt small{display:block;font-weight:400;font-size:12px}
+.fr .chip.on{cursor:pointer}
+#archsec .row .s{color:#6b6b70}
+
 </style></head><body>
 <div id="toast"></div>
 
@@ -519,6 +528,30 @@ details.grp .row{padding:8px 0}
 <section class="scr" id="s-pen3"><div id="p3"></div>
 <details class="req"><summary>這頁對應的需求（檢查用）</summary><ul><li>FR-40　自己寫的 Android 小 App 只讀勾選的銀行、信用卡、券商 App 的通知，只送到本系統；沒勾的不讀不存不送；通知含驗證碼整則不送；沒開「通知存取」權限時顯示「尚未授權」、不送任何資料；送出失敗稍後重送、60 秒內同一則只留一筆；換 Samsung 手機要重新安裝與授權，舊裝置可停用</li><li>FR-42　Gmail 通知信寄件者清單由大老闆設定，不在清單的信不讀；沿用 Google 授權（T3）</li><li>各銀行 App 的名稱、通知寫法、Android 小 App 怎麼發佈、Samsung 實際操作與限制：沒查（SRS 10.2 #7、#9），畫面上的 App 名單是示範</li></ul></details>
 <div style="height:90px"></div><div class="savebar"><button class="btn ghost back mfb2" style="flex:1">返回</button></div></section>
+<section class="scr" id="s-stk1"><div id="st1"></div>
+<details class="req"><summary>這頁對應的需求（檢查用）</summary><ul><li>FR-28　股票：台股、美股，每檔記市場、代號、名稱；ETF 和個股一樣處理；同一檔可以出現在不同證券戶，各算各的</li><li>FR-29　美股現值用最新匯率換成台幣，同時看到美元和台幣；匯率抓不到時標日期</li><li>FR-30　每個證券戶一個持股清單；每天收盤價算現值；抓不到沿用最近一筆並標「股價日期」</li><li>FR-32　成本、還沒賣的損益（未實現）、賣掉的損益（已實現）自動算，平均成本法</li><li>FR-33　現金股利不降成本、另外算；損益和股利兩個數字分開列、不加成總損益</li><li>示範用編造的股票與收盤價；總資產（首頁、帳戶、總資產報表）暫不含股票現值：推測</li></ul></details>
+<div style="height:90px"></div><div class="savebar"><button class="btn ghost back mfb2">返回</button><button class="btn" id="st1-trade">記買進或賣出</button></div></section>
+
+<section class="scr" id="s-stk2"><div id="st2"></div>
+<details class="req"><summary>這頁對應的需求（檢查用）</summary><ul><li>FR-31　每筆買賣記日期、股數、價格、手續費（賣出多一個交易稅）；可修改、刪除，修改後成本與損益重算</li><li>FR-32　平均成本＝總成本 ÷ 持股數，賣出照比例扣成本；已實現損益＝賣出金額 − 手續費 − 交易稅 − 扣掉的成本</li><li>FR-33　累計現金股利另列，不進成本、不進損益</li><li>FR-34　股票股利只增加股數、總成本不變，所以平均成本會變低</li><li>FR-38　定期定額記的「預估買進」標「估算」，等券商通知後改成實際</li></ul></details>
+<div style="height:90px"></div><div class="savebar"><button class="btn ghost back mfb2">返回</button><button class="btn ghost" id="st2-sell">記賣出</button><button class="btn" id="st2-buy">記買進</button></div></section>
+
+<section class="scr" id="s-stk3"><div id="st3"></div>
+<details class="req"><summary>這頁對應的需求（檢查用）</summary><ul><li>FR-31　類型（買進／賣出）、日期（不能晚於今天）、股數（台股整數、美股到小數 4 位）、價格、手續費（不能是負數）、交易稅（賣出才有）、美股要匯率（預設當天，可手改）</li><li>R31.1　賣出股數不能比目前持股多，會提示「目前持股 N 股」</li><li>R31.5　手動記的買賣不會動銀行餘額，錢的進出另外記轉帳</li><li>R31.6　可以修改、刪除；刪掉會讓後面的賣出股數不夠時，不能刪</li></ul></details>
+<div style="height:90px"></div><div class="savebar"><button class="btn ghost back mfb2">返回</button><button class="btn ghost" id="st3-del" style="display:none">刪除</button><button class="btn" id="st3-save">存檔</button></div></section>
+
+<section class="scr" id="s-stk4"><div id="st4"></div>
+<details class="req"><summary>這頁對應的需求（檢查用）</summary><ul><li>FR-30　每個證券戶的持股清單；加入股票時可填「期初股數」「期初總成本」（不填就是 0）；沒有股數就不能填成本；美股股數到小數 4 位、總成本到小數 2 位；持股 0 的可以移除</li><li>FR-28　同一個證券戶已經有同市場同代號：不能重複加，提示「已持有，請直接記買進」</li><li>FR-36　每個證券戶一個預設股利銀行；個別股票可以改成別家（空白＝跟證券戶）；沒設的證券戶，領股利時要自己選</li><li>R01.6　證券戶放在所屬銀行那一組（帳戶頁）〔暫定 A，大老闆未回覆〕</li></ul></details>
+<div style="height:90px"></div><div class="savebar"><button class="btn ghost back mfb2" style="flex:1">返回</button></div></section>
+
+<section class="scr" id="s-sip1"><div id="sp1"></div>
+<details class="req"><summary>這頁對應的需求（檢查用）</summary><ul><li>FR-37　每檔股票最多一組定期定額：每月扣款日、扣款金額、扣款銀行；扣款日大於當月天數取月底；扣款銀行封存了顯示「扣款銀行已封存」、不產生預估買進</li><li>FR-38　扣款日自動記「預估買進」：金額 ÷ 收盤價、台股捨去到整數股；銀行同日扣款；扣款銀行餘額不夠就當月不扣、不記、不補；同一天不重複記；金額不足一股仍記 0 股並提示</li><li>FR-39　券商成交通知來了，預估買進改成實際股數、價格、手續費，去掉「估算」</li><li>示範：按「假裝今天是扣款日」才會記；示範不動銀行餘額：推測</li></ul></details>
+<div style="height:90px"></div><div class="savebar"><button class="btn ghost back mfb2">返回</button><button class="btn" id="sp1-new">＋ 新增定期定額</button></div></section>
+
+<section class="scr" id="s-sip2"><div id="sp2"></div>
+<details class="req"><summary>這頁對應的需求（檢查用）</summary><ul><li>FR-37　股票（證券戶裡已加入的）、每月扣款日 1 到 31、每月扣款金額（台幣整數、大於 0）、扣款銀行，四項都要填</li><li>R37.1　每檔股票最多一組</li><li>R37.2　扣款日大於當月天數取當月最後一天（31 號、2 月＝28 號）</li><li>R37.3　改設定只影響還沒到的扣款日，已記的預估買進不變</li><li>驗收 S-29　金額填 0 或負數：「請填大於 0 的整數」</li></ul></details>
+<div style="height:90px"></div><div class="savebar"><button class="btn ghost back mfb2">返回</button><button class="btn ghost" id="sp2-del" style="display:none">刪除</button><button class="btn" id="sp2-save">存檔</button></div></section>
+
 <div class="ov" id="ov"></div>
 <div class="sheet" id="sheet"><div class="sh-hd"><a id="shback" style="display:none">‹</a><b id="shtitle"></b><a id="shx"><svg class="ei" viewBox="0 0 48 48" aria-hidden="true"><g stroke="#2a2522" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"><circle cx="24" cy="24" r="19" fill="#f2f2f7"/><path d="M16 16L32 32M32 16L16 32" fill="none" stroke="#2a2522" stroke-width="3.6"/></g></svg></a></div><div class="sh-s" id="shs"><input id="shq" placeholder="搜尋帳戶，例如：台新" autocomplete="off"></div><div class="sh-b" id="shbody"></div></div>
 <nav class="tabs" id="tabs"><a data-go="home" class="on"><b><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M8 22 L24 9 L40 22 V39 H8 Z" fill="#ffd166" stroke="#2a2522" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/><rect x="19" y="27" width="10" height="12" rx="2" fill="#fff" stroke="#2a2522" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/><path d="M5 24 L24 7 L43 24" fill="none" stroke="#c8322a" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg></b>首頁</a><a data-go="accounts"><b><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="5" y="12" width="38" height="29" rx="5" fill="#ef476f" stroke="#2a2522" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/><path d="M9 12 L33 6 V12" fill="#ffd166" stroke="#2a2522" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/><rect x="28" y="22" width="15" height="10" rx="4" fill="#fff" stroke="#2a2522" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/><circle cx="34" cy="27" r="1.8" fill="#2a2522"/></svg></b>帳戶</a><a data-go="record" class="plus"><b>＋</b>記一筆</a><a data-go="recent"><b><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="8" y="5" width="28" height="38" rx="4" fill="#fff" stroke="#2a2522" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/><path d="M14 13h16M14 19h16M14 25h8" stroke="#9fb3c4" stroke-width="3" stroke-linecap="round"/><circle cx="33" cy="34" r="9" fill="#ffd166" stroke="#2a2522" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/><path d="M33 29v10M30 31.5h5a2 2 0 0 1 0 4h-4" fill="none" stroke="#c8322a" stroke-width="2.2" stroke-linecap="round"/></svg></b>記錄</a><a data-go="more"><b><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="10" cy="24" r="5" fill="#4cc9f0" stroke="#2a2522" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/><circle cx="24" cy="24" r="5" fill="#ffd166" stroke="#2a2522" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/><circle cx="38" cy="24" r="5" fill="#ef476f" stroke="#2a2522" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/></svg></b>更多</a></nav>
@@ -584,7 +617,7 @@ var TOTAL0=172955,TODAY='2026-02-28',total,entries,type,cat,sub,n,recent,dval,cu
 var WK='日一二三四五六';
 function fmt(x){return Number(x).toLocaleString('en-US')}
 function mo(x){return '$'+fmt(x)}
-var curScr='home',prevScr='home';var MFS=['accform','pts','banks','bankset','cardset','rw','rwe','detail','xfers','tpls','tple','insts','inst','instf','instp','recon2','rpt1','rpt2','rpt3','gauth','cats','fx','imp1','imp2','imp3','pen1','pen2','pen3'];
+var curScr='home',prevScr='home';var MFS=['accform','pts','banks','bankset','cardset','rw','rwe','detail','xfers','tpls','tple','insts','inst','instf','instp','recon2','rpt1','rpt2','rpt3','gauth','cats','fx','imp1','imp2','imp3','pen1','pen2','pen3','stk1','stk2','stk3','stk4','sip1','sip2'];
 function go(name){
  if(name=='record'&&curScr!='record')prevScr=curScr;
  curScr=name;
@@ -636,14 +669,16 @@ function mo2(x){return '$'+fmt(x)}
 function renderAcc(){
  var h='';
  INSTS.forEach(function(g,gi){
+  if(!g.it.some(function(x){return !x.arch})&&!((SEC||[]).some(function(s){return s.g==g.n})))return;
   var dep=0,owe=0,hc=false,hd=false;g.it.forEach(function(x){if(x.k=='c'){owe+=x.a;hc=true}else if(x.k!='p'){dep+=x.a;hd=true}});
   var tot=dep-owe,f=g.pt?'點數，不算在總資產裡':hc&&hd?'存款 − 要繳卡費':hc?'只有信用卡，顯示要繳的':g.n=='現金'?'現金合計':'存款合計';
   var at=g.pt?'':'<div class="at"><small>'+(tot<0?'還要繳':'合計')+'</small><span class="amt'+(tot<0?' red':'')+'">'+mo(Math.abs(tot))+'</span></div>';
   h+='<div class="card ag"><div class="ah" data-g="'+gi+'"><span class="ar">'+(acol[gi]?'▸':'▾')+'</span><div class="grow"><b>'+g.n+'</b><div class="s">'+f+'</div></div>'+at+'</div>';
-  if(!acol[gi])g.it.forEach(function(x){if(x.arch&&!showArch)return;
+  if(!acol[gi])g.it.forEach(function(x){if(x.arch)return;
    if(x.k=='c')h+='<div class="row" data-card="'+x.n+'">'+face(x)+'<div class="grow">'+x.n+(x.arch?' <span class="tag gray">已封存</span>':'')+'<div class="s">本期要繳</div></div><span class="amt red">'+mo(x.a)+'</span><span style="color:#6b6b70">›</span></div>';
    else if(x.k=='p')h+='<div class="row" data-pt="'+x.n+'"><span class="ico">'+ei(x.ic||'⭐')+'</span><div class="grow">'+x.n+(x.arch?' <span class="tag gray">已封存</span>':'')+'</div><span class="amt">'+x.txt+'</span><span style="color:#6b6b70;width:8px;text-align:center">›</span></div>';
    else h+='<div class="row" data-acc="'+x.n+'"><span class="ico">'+ei(x.ic||ICO[x.k])+'</span><div class="grow">'+x.n+(x.arch?' <span class="tag gray">已封存</span>':'')+'<div class="s">'+x.sub+'</div></div><span class="amt">'+mo(x.a)+'</span><span style="color:#6b6b70;width:8px;text-align:center">›</span></div>'});
+  if(!acol[gi])h+=skAccRows(g);
   h+='</div>'});
  $('acclist').innerHTML=h;
  qa('#acclist .ah').forEach(function(e){e.onclick=function(){var g=+e.getAttribute('data-g');acol[g]=!acol[g];renderAcc()}});
@@ -710,7 +745,7 @@ function inst(on){$('instb').classList.toggle('on',on);$('sw').style.background=
 function amtVal(){return parseInt(($('amt').value||'').replace(/[^0-9]/g,''),10)||0}
 function isCard(){var a=accBy($('v-acc').getAttribute('data-v'));return !!a&&a.k=='c'}
 function twdVal(){var a=amtVal();if(cur=='TWD'||type=='轉帳')return a;return Math.floor(a*curBy(cur)[3])}
-function feeVal(){return (cur=='TWD'||type!='支出'||!isCard())?0:Math.round(twdVal()*0.015)}
+function feeVal(){return (cur=='TWD'||type!='支出'||!isCard())?0:Math.floor(twdVal()*0.015)}
 function setCur(c,auto){cur=c;curAuto=!!auto;$('curs').textContent=curBy(c)[1];calc()}
 function fxRender(){
  var f=$('fx'),on=cur!='TWD'&&type!='轉帳';f.classList.toggle('on',on);if(!on)return;
@@ -723,7 +758,7 @@ function fxRender(){
 function calc(){
  fxRender();var a=twdVal(),f=parseInt($('fee').value,10)||0;n=parseInt((qa('#nopts .chip.on')[0]||{getAttribute:function(){return 12}}).getAttribute('data-n'),10);
  if(!a){$('per').textContent='—';$('pers').textContent='先填金額就會算出來';return}
- var per=Math.round(a/n)+f;$('per').textContent=mo(per);$('pers').textContent='共 '+n+' 期，每期記一筆'+(f?'（另加每期手續費 $'+f+'）':'');
+ var per=Math.floor(a/n)+f;$('per').textContent=mo(per);$('pers').textContent='共 '+n+' 期，每期記一筆'+(f?'（另加每期手續費 $'+f+'）':'');
 }
 function resetForm(){
  cat=null;sub=null;dval=TODAY;
@@ -782,7 +817,7 @@ $('save').onclick=function(){
   if(cat===null||!sub){toast('請先選分類');openSheet('cat');return}
   var acc=$('v-acc').getAttribute('data-v'),isI=$('instb').classList.contains('on');
   var title=sub+(isI?' 第 1 期 <span class="tag">分期</span>':'');
-  var base=twdVal(),money=isI?(Math.round(base/n)+(parseInt($('fee').value,10)||0)):base;
+  var base=twdVal(),money=isI?(Math.floor(base/n)+(parseInt($('fee').value,10)||0)):base;
   ent={d:dval,ico:CATS[cat][0],t:title,acc:acc.replace(/^\S+\s/,''),v:type=='收入'?money:-money};
   if(cur!='TWD')ent.fc=curBy(cur)[1]+fmt(a);
   if(type=='收入')total+=money;else total-=money;
@@ -796,7 +831,7 @@ $('save').onclick=function(){
 };
 qa('[data-go]').forEach(function(e){e.onclick=function(){go(e.getAttribute('data-go'))}});
 qa('.later').forEach(function(e){e.onclick=function(){go('later')}});
-$('addday').onclick=function(){go('record');var d=selD.split('-');dval=selD;setv($('p-date'),(+d[1])+'月'+(+d[2])+'日');qa('#dateopts .chip').forEach(function(c){c.classList.remove('on')});$('dinp').style.display='none';$('dinp').value=selD};
+$('addday').onclick=function(){go('record');setType('支出');var d=selD.split('-');dval=selD;setv($('p-date'),(+d[1])+'月'+(+d[2])+'日');qa('#dateopts .chip').forEach(function(c){c.classList.remove('on')});$('dinp').style.display='none';$('dinp').value=selD};
 $('back').onclick=function(){resetForm();go(prevScr&&prevScr!='record'?prevScr:'home')};
 $('glogin').onclick=function(){toast('示範：之後這裡會用 Google 登入')};
 $('reset').onclick=function(){resetAll();toast('已重來');go('home')};
@@ -923,7 +958,7 @@ function afSave(){
  else{var g=ensureGroup(BANKS.filter(function(b){return b[0]==bank})[0][1]);
   if(t=='銀行存款'){o={k:'b',n:name,sub:'活存 餘額',a:amt}}
   else{o={k:'c',n:name,cn:trim($('af-cn').value)||'信用卡',a:0,due:'每月 3 日'}}}
- var cu=chipVal('af-cur');if(o.k!='c'&&cu&&cu!='台幣'){var code={'美元':'USD','日圓':'JPY'}[cu],sym={'美元':'US$','日圓':'JP¥'}[cu];o.cur=code;o.sub=cu+'活存 '+sym+fmt(amt);o.a=Math.round(amt*rate)}
+ var cu=chipVal('af-cur');if(o.k!='c'&&cu&&cu!='台幣'){var code={'美元':'USD','日圓':'JPY'}[cu],sym={'美元':'US$','日圓':'JP¥'}[cu];o.cur=code;o.sub=cu+'活存 '+sym+fmt(amt);o.a=r45(amt*rate)}
  o.g=g.n;o.inst=g;o.v=ICO[o.k]+' '+o.n;g.it.push(o);ACCS.push(o);
  if(o.k=='c'){var hb=g.it.filter(function(q){return q.k=='b'&&!q.arch})[0]||ACCS.filter(function(q){return q.k=='b'&&!q.arch})[0];
   o.set={close:15,pay:3,bank:hb?hb.n:'',fee:1.5};
@@ -1106,11 +1141,11 @@ function accBind(){
  qa('#acclist [data-pt]').forEach(function(e){e.onclick=function(){openPts('accounts',e.getAttribute('data-pt'))}});
  var n=ACCS.filter(function(a){return a.arch}).length;
  function row(id,ic,t,s){return '<div class="row" id="'+id+'" style="cursor:pointer"><span class="ico"'+(ic.charAt(0)=='<'?'':' style="font-size:24px;font-weight:700"')+'>'+ic+'</span><div class="grow">'+t+(s?'<div class="s">'+s+'</div>':'')+'</div><span class="s">›</span></div>'}
- $('acctools').innerHTML=row('t-new','＋','新增帳戶','銀行、現金、信用卡')+row('t-pts',ei('⭐'),'點數帳戶','TP、LP 的餘額與增減')+row('t-bank',ei('🏦'),'銀行設定','免費轉帳次數、手續費、帳單密碼')+row('t-arch',ei('🧾'),'已封存的帳戶（'+n+' 個）',showArch?'目前顯示中，點一下隱藏':'目前藏起來了，點一下顯示');
+ $('acctools').innerHTML=row('t-new','＋','新增帳戶','銀行、現金、信用卡')+row('t-pts',ei('⭐'),'點數帳戶','TP、LP 的餘額與增減')+row('t-bank',ei('🏦'),'銀行設定','免費轉帳次數、手續費、帳單密碼')+row('t-sec',ei('📈'),'證券戶設定','證券戶、持股清單、預設股利銀行')+row('t-sip',ei('🔁'),'定期定額','每月自動買進的股票');
  $('t-new').onclick=function(){openAcc(null)};
  $('t-pts').onclick=function(){openPts('accounts')};
  $('t-bank').onclick=function(){openBanks('accounts')};
- $('t-arch').onclick=function(){showArch=!showArch;renderAcc()};
+ $('t-sec').onclick=function(){openE4('accounts')};$('t-sip').onclick=function(){openF1('accounts')};skAccBind();
 }
 (function(){
  var card=document.querySelector('#s-more .card'),later=qa('#s-more .later').filter(function(e){return e.textContent.indexOf('設定')>=0})[0];
@@ -1180,7 +1215,7 @@ function rwOf(e){
   if(r.scope!='兩者'&&r.scope!=sc)return;
   if(r.type=='加碼'&&r.ch!=ch)return;
   if(e.inst&&r.inst=='總額算一次')return;
-  var raw=amt*r.pct/100,v=r.rnd=='四捨五入'?Math.round(raw):Math.floor(raw);
+  var raw=amt*r.pct/100,v=r.rnd=='四捨五入'?r45(raw):Math.floor(raw);
   if(r.cap!=null&&v>r.cap)v=r.cap;
   if(v<=0)return;
   out.push({r:r,v:v,day:payWhen(r,e.d)})});
@@ -1251,7 +1286,7 @@ $('dt-b3').onclick=function(){
  if(nv!=old){
   if(!e.x)total+=nv-old;
   if((isAuto(e)||e.inst)&&!e.hand){e.hand=1;e.t+=' <span class="tag gray">已手改</span>'}
-  var fe=feeOf(e);if(fe&&!fe.hand){var nf=Math.round((+a)*0.015);total+=-nf-fe.v;fe.v=-nf}
+  var fe=feeOf(e);if(fe&&!fe.hand){var nf=Math.floor((+a)*0.015);total+=-nf-fe.v;fe.v=-nf}
   e.v=nv}
  if(d!=e.d){var fe2=feeOf(e);if(fe2)fe2.d=d;e.d=d;if(e.inst&&!e.hand){e.hand=1;e.t+=' <span class="tag gray">已手改</span>'}}
  if($('de-cat')){var ci=+$('de-cat').value,sb=$('de-sub').value;e.ico=CATS[ci][0];e.t=sb}
@@ -1433,7 +1468,7 @@ function insSeed(){INS.length=0;MID=0;
 function stTag(s){return s=='進行中'?'<span class="tag">進行中</span>':s=='已完成'?'<span class="tag ok">已完成</span>':'<span class="tag gray">已提前清償</span>'}
 function openInsts(back){BK2.insts=back;renderInsts();go('insts')}
 function insRow(m){var f=insInfo(m);
- return '<div class="rr" data-m="'+m.id+'" style="cursor:pointer"><div class="rt"><span class="grow" style="flex:1">'+esc(m.name)+'</span>'+stTag(f.status)+'</div><div class="rs">'+esc(m.card)+'　已記 '+f.done+' / '+m.N+' 期'+(f.status=='進行中'?'　剩 '+f.restN+' 期':'')+'<br>'+(f.status=='進行中'?'剩餘本金 '+mo(f.restP)+'　':'')+'每期約 '+mo(Math.floor(m.P/m.N)+Math.floor(m.F/m.N))+'</div><div class="pgbar"><i style="width:'+Math.round(100*f.done/m.N)+'%"></i></div></div>'}
+ return '<div class="rr" data-m="'+m.id+'" style="cursor:pointer"><div class="rt"><span class="grow" style="flex:1">'+esc(m.name)+'</span>'+stTag(f.status)+'</div><div class="rs">'+esc(m.card)+'　已記 '+f.done+' / '+m.N+' 期'+(f.status=='進行中'?'　剩 '+f.restN+' 期':'')+'<br>'+(f.status=='進行中'?'剩餘本金 '+mo(f.restP)+'　':'')+'每期約 '+mo(Math.floor(m.P/m.N)+Math.floor(m.F/m.N))+'</div><div class="pgbar"><i style="width:'+r45(100*f.done/m.N)+'%"></i></div></div>'}
 function renderInsts(){
  var h='<p class="sub" style="padding-top:14px">分期的每一期都是一筆自己的記錄，到了日子才會記。還沒到的各期不算進總資產和報表，只在這裡看。</p>';
  var on=INS.filter(function(m){return insInfo(m).status=='進行中'}),off=INS.filter(function(m){return insInfo(m).status!='進行中'});
@@ -1632,7 +1667,7 @@ function fxLatest(){var d=FXD;Object.keys(FX).forEach(function(k){if(FX[k].man&&
 function dfull(d){var a=d.split('-');return a[0]+'/'+(+a[1])+'/'+(+a[2])}
 function acctTwd(x){
  if(x.cur&&x.cur!='TWD'&&FX[x.cur]){var m=/(?:US\$|JP¥|€|£)\s?([\d,\.]+)/.exec(x.sub||'');
-  if(m){var o=+m[1].replace(/,/g,''),r=fxRate(x.cur);return {o:o,r:r,t:Math.round(o*r.r),sym:FX[x.cur].sym}}}
+  if(m){var o=+m[1].replace(/,/g,''),r=fxRate(x.cur);return {o:o,r:r,t:r45(o*r.r),sym:FX[x.cur].sym}}}
  return {t:x.a}}
 function rowI(ic,t,s,right,attr,tail){return '<div class="row"'+(attr||'')+'><span class="ico">'+eh(ic)+'</span><div class="grow">'+t+(s?'<div class="s">'+s+'</div>':'')+'</div>'+(right||'')+(tail||'')+'</div>'}
 /* ====== B1 總資產報表 ====== */
@@ -1656,7 +1691,7 @@ function renderB1(){
    if(i.f.o!=null)line='<small>'+i.f.sym+fmt(i.f.o)+' × 匯率 '+rtxt(i.f.r.r)+'（'+md(i.f.r.d)+(i.f.r.s=='手動'?'，手動':'')+'）＝ 台幣 '+mo(i.v)+'</small>';
    h+='<div class="bd"><div class="grow">'+esc(x.n)+(x.arch?' <span class="tag gray">已封存</span>':'')+line+'</div><span class="amt'+(neg?' red':'')+'">'+(neg?'要繳 ':'')+mo(i.v)+'</span></div>'});
   if(on&&!g.l.length)h+='<div class="bd"><div class="grow">沒有帳戶</div></div>'});
- h+=rowI('📈','證券持股','股票功能之後才有','<span class="tag gray">尚未啟用</span>','');
+ h+=rowI('📈','證券持股','持股現值，先另外看，還沒加進上面的總資產','<span class="amt">'+mo(skAll().mv)+'</span>',' id="b1-stk" style="cursor:pointer"','<span class="s" style="width:10px;text-align:center">›</span>');
  h+='</div>';
  h+='<h2>點數（不算在總資產裡）</h2><div class="card">';
  ACCS.filter(function(x){return x.k=='p'}).forEach(function(x){h+=rowI(x.ic||'⭐',esc(x.n),'','<span class="amt">'+esc(x.txt)+'</span>','')});
@@ -1664,7 +1699,7 @@ function renderB1(){
  h+='<h2>匯率</h2><div class="card">'+rowI('💵','匯率日期 '+dfull(fxLatest()),'台灣銀行牌告（賣出價）；假日沿用前一個有牌告的日子','','id="b1-fx" style="cursor:pointer"','<span class="s">›</span>')+'</div>';
  $('b1').innerHTML=h;
  qa('#b1 [data-b1g]').forEach(function(r){r.onclick=function(){var k=r.getAttribute('data-b1g');B1S.open[k]=!B1S.open[k];renderB1()}});
- $('b1-fx').onclick=function(){openFx('rpt1')}}
+ $('b1-fx').onclick=function(){openFx('rpt1')};$('b1-stk').onclick=function(){openE1('rpt1')}}
 function openB1(b){BK2.rpt1=b||'more';B1S.open={};renderB1();go('rpt1')}
 /* ====== B2 每月回饋與持股損益 ====== */
 function rwRaw(e){
@@ -1675,7 +1710,7 @@ function rwRaw(e){
   if(r.scope!='兩者'&&r.scope!=sc)return;
   if(r.type=='加碼'&&r.ch!=ch)return;
   if(e.inst&&r.inst=='總額算一次')return;
-  var raw=amt*r.pct/100,v=r.rnd=='四捨五入'?Math.round(raw):Math.floor(raw);
+  var raw=amt*r.pct/100,v=r.rnd=='四捨五入'?r45(raw):Math.floor(raw);
   if(v<=0)return;
   out.push({r:r,v:v,day:payWhen(r,e.d)})});
  return out}
@@ -1723,8 +1758,8 @@ function renderB2(){
   var sb=rwSum(gs.filter(function(g){return g.r.type=='基本'})),sp=rwSum(gs.filter(function(g){return g.r.type=='加碼'})),sa=rwSum(gs);
   h+='<h2>所有卡合計</h2><div class="card" id="b2-all"><div class="gh3 base">基本回饋合計</div>'+rwLine(sb,'已入帳')+'<div class="gh3 plus">加碼回饋合計</div>'+rwLine(sp,'已入帳')+'<div class="rwsum" style="background:#fff"><span><b>全部加起來（台幣）</b></span><span><b>'+mo(sa.cash)+'</b>'+(ptTxt(sa.tp)?'　<b>'+ptTxt(sa.tp)+'</b>':'')+'</span></div></div>';
   h+='<p class="sub" style="margin-top:6px">台幣和點數不會加在一起。「預計」是還沒到入帳日，不算進已入帳。</p>'}
- h+='<h2>持股損益</h2><div class="card" id="b2-stock">'+rowI('📈','未實現損益、累計股利','股票功能（持股、買賣、股利）之後才有，這裡先留位置；到時兩個數字分開列，不加在一起','<span class="tag gray">尚未啟用</span>','')+'</div>';
- $('b2').innerHTML=h;
+ var SA=skAll();h+='<h2>持股損益</h2><div class="card" id="b2-stock">'+rowI('📈','還沒賣掉的賺賠（未實現損益）','現在的數字，不分月份；和股利分開，不加在一起','<span class="amt" id="b2-unr">'+gl(SA.unr)+'</span>','')+rowI('💰','領到的股利（累計）','已入帳的現金股利','<span class="amt green" id="b2-div">'+mo(SA.div)+'</span>','')+rowI('📈','看持股明細','','',' id="b2-stk" style="cursor:pointer"','<span class="s" style="width:10px;text-align:center">›</span>')+'</div>';
+ $('b2').innerHTML=h;if($('b2-stk'))$('b2-stk').onclick=function(){openE1('rpt2')};
  chipPick('b2-m',function(v){B2S.m=v;renderB2()})}
 function openB2(b){BK2.rpt2=b||'more';B2S.m=TODAY.slice(0,7);renderB2();go('rpt2')}
 /* ====== B3 收支統計 ====== */
@@ -2173,7 +2208,7 @@ function p2Confirm(){
   var a=+d.amt,cp=d.cat.split('／'),ci=0;CATS.forEach(function(c,i){if(c[1]==cp[0])ci=i});
   var e={d:d.date,ico:CATS[ci][0],t:cp[1],acc:d.acc,v:-a};if(x.fc)e.fc=x.fc+x.fcn;
   entries.unshift(e);total-=a;msg='已入帳 '+mo(a);
-  if(x.fc){var fe=Math.round(a*0.015);entries.unshift({d:d.date,ico:'🧾',t:'海外交易手續費 <span class="tag gray">自動</span>',acc:d.acc,v:-fe});total-=fe;msg+='，回饋與海外手續費 '+mo(fe)+' 一併算好'}
+  if(x.fc){var fe=Math.floor(a*0.015);entries.unshift({d:d.date,ico:'🧾',t:'海外交易手續費 <span class="tag gray">自動</span>',acc:d.acc,v:-fe});total-=fe;msg+='，回饋與海外手續費 '+mo(fe)+' 一併算好'}
   entries.sort(function(p,q){return p.d<q.d?1:p.d>q.d?-1:0});renderList();renderTotal()}
  else if(x.kind=='現金股利'){var b=+d.amt;entries.unshift({d:x.date,ico:'📈',t:'股利',acc:d.bank,v:b});total+=b;entries.sort(function(p,q){return p.d<q.d?1:p.d>q.d?-1:0});renderList();renderTotal();msg='已入帳 '+mo(b)+'，'+d.bank+'餘額增加'}
  else if(x.kind=='股票股利')msg='已確認：持股增加 '+d.qty+' 股，銀行不動';
@@ -2236,6 +2271,334 @@ pdInit();p3Init();
 })();
 (function(){var r0=$('reset').onclick;
  $('reset').onclick=function(){MS={file:'',step:0,res:null,acc:{},cat:{},catOk:false,db:{},done:false};PS={f:'wait',cur:null,draft:null,sim:0};PD=JSON.parse(PD0);p3Init();pdHome();r0()}})();
+
+/* ===== 批 55：股票與定期定額（E1 E2 E3 E4 F1 F2）＋ 11 題暫定 A 對齊 ===== */
+function r45(x){return Math.floor(x+0.5)}
+function q4(x){return r45(x*10000)/10000}
+function qf(x){var p=String(x).split('.');return fmt(+p[0])+(p[1]?'.'+p[1]:'')}
+var SEC=[],STK=[],TRD=[],DIV=[],SIP=[],SKID=100,SKPX={},SKPD='2026-02-27',SKS={st:0,tf:null,e2back:null,e4add:'',e4new:false,msg:'',sf:null,cmp:{}},SK0=null;
+function skInit(){
+ SKID=100;SKPX={'2330':118,'0050':58,'VOO':200};
+ SEC=[{n:'範例證券戶',g:'永豐銀行',bank:'永豐銀行'},{n:'範例證券戶乙',g:'台新銀行',bank:'台新銀行'}];
+ STK=[{id:1,sec:'範例證券戶',mkt:'台股',code:'2330',name:'範例電子',cur:'TWD',oq:0,oc:0,bank:''},
+  {id:2,sec:'範例證券戶',mkt:'台股',code:'0050',name:'範例ETF',cur:'TWD',oq:300,oc:16500,bank:''},
+  {id:3,sec:'範例證券戶',mkt:'美股',code:'VOO',name:'範例指數基金',cur:'USD',oq:0,oc:0,bank:'台新銀行'},
+  {id:4,sec:'範例證券戶乙',mkt:'台股',code:'0050',name:'範例ETF',cur:'TWD',oq:0,oc:0,bank:''}];
+ TRD=[{id:1,st:1,type:'買進',d:'2026-01-05',q:1000,p:100,fee:20,tax:0,rate:1},
+  {id:2,st:1,type:'買進',d:'2026-01-20',q:1000,p:110,fee:20,tax:0,rate:1},
+  {id:3,st:1,type:'賣出',d:'2026-02-10',q:500,p:120,fee:50,tax:180,rate:1},
+  {id:4,st:2,type:'買進',d:'2026-02-05',q:172,p:58,fee:0,tax:0,rate:1,est:true},
+  {id:5,st:3,type:'買進',d:'2026-01-15',q:10,p:190,fee:1,tax:0,rate:31.5},
+  {id:6,st:3,type:'買進',d:'2026-02-08',q:1.9937,p:200,fee:0,tax:0,rate:32.1,est:true},
+  {id:7,st:4,type:'買進',d:'2026-02-03',q:100,p:57.5,fee:20,tax:0,rate:1}];
+ DIV=[{id:1,st:1,d:'2026-02-20',amt:3500,note:'每股 1.75 元 × 2,000 股（除息前一天的持股）'}];
+ SIP=[{id:1,st:2,day:5,amt:10000,bank:'永豐銀行'},{id:2,st:3,day:8,amt:12800,bank:'台新銀行'},{id:3,st:4,day:15,amt:20000,bank:'中信銀行'}];
+ SKS={st:0,tf:null,e2back:null,e4add:'',e4new:false,msg:'',sf:null,e1back:'more',e4back:'more',f1back:'more'}}
+skInit();
+function stkBy(id){return STK.filter(function(s){return s.id==id})[0]}
+function secBy(n){return SEC.filter(function(s){return s.n==n})[0]}
+function skPx(st){return SKPX[st.code]||0}
+function skRate(st){return st.cur=='USD'?fxRate('USD').r:1}
+function skTrd(st){return TRD.filter(function(t){return t.st==st.id}).sort(function(a,b){return a.d<b.d?-1:a.d>b.d?1:a.id-b.id})}
+function skCalc(st,list){
+ var tr=list||skTrd(st),q=st.oq||0,cost=r45((st.oc||0)*skRate(st)),real=0,bad=null;
+ tr.forEach(function(t){var r=t.rate||1;
+  if(t.type=='買進'){cost+=r45(t.q*t.p*r+t.fee*r);q=q4(q+t.q)}
+  else{if(bad!==null)return;if(t.q>q+0.00001){bad=q;return}
+   var rem=q>0?r45(cost*t.q/q):0,net=r45(t.q*t.p*r-t.fee*r)-t.tax;real+=net-rem;cost-=rem;q=q4(q-t.q);if(q==0)cost=0}});
+ var rate=skRate(st),px=skPx(st),mv=r45(q*px*rate),unr=mv-cost,dv=0,est=0;
+ DIV.forEach(function(d){if(d.st==st.id)dv+=d.amt});
+ tr.forEach(function(t){if(t.est)est++});
+ return {q:q,cost:cost,avg:q>0?cost/q:0,real:real,px:px,mvO:q*px,mv:mv,unr:unr,ret:cost>0?(unr/cost*100).toFixed(1)+'%':'—',div:dv,bad:bad,rate:rate,est:est}}
+function skSum(list){var s={mv:0,cost:0,unr:0,div:0,real:0};list.forEach(function(st){var c=skCalc(st);s.mv+=c.mv;s.cost+=c.cost;s.unr+=c.unr;s.div+=c.div;s.real+=c.real});s.ret=s.cost>0?(s.unr/s.cost*100).toFixed(1)+'%':'—';return s}
+function skAll(){return skSum(STK)}
+function gl(v){return v==0?'<span class="gray">持平</span>':'<span class="'+(v>0?'green':'red')+'">'+(v>0?'賺 ':'賠 ')+mo(Math.abs(v))+'</span>'}
+function srow(ic,t,s,right,attr){return '<div class="row" style="cursor:pointer"'+(attr||'')+'><span class="ico">'+ei(ic)+'</span><div class="grow">'+t+(s?'<div class="s">'+s+'</div>':'')+'</div>'+(right||'')+'<span class="s" style="width:10px;text-align:center">›</span></div>'}
+function bankOpts(){return ACCS.filter(function(a){return a.k=='b'&&!a.arch}).map(function(a){return a.n})}
+function selH(id,opts,sel,first,attr){return '<select id="'+id+'"'+(attr||'')+'>'+(first?'<option value="">'+esc(first)+'</option>':'')+opts.map(function(o){var v=Array.isArray(o)?o[0]:o,t=Array.isArray(o)?o[1]:o;return '<option value="'+esc(v)+'"'+(String(v)==String(sel)?' selected':'')+'>'+esc(t)+'</option>'}).join('')+'</select>'}
+function skNext(day){var y=+TODAY.slice(0,4),m=+TODAY.slice(5,7);for(var i=0;i<14;i++){var nd=new Date(y,m,0).getDate(),d=Math.min(day,nd),ds=y+'-'+(m<10?'0':'')+m+'-'+(d<10?'0':'')+d;if(ds>TODAY)return ds;m++;if(m>12){m=1;y++}}return ''}
+function skEst(st,amt){var px=skPx(st);if(!px)return 0;if(st.cur=='USD')return Math.floor(amt/skRate(st)/px*10000+0.00001)/10000;return Math.floor(amt/px)}
+function stName(st){return esc(st.name)+'（'+esc(st.code)+'）'}
+function stkTag(st){return '<span class="tag gray">'+st.mkt+'</span>'}
+/* ---------- E1 持股總覽 ---------- */
+function renderE1(){
+ var A=skAll(),fx=fxRate('USD'),h='';
+ h+='<div class="rpbig"><small>持股現值（美股換成台幣）</small><b id="e1-mv">'+mo(A.mv)+'</b></div>';
+ h+='<div class="rpnote">美股用最新匯率：1 美元 ＝ 台幣 '+rtxt(fx.r)+'（'+md(fx.d)+'）｜股價日期 '+dfull(SKPD)+'</div>';
+ h+='<h2>賺賠和股利（兩個分開看，不加在一起）</h2><div class="card">'
+  +rowI('🧮','買進總成本','買進花的錢，含手續費','<span class="amt" id="e1-cost">'+mo(A.cost)+'</span>','')
+  +rowI('📈','還沒賣掉的賺賠','現在值多少 − 總成本，約 '+A.ret,'<span class="amt" id="e1-unr">'+gl(A.unr)+'</span>','')
+  +rowI('💰','領到的股利','已經入帳的現金股利，不算在賺賠裡','<span class="amt green" id="e1-div">'+mo(A.div)+'</span>','')+'</div>';
+ if(!SEC.length)h+='<div class="card"><div class="empty">還沒有證券戶。到「證券戶設定」新增一個。</div></div>';
+ SEC.forEach(function(sc,si){
+  var ls=STK.filter(function(s){return s.sec==sc.n}),S=skSum(ls);
+  h+='<h2>'+esc(sc.n)+'　'+esc(sc.g)+'</h2><div class="card" data-sec="'+si+'">';
+  if(!ls.length)h+='<div class="empty">還沒加入股票</div>';
+  ls.forEach(function(st){var c=skCalc(st);
+   h+=srow('📈',stName(st)+' '+stkTag(st)+(c.est?' <span class="tag">含估算</span>':''),'持股 '+qf(c.q)+' 股　平均每股 '+(c.q?c.avg.toFixed(2):'—')+(st.cur=='USD'?'（台幣）':''),'<span class="amt">'+mo(c.mv)+'<small>'+gl(c.unr)+(c.cost?'　'+c.ret:'')+'</small></span>',' data-st="'+st.id+'"')});
+  h+=srow('🗂','這個證券戶的設定','預設股利銀行：'+esc(sc.bank||'還沒設'),'',' data-e4="'+si+'"')+'</div>'});
+ h+='<h2>其他</h2><div class="card">'+srow('🔁','定期定額','每月自動買進，扣款日記「估算」買進','<span class="amt" style="font-weight:400">'+SIP.length+' 檔</span>',' id="e1-sip"')+srow('🏦','證券戶設定','新增證券戶、加入股票、股利銀行','',' id="e1-set"')+'</div>';
+ h+='<h2>成本怎麼算（平均成本法）</h2><div class="card"><div class="bd"><div class="grow" style="font-size:14px;line-height:1.7">每次買進：把「股數 × 價格 ＋ 手續費」加進總成本。<br>平均每股成本 ＝ 總成本 ÷ 持股數。<br>賣出時：照賣掉的股數占全部持股的比例，把成本扣掉；賣出賺賠 ＝ 賣到的錢 − 手續費 − 交易稅 − 扣掉的成本。<br>股利不會讓成本變低，另外算。美股成本用買進那天的匯率固定下來，現值用最新匯率。<small style="display:block;margin-top:4px">這是常見的算法，大老闆說「看通常是怎麼算」</small></div></div></div>';
+ $('st1').innerHTML=h;
+ qa('#st1 [data-st]').forEach(function(r){r.onclick=function(){openE2(+r.getAttribute('data-st'),function(){openE1(SKS.e1back)})}});
+ qa('#st1 [data-e4]').forEach(function(r){r.onclick=function(){openE4(function(){openE1(SKS.e1back)})}});
+ $('e1-sip').onclick=function(){openF1(function(){openE1(SKS.e1back)})};
+ $('e1-set').onclick=function(){openE4(function(){openE1(SKS.e1back)})}}
+function openE1(b){if(b!==undefined)SKS.e1back=b||'more';BK2.stk1=SKS.e1back;renderE1();go('stk1')}
+/* ---------- E2 單檔股票明細 ---------- */
+function renderE2(){
+ var st=stkBy(SKS.st),c=skCalc(st),h='',fx=fxRate('USD');
+ h+='<h2 style="padding-top:14px">'+stName(st)+' '+stkTag(st)+'</h2><p class="sub" style="margin-top:-2px">'+esc(st.sec)+'　股價 '+(st.cur=='USD'?'US$':'$')+c.px+'（'+md(SKPD)+' 收盤）</p>';
+ h+='<div class="rpbig"><small>現在值多少（台幣）</small><b id="e2-mv">'+mo(c.mv)+'</b></div>';
+ if(st.cur=='USD')h+='<div class="rpnote" id="e2-usd">US$'+qf(c.q)+' × '+c.px+' ＝ US$'+fmt(+c.mvO.toFixed(2))+'　×　匯率 '+rtxt(fx.r)+'（'+md(fx.d)+'）＝ 台幣 '+mo(c.mv)+'</div>';
+ h+='<h2>持有和成本</h2><div class="card">'
+  +rowI('📈','持股數','','<span class="amt" id="e2-q">'+qf(c.q)+' 股</span>','')
+  +rowI('🧮','平均每股成本','總成本 ÷ 持股數'+(st.cur=='USD'?'（台幣）':''),'<span class="amt" id="e2-avg">'+(c.q?c.avg.toFixed(2):'—')+'</span>','')
+  +rowI('🧮','總成本','','<span class="amt" id="e2-cost">'+mo(c.cost)+'</span>','')
+  +(st.oq?rowI('🗂','其中期初持股','加入時填的 '+qf(st.oq)+' 股、成本 '+(st.cur=='USD'?'US$'+fmt(st.oc):mo(st.oc)),'',''):'')+'</div>';
+ h+='<h2>賺賠和股利（分開看，不加在一起）</h2><div class="card">'
+  +rowI('📈','還沒賣掉的賺賠','現在值多少 − 總成本','<span class="amt" id="e2-unr">'+gl(c.unr)+'<small id="e2-ret">'+(c.cost?'約 '+c.ret:'成本是 0，不算比率')+'</small></span>','')
+  +rowI('💰','賣掉的賺賠（累計）','每次賣出都算一筆，賣光了也保留','<span class="amt" id="e2-real">'+gl(c.real)+'</span>','')
+  +rowI('🎁','領到的股利（累計）','現金股利，不算在賺賠裡','<span class="amt green" id="e2-div">'+mo(c.div)+'</span>','')+'</div>';
+ if(c.est)h+='<p class="sub" style="margin:8px 16px 0;color:#5c4a00">有 '+c.est+' 筆「估算」的買進（定期定額），等券商成交通知來了會改成實際股數與價格。</p>';
+ var tr=skTrd(st);
+ h+='<h2>怎麼算出來的（這一檔）</h2><div class="card"><div class="bd"><div class="grow" id="e2-how" style="font-size:14px;line-height:1.7">'+(c.q?'平均每股成本 ＝ 總成本 '+mo(c.cost)+' ÷ '+qf(c.q)+' 股 ＝ '+c.avg.toFixed(2)+'。':'目前沒有持股，總成本是 0。')+'<br>每次買進，把「股數 × 價格 ＋ 手續費」加進總成本；賣出時，照賣掉的比例把成本扣掉。<br>領股利不會讓成本變低；配股（股票股利）只會增加股數、總成本不變，所以平均成本會變低。</div></div></div>';
+ h+='<h2>買賣紀錄（點一筆可修改或刪除）</h2><div class="card" id="e2-trd">';
+ if(!tr.length)h+='<div class="empty">還沒有買賣紀錄</div>';
+ tr.slice().reverse().forEach(function(t){var r=t.rate||1,v=t.type=='買進'?r45(t.q*t.p*r+t.fee*r):r45(t.q*t.p*r-t.fee*r)-t.tax;
+  h+='<div class="row" data-t="'+t.id+'" style="cursor:pointer"><div class="grow">'+md(t.d)+'　<b>'+t.type+'</b> '+qf(t.q)+' 股 × '+t.p+(t.est?' <span class="tag">估算</span>':'')+'<div class="s">'+(t.fee?'手續費 '+t.fee+'　':'')+(t.tax?'交易稅 '+t.tax+'　':'')+(st.cur=='USD'?'匯率 '+rtxt(r):'')+'</div></div><span class="amt '+(t.type=='買進'?'red':'green')+'">'+mo(v)+'</span><span class="s" style="width:10px;text-align:center">›</span></div>'});
+ h+='</div><h2>領到的股利</h2><div class="card" id="e2-div-list">';
+ var ds=DIV.filter(function(d){return d.st==st.id});
+ if(!ds.length)h+='<div class="empty">還沒有領到股利</div>';
+ ds.forEach(function(d){h+='<div class="row"><div class="grow">'+md(d.d)+'　現金股利<div class="s">'+esc(d.note||'')+'</div></div><span class="amt green">'+mo(d.amt)+'</span></div>'});
+ h+='</div><p class="sub" style="margin-top:6px">發放日系統會先放進「待確認」，你確認了才算入帳。</p>';
+ $('st2').innerHTML=h;
+ qa('#st2 [data-t]').forEach(function(r){r.onclick=function(){openE3({tid:+r.getAttribute('data-t'),back:function(){openE2(SKS.st)}})}})}
+function openE2(id,b){SKS.st=id;if(b)SKS.e2back=b;BK2.stk2=SKS.e2back||function(){openE1()};renderE2();go('stk2')}
+/* ---------- E3 記買進賣出 ---------- */
+function openE3(o){
+ var t=o.tid?TRD.filter(function(x){return x.id==o.tid})[0]:null,st=o.st?stkBy(o.st):(t?stkBy(t.st):STK[0]);
+ if(!STK.length){toast('還沒有股票，先到證券戶設定加入');return}
+ SKS.tf=t?{tid:t.id,st:t.st,type:t.type,d:t.d,q:String(t.q),p:String(t.p),fee:String(t.fee),tax:String(t.tax),rate:String(t.rate||'')}:{tid:null,st:st.id,type:o.type||'買進',d:TODAY,q:'',p:'',fee:'0',tax:'0',rate:''};
+ BK2.stk3=o.back||function(){openE1(SKS.e1back)};renderE3();go('stk3')}
+function skRead3(){var f=SKS.tf;if(!f||!$('sk3-d'))return;f.d=$('sk3-d').value;f.q=$('sk3-q').value;f.p=$('sk3-p').value;f.fee=$('sk3-fee').value;if($('sk3-tax'))f.tax=$('sk3-tax').value;if($('sk3-rate'))f.rate=$('sk3-rate').value}
+function skNum(s){s=String(s).replace(/,/g,'');return s===''?NaN:Number(s)}
+function sk3Sum(){
+ var f=SKS.tf,st=stkBy(f.st),us=st.cur=='USD';skRead3();
+ var q=skNum(f.q),p=skNum(f.p),fee=skNum(f.fee)||0,tax=skNum(f.tax)||0,r=us?(skNum(f.rate)||0):1,e=$('sk3-sum');
+ if(!(q>0)||!(p>0)||!(r>0)){e.textContent='填好股數和價格，就會算出這筆的金額';return}
+ if(f.type=='買進')e.textContent='這筆總額 '+mo(r45(q*p*r+fee*r))+'（股數 × 價格 ＋ 手續費'+(us?'，已用匯率換成台幣':'')+'）';
+ else e.textContent='賣出後實拿 '+mo(r45(q*p*r-fee*r)-tax)+'（扣掉手續費和交易稅）'}
+function renderE3(){
+ var f=SKS.tf,st=stkBy(f.st),us=st.cur=='USD',c=skCalc(st),ed=!!f.tid,h='';
+ var ss=STK.filter(function(s){return s.sec==st.sec});
+ h+='<h2 style="padding-top:14px">'+(ed?'修改這筆買賣':'記買進或賣出')+'</h2><div class="card">';
+ h+=fr('類型',chipsH('sk3-type',['買進','賣出'],f.type),1);
+ h+=fr('證券戶',ed?'<span class="v">'+esc(st.sec)+'</span>':selH('sk3-sec',SEC.filter(function(s){return STK.some(function(x){return x.sec==s.n})}).map(function(s){return s.n}),st.sec));
+ h+=fr('股票',ed?'<span class="v">'+stName(st)+'</span>':selH('sk3-st',ss.map(function(s){return [s.id,s.name+'（'+s.code+'）'+s.mkt]}),st.id));
+ h+=fr('日期','<input type="date" id="sk3-d" value="'+esc(f.d)+'" max="'+TODAY+'">');
+ h+=fr('股數','<input id="sk3-q" inputmode="decimal" placeholder="'+(us?'可到小數 4 位':'整數股')+'" value="'+esc(f.q)+'">');
+ h+=fr('每股價格','<input id="sk3-p" inputmode="decimal" placeholder="最新收盤價 '+skPx(st)+'" value="'+esc(f.p)+'">');
+ h+=fr('手續費','<input id="sk3-fee" inputmode="decimal" placeholder="沒有就填 0" value="'+esc(f.fee)+'">');
+ if(f.type=='賣出')h+=fr('交易稅（台幣）','<input id="sk3-tax" inputmode="decimal" placeholder="沒有就填 0" value="'+esc(f.tax)+'">');
+ if(us){if(!f.rate)f.rate=String(fxRate('USD').r);h+=fr('匯率','<input id="sk3-rate" inputmode="decimal" value="'+esc(f.rate)+'">')}
+ h+='</div><div class="rpnote" id="sk3-sum" style="text-align:left;padding:8px 16px"></div>';
+ h+='<p class="sub" style="margin-top:2px">這檔目前持股 <b id="sk3-held">'+qf(c.q)+'</b> 股'+(us?'；美股買賣日期照你填的，不自動換時區；匯率預設當天，可以手改':'')+'</p>';
+ h+='<p class="sub" style="margin-top:8px">這裡只記證券戶裡的股票，不會動銀行餘額；錢的進出請另外記一筆轉帳。</p>';
+ $('st3').innerHTML=h;$('st3-del').style.display=ed?'':'none';
+ chipPick('sk3-type',function(v){skRead3();f.type=v;renderE3()});
+ if($('sk3-sec'))$('sk3-sec').onchange=function(){skRead3();var s0=STK.filter(function(s){return s.sec==$('sk3-sec').value})[0];f.st=s0.id;f.rate='';renderE3()};
+ if($('sk3-st'))$('sk3-st').onchange=function(){skRead3();f.st=+$('sk3-st').value;f.rate='';renderE3()};
+ ['sk3-q','sk3-p','sk3-fee','sk3-tax','sk3-rate'].forEach(function(i){if($(i))$(i).oninput=sk3Sum});
+ sk3Sum()}
+function sk3Save(){
+ var f=SKS.tf,st=stkBy(f.st),us=st.cur=='USD';skRead3();
+ if(!st){toast('請選股票');return}
+ if(!f.d){toast('請選日期');return}
+ if(f.d>TODAY){toast('不能填還沒到的日期');return}
+ var qs=trim(f.q).replace(/,/g,''),q=Number(qs);
+ if(!qs||!(q>0)){toast('請填股數（要大於 0）');return}
+ if(us?!/^\d+(\.\d{1,4})?$/.test(qs):!/^\d+$/.test(qs)){toast(us?'美股股數最多到小數 4 位':'台股股數要填整數');return}
+ var p=skNum(f.p);if(!(p>0)){toast('價格要大於 0');return}
+ var fee=trim(f.fee)===''?0:skNum(f.fee);if(isNaN(fee)){toast('手續費請填數字');return}if(fee<0){toast('手續費不可為負');return}
+ var tax=f.type=='賣出'?(trim(f.tax)===''?0:skNum(f.tax)):0;if(isNaN(tax)){toast('交易稅請填數字');return}if(tax<0){toast('交易稅不可為負');return}
+ var rate=1;if(us){rate=skNum(f.rate);if(!(rate>0)){toast('匯率要大於 0');return}}
+ var nt={id:f.tid||(SKID+1),st:st.id,type:f.type,d:f.d,q:q,p:p,fee:fee,tax:tax,rate:rate},old=f.tid?TRD.filter(function(x){return x.id==f.tid})[0]:null;
+ if(old&&old.est&&old.q==nt.q&&old.p==nt.p&&old.fee==nt.fee)nt.est=true;
+ var list=skTrd(st).filter(function(x){return x.id!=f.tid});list.push(nt);
+ list.sort(function(a,b){return a.d<b.d?-1:a.d>b.d?1:a.id-b.id});
+ var c=skCalc(st,list);
+ if(c.bad!==null){toast(f.tid?'這樣改會讓後面的賣出股數不夠（那時持股 '+qf(c.bad)+' 股）':'賣出的股數比持股多，目前持股 '+qf(c.bad)+' 股');return}
+ if(f.tid)TRD[TRD.indexOf(old)]=nt;else{SKID++;TRD.push(nt)}
+ toast((f.tid?'已改好這筆':'已記好'+f.type)+'：'+stName(st).replace(/<[^>]*>/g,'')+' '+qf(q)+' 股');
+ openE2(st.id)}
+/* ---------- E4 證券戶設定 ---------- */
+function openE4(b){if(b!==undefined)SKS.e4back=b||'more';BK2.stk4=SKS.e4back;renderE4();go('stk4')}
+function renderE4(){
+ var h='',banks=bankOpts();
+ h+='<h2 style="padding-top:14px">證券戶設定</h2><p class="sub" style="margin-top:-2px">每個證券戶放在所屬銀行那一組。預設股利銀行：領現金股利時，錢進這家銀行；個別股票可以改。</p>';
+ SEC.forEach(function(sc,si){
+  var ls=STK.filter(function(s){return s.sec==sc.n}),bk=sc.bank?accOf(sc.bank):null;
+  h+='<h2>'+esc(sc.n)+'　'+esc(sc.g)+'</h2><div class="card" data-sec="'+si+'">'
+   +fr('預設股利銀行',selH('sk4-b'+si,banks,sc.bank,'還沒設',' data-si="'+si+'"'))
+   +(!sc.bank?'<div class="fr col"><div class="hint dng" style="color:#c62828">股利銀行還沒設：領股利時要自己選，首頁會提醒</div></div>':'')
+   +(bk&&bk.arch?'<div class="fr col"><div class="hint" style="color:#c62828">這家銀行已封存，請改選</div></div>':'');
+  if(!ls.length)h+='<div class="empty">還沒加入股票</div>';
+  ls.forEach(function(st){var c=skCalc(st);
+   h+='<div class="rr" data-stk="'+st.id+'"><div class="rt"><span class="grow" style="flex:1">'+stName(st)+' '+stkTag(st)+'</span><span class="s" style="font-weight:400">持股 '+qf(c.q)+' 股</span></div>'
+    +'<div class="rs" style="display:flex;align-items:center;gap:8px;margin-top:6px"><span style="flex:none;color:#6b6b70;font-size:13px">這檔股利銀行</span>'+selH('sk4-o'+st.id,banks,st.bank,'跟證券戶（'+(sc.bank||'還沒設')+'）',' data-oi="'+st.id+'" style="flex:1;min-width:0;font-size:14px;padding:4px"')+'</div>'
+    +(c.q==0?'<div style="margin-top:6px"><a data-rm="'+st.id+'" style="color:#c62828;text-decoration:underline;cursor:pointer;font-size:14px">移除這檔（持股是 0）</a></div>':'')+'</div>'});
+  h+=srow('＋','加入股票','台股、美股；可以填期初持股','',' data-add="'+si+'" style="cursor:pointer"').replace('<span class="ico">＋</span>','<span class="ico" style="font-size:24px;font-weight:700">＋</span>');
+  if(SKS.e4add==sc.n)h+=e4AddForm(sc);
+  h+='</div>'});
+ h+='<div class="card" style="margin-top:14px">'+srow('＋','新增證券戶','要選所屬銀行','',' id="sk4-newrow"').replace('<span class="ico">＋</span>','<span class="ico" style="font-size:24px;font-weight:700">＋</span>');
+ if(SKS.e4new)h+=fr('名稱','<input id="sk4n-n" placeholder="例：永豐證券戶">')+fr('所屬銀行',chipsH('sk4n-g',bankGroupNames(),''),1)+fr('預設股利銀行',selH('sk4n-b',banks,'','還沒設'))+'<div style="display:flex;gap:10px;padding:10px 14px"><button class="btn ghost" style="margin:0;flex:none;width:auto;padding:10px 16px" id="sk4n-x">取消</button><button class="btn" style="margin:0;padding:10px" id="sk4n-ok">新增證券戶</button></div>';
+ h+='</div>';
+ $('st4').innerHTML=h;
+ qa('#st4 select[data-si]').forEach(function(s){s.onchange=function(){var sc=SEC[+s.getAttribute('data-si')];sc.bank=s.value;toast(s.value?'已存好：'+sc.n+' 的股利進 '+s.value:'已清掉預設股利銀行');renderE4()}});
+ qa('#st4 select[data-oi]').forEach(function(s){s.onchange=function(){var st=stkBy(+s.getAttribute('data-oi'));st.bank=s.value;toast(s.value?'已存好：'+st.name+' 的股利進 '+s.value:'已改回跟證券戶一樣');renderE4()}});
+ qa('#st4 [data-rm]').forEach(function(a){a.onclick=function(){var st=stkBy(+a.getAttribute('data-rm'));
+  if(SIP.some(function(p){return p.st==st.id})){toast('這檔有定期定額，請先刪掉定期定額');return}
+  ask('移除「'+st.name+'」？它在這個證券戶的買賣紀錄也會一起不見。','移除',function(){STK.splice(STK.indexOf(st),1);TRD=TRD.filter(function(t){return t.st!=st.id});DIV=DIV.filter(function(d){return d.st!=st.id});renderE4();toast('已移除「'+st.name+'」')})}});
+ qa('#st4 [data-add]').forEach(function(r){r.onclick=function(){var n=SEC[+r.getAttribute('data-add')].n;SKS.e4add=SKS.e4add==n?'':n;SKS.e4new=false;SKS.af=null;renderE4()}});
+ $('sk4-newrow').onclick=function(){SKS.e4new=!SKS.e4new;SKS.e4add='';renderE4()};
+ if($('sk4n-ok')){chipPick('sk4n-g');$('sk4n-x').onclick=function(){SKS.e4new=false;renderE4()};$('sk4n-ok').onclick=sk4NewSec}
+ if($('sk4a-ok')){chipPick('sk4a-m');$('sk4a-x').onclick=function(){SKS.e4add='';renderE4()};$('sk4a-ok').onclick=sk4AddStk}}
+function bankGroupNames(){return INSTS.filter(function(g){return !g.pt&&g.n!='現金'}).map(function(g){return g.n})}
+function e4AddForm(sc){
+ return fr('市場',chipsH('sk4a-m',['台股','美股'],'台股'),1)+fr('代號','<input id="sk4a-c" placeholder="例：2330、VOO">')+fr('名稱（可不填）','<input id="sk4a-n" placeholder="沒填就用代號">')
+ +fr('期初股數（可不填）','<input id="sk4a-q" inputmode="decimal" placeholder="加入前就有的股數">')+fr('期初總成本（可不填）','<input id="sk4a-k" inputmode="decimal" placeholder="台股填台幣整數、美股填美元">')
+ +'<div class="fr col"><div class="hint">期初持股不算買賣，不會動銀行；之後的買賣接在它後面算。台股股數整數、美股到小數 4 位；總成本台幣整數、美元到小數 2 位。</div></div>'
+ +'<div style="display:flex;gap:10px;padding:10px 14px"><button class="btn ghost" style="margin:0;flex:none;width:auto;padding:10px 16px" id="sk4a-x">取消</button><button class="btn" style="margin:0;padding:10px" id="sk4a-ok">加入</button></div>'}
+function sk4AddStk(){
+ var sc=secBy(SKS.e4add),mkt=chipVal('sk4a-m')||'台股',code=trim($('sk4a-c').value).toUpperCase(),name=trim($('sk4a-n').value),qs=trim($('sk4a-q').value).replace(/,/g,''),ks=trim($('sk4a-k').value).replace(/,/g,''),us=mkt=='美股';
+ if(!code){toast('請填代號');return}
+ if(STK.some(function(s){return s.sec==sc.n&&s.mkt==mkt&&s.code==code})){toast('已持有，請直接記買進');return}
+ if(qs&&(us?!/^\d+(\.\d{1,4})?$/.test(qs):!/^\d+$/.test(qs))){toast(us?'美股股數最多到小數 4 位':'台股股數要填整數');return}
+ if(ks&&(us?!/^\d+(\.\d{1,2})?$/.test(ks):!/^\d+$/.test(ks))){toast(us?'總成本（美元）最多到小數 2 位':'總成本請填台幣整數');return}
+ var oq=qs?Number(qs):0,oc=ks?Number(ks):0;
+ if(!(oq>0)&&oc>0){toast('沒有股數就不能填成本');return}
+ var st={id:++SKID,sec:sc.n,mkt:mkt,code:code,name:name||code,cur:us?'USD':'TWD',oq:oq,oc:oc,bank:''};STK.push(st);
+ if(!SKPX[code])SKPX[code]=50;
+ SKS.e4add='';renderE4();toast(oq>0&&oc==0?'已加入「'+st.name+'」；成本是 0，賺賠會等於現值':'已加入「'+st.name+'」')}
+function sk4NewSec(){
+ var n=trim($('sk4n-n').value),g=chipVal('sk4n-g');
+ if(!n){toast('請填證券戶名稱');return}
+ if(SEC.some(function(s){return s.n==n})){toast('這個名稱已經有了');return}
+ if(!g){toast('請選所屬銀行');return}
+ SEC.push({n:n,g:g,bank:$('sk4n-b').value});SKS.e4new=false;renderE4();toast('已新增證券戶「'+n+'」，放在「'+g+'」那一組')}
+/* ---------- F1 定期定額清單 ---------- */
+function openF1(b){if(b!==undefined)SKS.f1back=b||'more';BK2.sip1=SKS.f1back;renderF1();go('sip1')}
+function sipBank(p){var a=accOf(p.bank);return a}
+function renderF1(){
+ var h='';
+ h+='<h2 style="padding-top:14px">定期定額</h2><p class="sub" style="margin-top:-2px">每個月固定一天、固定金額自動買。扣款日當天系統先記一筆「估算」買進（用收盤價算股數），券商通知來了再改成實際。</p>';
+ if(SKS.msg)h+='<div class="alert" id="sp1-msg" style="background:#fff9db;border-color:#f0dc7a;color:#5c4a00">'+esc(SKS.msg)+'</div>';
+ h+='<div class="card" id="sp1-list">';
+ if(!SIP.length)h+='<div class="empty" id="sp1-empty">還沒有定期定額。按下面「新增定期定額」。</div>';
+ SIP.forEach(function(p){var st=stkBy(p.st),bk=sipBank(p),arch=!bk||bk.arch;
+  h+='<div class="rr" data-sp="'+p.id+'"><div class="rt" style="cursor:pointer" data-edit="'+p.id+'"><span class="grow" style="flex:1">'+stName(st)+' '+stkTag(st)+'</span><span class="amt">'+mo(p.amt)+'</span><span class="s" style="width:10px;text-align:center">›</span></div>'
+   +'<div class="rs">每月 '+p.day+' 日扣款　'+esc(st.sec)+'<br>扣款銀行：'+esc(p.bank)+(arch?' <span class="tag red">扣款銀行已封存</span>':'')+'<br>下次扣款日：<b>'+dfull(skNext(p.day))+'</b>'+(arch?'（銀行已封存，不會記預估買進）':'')+(st.cur=='USD'?'<br>金額用台幣，系統用匯率換成股數':'')+'</div>'
+   +'<div class="ra"><a data-sim="'+p.id+'" style="text-decoration:underline;cursor:pointer">假裝今天是扣款日（示範）</a></div></div>'});
+ h+='</div>';
+ var es=TRD.filter(function(t){return t.est}).sort(function(a,b){return a.d<b.d?1:a.d>b.d?-1:b.id-a.id});
+ h+='<h2>預估買進（估算，等券商通知）</h2><div class="card" id="sp1-est">';
+ if(!es.length)h+='<div class="empty">還沒有預估買進</div>';
+ es.forEach(function(t){var st=stkBy(t.st);
+  h+='<div class="row" data-es="'+t.id+'"><div class="grow">'+md(t.d)+'　'+stName(st)+' <span class="tag">估算</span><div class="s">估 '+qf(t.q)+' 股 × '+t.p+(t.q==0?'　金額不足一股':'')+'<br><a data-ok="'+t.id+'" style="text-decoration:underline;cursor:pointer">假裝券商通知來了（示範）</a></div></div></div>'});
+ h+='</div><p class="sub" style="margin-top:6px">扣款銀行當天餘額不夠，這個月就不扣、不記，也不會事後補。</p>';
+ $('sp1').innerHTML=h;
+ qa('#sp1 [data-edit]').forEach(function(r){r.onclick=function(){SKS.msg='';openF2(+r.getAttribute('data-edit'))}});
+ qa('#sp1 [data-sim]').forEach(function(a){a.onclick=function(){skSim(SIP.filter(function(p){return p.id==a.getAttribute('data-sim')})[0])}});
+ qa('#sp1 [data-ok]').forEach(function(a){a.onclick=function(){skMatch(+a.getAttribute('data-ok'))}})}
+function skSim(p){
+ var st=stkBy(p.st),bk=sipBank(p),msg;
+ if(!bk||bk.arch)msg='「'+st.code+'」扣款銀行已封存，不記預估買進，請先改扣款銀行';
+ else if(bk.a<p.amt)msg='定期定額 '+st.code+' 本月未扣款：餘額不足（'+bk.n+' 現在只有 '+mo(bk.a)+'，要扣 '+mo(p.amt)+'）。這個月略過，下個扣款日再檢查。';
+ else if(TRD.some(function(t){return t.est&&t.st==st.id&&t.d==TODAY}))msg='今天這檔已經記過預估買進，不會重複記';
+ else{var q=skEst(st,p.amt);SKID++;TRD.push({id:SKID,st:st.id,type:'買進',d:TODAY,q:q,p:skPx(st),fee:0,tax:0,rate:skRate(st),est:true});
+  msg=q==0?'金額不足一股：記了一筆估 0 股的預估買進，'+bk.n+' 仍扣 '+mo(p.amt)+'，等券商通知再調整':'已記一筆預估買進：'+st.code+' 估 '+qf(q)+' 股、價格 '+skPx(st)+'（估算）。示範沒有真的動銀行餘額，正式版這時會從 '+bk.n+' 扣 '+mo(p.amt)+'。'}
+ SKS.msg=msg;renderF1()}
+function skMatch(id){
+ var t=TRD.filter(function(x){return x.id==id})[0],st=stkBy(t.st);
+ t.est=false;t.p=Math.floor((t.p*1.005)*100)/100;t.fee=st.cur=='USD'?0:20;
+ SKS.msg='券商通知配對成功：'+st.code+' 改成實際 '+qf(t.q)+' 股、價格 '+t.p+'、手續費 '+t.fee+'，銀行多扣或少扣的差額會自動補回。';renderF1()}
+/* ---------- F2 新增與編輯定期定額 ---------- */
+function openF2(id){
+ var p=id?SIP.filter(function(x){return x.id==id})[0]:null,free=STK.filter(function(s){return !SIP.some(function(q){return q.st==s.id})});
+ if(!p&&!free.length){SKS.msg='每檔股票最多設一組定期定額；沒有可以新增的股票了。要新增請先到證券戶設定加入股票。';renderF1();return}
+ SKS.sf=p?{id:p.id,st:String(p.st),day:String(p.day),amt:String(p.amt),bank:p.bank}:{id:0,st:String(free[0].id),day:'',amt:'',bank:''};
+ BK2.sip2=function(){openF1()};renderF2();go('sip2')}
+function skRead2(){var f=SKS.sf;if(!f||!$('sp2-day'))return;f.day=$('sp2-day').value;f.amt=$('sp2-amt').value;f.bank=$('sp2-bank').value;if($('sp2-st'))f.st=$('sp2-st').value}
+function sp2Prev(){
+ skRead2();var f=SKS.sf,d=parseInt(f.day,10),e=$('sp2-next');
+ e.textContent=(d>=1&&d<=31&&/^\d+$/.test(trim(f.day)))?'下次扣款日：'+dfull(skNext(d))+(d>28?'（月份天數不夠時，用當月最後一天）':''):'填好扣款日，就會算出下次是哪一天'}
+function renderF2(){
+ var f=SKS.sf,ed=!!f.id,free=STK.filter(function(s){return s.id==f.st||!SIP.some(function(q){return q.st==s.id})}),st=stkBy(f.st),bs=bankOpts(),h='';
+ if(f.bank&&bs.indexOf(f.bank)<0)bs.push(f.bank);
+ h+='<h2 style="padding-top:14px">'+(ed?'編輯定期定額':'新增定期定額')+'</h2><div class="card">';
+ h+=fr('股票',ed?'<span class="v">'+stName(st)+'　'+esc(st.sec)+'</span>':selH('sp2-st',free.map(function(s){return [s.id,s.name+'（'+s.code+'）'+s.sec]}),f.st));
+ h+=fr('每月扣款日','<input id="sp2-day" inputmode="numeric" placeholder="1 到 31" value="'+esc(f.day)+'">');
+ h+=fr('每月扣款金額','<input id="sp2-amt" inputmode="numeric" placeholder="台幣整數" value="'+esc(f.amt)+'">');
+ h+=fr('扣款銀行',selH('sp2-bank',bs,f.bank,'請選一家'));
+ h+='</div><div class="rpnote" id="sp2-next" style="text-align:left;padding:8px 16px"></div>';
+ h+='<p class="sub" style="margin-top:2px">'+(st.cur=='USD'?'美股也用台幣金額，系統用當天匯率換成股數。':'台股用收盤價估股數，不足一股的部分捨去。')+'改設定只影響還沒到的扣款日，已經記的預估買進不變。</p>';
+ $('sp2').innerHTML=h;$('sp2-del').style.display=ed?'':'none';
+ if($('sp2-st'))$('sp2-st').onchange=function(){skRead2();renderF2()};
+ ['sp2-day'].forEach(function(i){$(i).oninput=sp2Prev});sp2Prev()}
+function sp2Save(){
+ skRead2();var f=SKS.sf,st=stkBy(f.st),ds=trim(f.day),d=parseInt(ds,10),as=trim(f.amt).replace(/,/g,'');
+ if(!/^\d+$/.test(ds)||d<1||d>31){toast('扣款日請填 1 到 31');return}
+ if(!/^\d+$/.test(as)||+as<=0){toast('請填大於 0 的整數');return}
+ if(!f.bank){toast('請選扣款銀行');return}
+ if(!f.id&&SIP.some(function(q){return q.st==st.id})){toast('這檔已經有定期定額了');return}
+ if(f.id){var p=SIP.filter(function(x){return x.id==f.id})[0];p.day=d;p.amt=+as;p.bank=f.bank}
+ else{SKID++;SIP.push({id:SKID,st:st.id,day:d,amt:+as,bank:f.bank})}
+ SKS.msg='';openF1();toast('已存好「'+st.name+'」定期定額：每月 '+d+' 日 '+mo(+as))}
+function sp2Del(){
+ var f=SKS.sf,st=stkBy(f.st);
+ ask('刪除「'+st.name+'」的定期定額？已記的預估買進不會不見。','刪除',function(){SIP=SIP.filter(function(p){return p.id!=f.id});SKS.msg='';openF1();toast('已刪除「'+st.name+'」的定期定額')})}
+/* ---------- 帳戶頁：證券戶放所屬銀行那組、已封存收最下面 ---------- */
+function skAccRows(g){
+ var h='';if(!SEC)return h;SEC.filter(function(s){return s.g==g.n}).forEach(function(sc){var S=skSum(STK.filter(function(s){return s.sec==sc.n}));
+  h+='<div class="row" data-sec="'+esc(sc.n)+'"><span class="ico">'+ei('📈')+'</span><div class="grow">'+esc(sc.n)+' <span class="tag gray">證券戶</span><div class="s">持股現值（另外看，不加進左邊合計）</div></div><span class="amt">'+mo(S.mv)+'</span><span style="color:#6b6b70;width:8px;text-align:center">›</span></div>'});
+ return h}
+function skAccBind(){
+ if(!SEC||!$('archsec'))return;
+ qa('#acclist [data-sec]').forEach(function(e){if(e.classList.contains('ah'))return;e.onclick=function(){openE1('accounts')}});
+ var r=$('stkrow');if(r){r.querySelector('.amt').textContent=mo(skAll().mv);r.querySelector('.amt').style.color='';r.querySelector('.s').textContent='持股、買賣、賺賠'}
+ var arch=ACCS.filter(function(a){return a.arch}),h='<div class="card ag" style="margin-top:14px"><div class="row" id="t-arch" style="cursor:pointer"><span class="ico">'+ei('🧾')+'</span><div class="grow">已封存（'+arch.length+' 個）<div class="s">'+(arch.length?(showArch?'點一下收起來':'點一下展開'):'目前沒有已封存的帳戶')+'</div></div><span class="s">'+(arch.length?(showArch?'▾':'▸'):'')+'</span></div>';
+ if(showArch&&arch.length)arch.forEach(function(x){
+  if(x.k=='c')h+='<div class="row" data-card="'+esc(x.n)+'">'+face(x)+'<div class="grow">'+esc(x.n)+' <span class="tag gray">已封存</span><div class="s">'+esc(x.g)+'</div></div><span class="amt red">'+mo(x.a)+'</span><span style="color:#6b6b70">›</span></div>';
+  else if(x.k=='p')h+='<div class="row" data-pt="'+esc(x.n)+'"><span class="ico">'+ei(x.ic||'⭐')+'</span><div class="grow">'+esc(x.n)+' <span class="tag gray">已封存</span></div><span class="amt">'+esc(x.txt)+'</span><span style="color:#6b6b70;width:8px;text-align:center">›</span></div>';
+  else h+='<div class="row" data-acc="'+esc(x.n)+'"><span class="ico">'+ei(x.ic||ICO[x.k])+'</span><div class="grow">'+esc(x.n)+' <span class="tag gray">已封存</span><div class="s">'+esc(x.g)+'　'+esc(x.sub)+'</div></div><span class="amt">'+mo(x.a)+'</span><span style="color:#6b6b70;width:8px;text-align:center">›</span></div>'});
+ h+='</div>';$('archsec').innerHTML=h;
+ $('t-arch').onclick=function(){if(!ACCS.some(function(a){return a.arch}))return;showArch=!showArch;renderAcc()};
+ qa('#archsec [data-acc]').forEach(function(e){e.onclick=function(){openAcc(accOf(e.getAttribute('data-acc')))}});
+ qa('#archsec [data-pt]').forEach(function(e){e.onclick=function(){openPts('accounts',e.getAttribute('data-pt'))}});
+ qa('#archsec [data-card]').forEach(function(e){e.onclick=function(){showCard(e.getAttribute('data-card'))}})}
+/* ====== 入口與重來 ====== */
+(function(){
+ var card=document.querySelector('#s-more .card'),set=qa('#s-more .later').filter(function(e){return e.textContent.indexOf('設定')>=0})[0];
+ function mrow(id,ic,t,fn,before){var d=document.createElement('div');d.className='row';d.id=id;d.style.cursor='pointer';d.innerHTML='<span class="ico">'+ei(ic)+'</span><div class="grow">'+t+'</div><span class="s">›</span>';card.insertBefore(d,before);d.onclick=fn}
+ mrow('m-stk','📈','證券持股',function(){openE1('more')},set);
+ mrow('m-sip','🔁','定期定額',function(){openF1('more')},set);
+ var r=qa('#s-accounts .row').filter(function(e){return e.textContent.indexOf('股票現值')>=0})[0];
+ if(r){r.id='stkrow';r.style.cursor='pointer';r.onclick=function(){openE1('accounts')};r.insertAdjacentHTML('beforeend','<span class="s" style="width:10px;text-align:center">›</span>')}
+ var as=document.createElement('div');as.id='archsec';$('s-accounts').appendChild(as);
+ $('st1-trade').onclick=function(){openE3({back:function(){openE1(SKS.e1back)}})};
+ $('st2-buy').onclick=function(){openE3({st:SKS.st,type:'買進',back:function(){openE2(SKS.st)}})};
+ $('st2-sell').onclick=function(){openE3({st:SKS.st,type:'賣出',back:function(){openE2(SKS.st)}})};
+ $('st3-save').onclick=sk3Save;
+ $('st3-del').onclick=function(){var f=SKS.tf,st=stkBy(f.st),list=skTrd(st).filter(function(x){return x.id!=f.tid});
+  if(skCalc(st,list).bad!==null){toast('刪掉這筆，後面的賣出股數會不夠，不能刪');return}
+  ask('刪除這筆買賣？刪掉後成本與賺賠會重新算。','刪除',function(){TRD=TRD.filter(function(x){return x.id!=f.tid});openE2(st.id);toast('已刪除這筆買賣')})};
+ $('sp1-new').onclick=function(){SKS.msg='';openF2(0)};
+ $('sp2-save').onclick=sp2Save;$('sp2-del').onclick=sp2Del;
+ renderAcc();
+})();
+(function(){var r0=$('reset').onclick;
+ $('reset').onclick=function(){skInit();r0()}})();
 
 resetAll();
 var m=/go=(\w+)/.exec(location.hash);if(m)go(m[1]);
