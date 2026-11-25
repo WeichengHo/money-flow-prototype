@@ -2642,7 +2642,6 @@ function dgDown(e,h){if(dgNow||(e.pointerType=='mouse'&&e.button!=0))return;
 document.addEventListener('touchmove',function(e){if(dgNow&&dgNow.on)e.preventDefault()},{passive:false});
 var ra0=renderAcc;
 renderAcc=function(){ra0();
- $('acclist').insertAdjacentHTML('beforeend','<p class="sub" style="text-align:center;margin:14px 16px 0">按住銀行那一列不放，上下拖動就能換順序</p>');
  qa('#acclist .ah').forEach(function(h){var a=h.getAttribute('data-g');if(a=='s'||!INSTS[+a]||!dragOk(INSTS[+a]))return;
   h.parentNode.setAttribute('data-gi',a);h.classList.add('dg');
   h.addEventListener('click',function(e){if(dgSkip){e.stopImmediatePropagation();e.preventDefault()}},true);
